@@ -19,6 +19,18 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
+    // `astro preview` (Container-Hosting wie Railway) nutzt Vites Preview-Server.
+    // Erlaubte Hosts freigeben (sonst blockiert Vite die Anfrage).
+    preview: {
+      allowedHosts: [
+        'localhost',
+        'sozialstationmobil-production.up.railway.app',
+        '.up.railway.app',
+        '.railway.app',
+        'sozialstationmobil.de',
+        'www.sozialstationmobil.de',
+      ],
+    },
   },
   build: {
     inlineStylesheets: 'auto',
