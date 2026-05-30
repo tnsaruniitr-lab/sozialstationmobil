@@ -6,10 +6,13 @@
   "description": "Website der Sozialstation Mobil GmbH – ambulanter Fachpflegedienst in Berlin-Reinickendorf",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "start": "astro preview --host --port ${PORT:-4321}",
     "astro": "astro"
+  },
+  "engines": {
+    "node": ">=22.12.0"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
@@ -25,8 +28,7 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild",
-      "sharp",
-      "ffmpeg-static"
+      "sharp"
     ]
   }
 }
