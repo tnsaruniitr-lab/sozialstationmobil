@@ -1,0 +1,106 @@
+---
+/**
+ * Einheitliches Icon-System (Line-Icons, currentColor).
+ * Verwendung: <Icon name="phone" class="w-6 h-6 text-brand-600" />
+ */
+interface Props {
+  name: string;
+  class?: string;
+  title?: string;
+}
+const { name, class: className = 'w-6 h-6', title } = Astro.props;
+
+const stroke: Record<string, string> = {
+  stethoscope:
+    '<path d="M4 3v5a5 5 0 0 0 10 0V3"/><path d="M4 3H2.5M14 3h1.5"/><path d="M9 18a5 5 0 0 0 5-5"/><circle cx="20" cy="10" r="2"/><path d="M20 12v1a8 8 0 0 1-8 8"/>',
+  'heart-hands':
+    '<path d="M11.5 11.5 9.3 9.3a2.3 2.3 0 0 0-3.3 3.3l5.5 5.4 5.5-5.4a2.3 2.3 0 0 0-3.3-3.3l-2.2 2.2"/><path d="M3 21a4 4 0 0 1 4-2M21 21a4 4 0 0 0-4-2"/>',
+  droplet:
+    '<path d="M12 2.7s6 5.6 6 10.3a6 6 0 0 1-12 0c0-4.7 6-10.3 6-10.3Z"/><path d="M9.5 13.5a2.5 2.5 0 0 0 2.5 2.5"/>',
+  bandage:
+    '<rect x="2.5" y="6.5" width="19" height="11" rx="3" transform="rotate(45 12 12)"/><circle cx="12" cy="12" r="1"/><path d="M9.2 9.2v.01M14.8 14.8v.01M14.8 9.2v.01M9.2 14.8v.01"/>',
+  home:
+    '<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5"/><path d="M9.5 21v-6h5v6"/>',
+  companion:
+    '<circle cx="8" cy="7" r="3"/><circle cx="17" cy="8.5" r="2.3"/><path d="M2.5 20a5.5 5.5 0 0 1 11 0"/><path d="M15 20a4.5 4.5 0 0 1 6.5-4"/>',
+  community:
+    '<circle cx="12" cy="6" r="2.6"/><circle cx="5.5" cy="9.5" r="2.2"/><circle cx="18.5" cy="9.5" r="2.2"/><path d="M8 20v-1a4 4 0 0 1 8 0v1"/><path d="M2 18.5a3.5 3.5 0 0 1 4.5-2.4M22 18.5a3.5 3.5 0 0 0-4.5-2.4"/>',
+  shield:
+    '<path d="M12 3 5 6v5.5c0 4.3 3 7.7 7 9 4-1.3 7-4.7 7-9V6l-7-3Z"/><path d="m9 12 2 2 4-4"/>',
+  clock:
+    '<circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/>',
+  pin:
+    '<path d="M12 21s7-5.5 7-11a7 7 0 0 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/>',
+  handshake:
+    '<path d="m11 17 2 2a1.5 1.5 0 0 0 2.1 0l3.4-3.4"/><path d="M14 8.5 11.5 6a2 2 0 0 0-2.8 0L4 10.7"/><path d="m4 14 3-3 3.5 3.5a1.5 1.5 0 0 0 2.1 0"/><path d="M20 14V7.5l-3.5-3.5"/><path d="M4 10.7V14"/>',
+  phone:
+    '<path d="M6.5 3h3l1.5 4.5-2 1.5a12 12 0 0 0 6 6l1.5-2 4.5 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3Z"/>',
+  mail:
+    '<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/>',
+  arrow:
+    '<path d="M5 12h13"/><path d="m12 6 6 6-6 6"/>',
+  'arrow-down':
+    '<path d="M12 5v13"/><path d="m6 12 6 6 6-6"/>',
+  check:
+    '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+  'check-circle':
+    '<circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/>',
+  menu:
+    '<path d="M4 7h16M4 12h16M4 17h16"/>',
+  close:
+    '<path d="M6 6l12 12M18 6 6 18"/>',
+  chevron:
+    '<path d="m9 6 6 6-6 6"/>',
+  'chevron-down':
+    '<path d="m6 9 6 6 6-6"/>',
+  star:
+    '<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.5 9.7l5.9-.9L12 3.5Z"/>',
+  quote:
+    '<path d="M9 7H5a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h2v2a2 2 0 0 1-2 2"/><path d="M19 7h-4a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h2v2a2 2 0 0 1-2 2"/>',
+  calendar:
+    '<rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/>',
+  euro:
+    '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5A4 4 0 0 0 9 11.5M15.5 15.5A4 4 0 0 1 9 12.5"/><path d="M6.5 10.5h6M6.5 13.5h6"/>',
+  clipboard:
+    '<rect x="5" y="4.5" width="14" height="17" rx="2.5"/><path d="M9 4.5a3 3 0 0 1 6 0"/><path d="M8.5 11h7M8.5 14.5h7M8.5 18h4"/>',
+  route:
+    '<circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H15a3 3 0 0 1 0 6H9a3 3 0 0 0 0 6h6.5"/>',
+  users:
+    '<circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 5.2a3.2 3.2 0 0 1 0 5.8M18 20a6 6 0 0 0-3-5.2"/>',
+  leaf:
+    '<path d="M4 20C4 11 11 4 20 4c0 9-7 16-16 16Z"/><path d="M4 20c2-6 6-9 11-11"/>',
+  sun:
+    '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+  heart:
+    '<path d="M12 20s-7-4.6-9.3-9A5 5 0 0 1 12 6a5 5 0 0 1 9.3 5C19 15.4 12 20 12 20Z"/>',
+  award:
+    '<circle cx="12" cy="9" r="5"/><path d="m8.5 13.5-1.5 7 5-2.5 5 2.5-1.5-7"/>',
+};
+
+const filled: Record<string, string> = {
+  facebook:
+    '<path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.2c-1.2 0-1.6.8-1.6 1.5V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12Z"/>',
+  instagram:
+    '<path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2Zm0 1.8c-3.1 0-3.5 0-4.7.1-1.1.1-1.7.2-2.1.4-.5.2-.9.4-1.3.8-.4.4-.6.8-.8 1.3-.2.4-.3 1-.4 2.1-.1 1.2-.1 1.6-.1 4.7s0 3.5.1 4.7c.1 1.1.2 1.7.4 2.1.2.5.4.9.8 1.3.4.4.8.6 1.3.8.4.2 1 .3 2.1.4 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.7-.2 2.1-.4.5-.2.9-.4 1.3-.8.4-.4.6-.8.8-1.3.2-.4.3-1 .4-2.1.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c-.1-1.1-.2-1.7-.4-2.1-.2-.5-.4-.9-.8-1.3-.4-.4-.8-.6-1.3-.8-.4-.2-1-.3-2.1-.4-1.2-.1-1.6-.1-4.7-.1Zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8Zm0 8a3.1 3.1 0 1 0 0-6.2 3.1 3.1 0 0 0 0 6.2Zm6.3-8.2a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0Z"/>',
+  'star-filled':
+    '<path d="M12 3.2l2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8L6.6 19.9l1-6L3.3 9.6l6-.9L12 3.2Z"/>',
+};
+
+const isFilled = name in filled;
+const path = isFilled ? filled[name] : stroke[name];
+---
+{path ? (
+  <svg
+    class={className}
+    viewBox="0 0 24 24"
+    fill={isFilled ? 'currentColor' : 'none'}
+    stroke={isFilled ? 'none' : 'currentColor'}
+    stroke-width="1.7"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    role={title ? 'img' : 'presentation'}
+    aria-hidden={title ? undefined : 'true'}
+    aria-label={title}
+    set:html={(title ? `<title>${title}</title>` : '') + path}
+  />
+) : null}

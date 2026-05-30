@@ -1,0 +1,200 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { nav, company } from '../data/site';
+
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href);
+const leistungen = nav.find((n) => n.label === 'Leistungen');
+const topLevel = nav.filter((n) => n.label !== 'Startseite');
+---
+<header class="sticky top-0 z-50">
+  <!-- Utility-Leiste -->
+  <div class="hidden bg-brand-950 text-brand-50 md:block">
+    <div class="container-page flex items-center justify-between py-2 text-sm">
+      <p class="flex items-center gap-2">
+        <Icon name="pin" class="h-4 w-4 text-accent-400" />
+        <span>{company.tagline}</span>
+      </p>
+      <div class="flex items-center gap-5">
+        <span class="flex items-center gap-2">
+          <Icon name="clock" class="h-4 w-4 text-accent-400" />
+          Büro: Mo–Fr 8:00–16:30 Uhr
+        </span>
+        <a href={`tel:${company.phoneHref}`} class="flex items-center gap-2 font-semibold hover:text-accent-300">
+          <Icon name="phone" class="h-4 w-4 text-accent-400" />
+          {company.phone}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hauptnavigation -->
+  <div class="border-b border-sand-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
+    <nav class="container-page flex items-center justify-between gap-4 py-3" aria-label="Hauptnavigation">
+      <a href="/" class="shrink-0" aria-label="Sozialstation Mobil – zur Startseite">
+        <Logo />
+      </a>
+
+      <!-- Desktop -->
+      <ul class="hidden items-center gap-1 lg:flex">
+        {topLevel.map((item) =>
+          item.children ? (
+            <li class="group relative">
+              <button
+                type="button"
+                class:list={[
+                  'flex items-center gap-1 rounded-full px-3.5 py-2 text-[0.95rem] font-semibold transition-colors',
+                  isActive(item.href) ? 'text-brand-700' : 'text-ink hover:text-brand-700',
+                ]}
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                {item.label}
+                <Icon name="chevron-down" class="h-4 w-4 transition-transform group-hover:rotate-180" />
+              </button>
+              <div class="invisible absolute left-0 top-full pt-3 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                <ul class="w-72 rounded-3xl border border-sand-200 bg-white p-2 shadow-lift">
+                  {item.children.map((child) => (
+                    <li>
+                      <a
+                        href={child.href}
+                        class:list={[
+                          'block rounded-2xl px-4 py-2.5 text-[0.95rem] font-medium transition-colors',
+                          isActive(child.href) ? 'bg-brand-50 text-brand-700' : 'text-ink hover:bg-sand-50 hover:text-brand-700',
+                        ]}
+                      >
+                        {child.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+          ) : item.label === 'Kontakt' ? null : (
+            <li>
+              <a
+                href={item.href}
+                class:list={[
+                  'rounded-full px-3.5 py-2 text-[0.95rem] font-semibold transition-colors',
+                  isActive(item.href) ? 'text-brand-700' : 'text-ink hover:text-brand-700',
+                ]}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          )
+        )}
+      </ul>
+
+      <div class="hidden items-center gap-3 lg:flex">
+        <a href={`tel:${company.phoneHref}`} class="flex items-center gap-2 whitespace-nowrap font-display font-bold text-brand-700 hover:text-accent-600">
+          <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand-50">
+            <Icon name="phone" class="h-5 w-5" />
+          </span>
+          {company.phone}
+        </a>
+        <a href="/kontakt/" class="btn btn-primary">Beratung anfragen</a>
+      </div>
+
+      <!-- Mobile-Toggle -->
+      <button
+        type="button"
+        id="menu-open"
+        class="grid h-12 w-12 place-items-center rounded-full bg-brand-50 text-brand-700 lg:hidden"
+        aria-label="Menü öffnen"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <Icon name="menu" class="h-6 w-6" />
+      </button>
+    </nav>
+  </div>
+
+  <!-- Mobile-Menü -->
+  <div id="mobile-menu" class="fixed inset-0 z-[60] hidden lg:hidden" role="dialog" aria-modal="true" aria-label="Hauptmenü">
+    <div id="menu-backdrop" class="absolute inset-0 bg-brand-950/50 backdrop-blur-sm"></div>
+    <div class="absolute right-0 top-0 flex h-full w-[88%] max-w-sm flex-col bg-white shadow-2xl">
+      <div class="flex items-center justify-between border-b border-sand-200 p-4">
+        <Logo showTagline={false} />
+        <button
+          type="button"
+          id="menu-close"
+          class="grid h-12 w-12 place-items-center rounded-full bg-sand-100 text-ink"
+          aria-label="Menü schließen"
+        >
+          <Icon name="close" class="h-6 w-6" />
+        </button>
+      </div>
+      <nav class="flex-1 overflow-y-auto p-4" aria-label="Mobile Navigation">
+        <ul class="space-y-1">
+          <li>
+            <a href="/" class="block rounded-2xl px-4 py-3 text-lg font-semibold text-ink hover:bg-sand-50">Startseite</a>
+          </li>
+          <li>
+            <details open={isActive('/leistungen/')}>
+              <summary class="flex cursor-pointer list-none items-center justify-between rounded-2xl px-4 py-3 text-lg font-semibold text-ink hover:bg-sand-50">
+                Leistungen
+                <Icon name="chevron-down" class="h-5 w-5 transition-transform [details[open]_&]:rotate-180" />
+              </summary>
+              <ul class="ml-3 mt-1 space-y-1 border-l-2 border-sand-200 pl-3">
+                {leistungen?.children?.map((child) => (
+                  <li>
+                    <a href={child.href} class="block rounded-xl px-4 py-2.5 font-medium text-ink-soft hover:bg-sand-50 hover:text-brand-700">
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          </li>
+          {topLevel
+            .filter((i) => i.label !== 'Leistungen' && i.label !== 'Kontakt')
+            .map((item) => (
+              <li>
+                <a href={item.href} class="block rounded-2xl px-4 py-3 text-lg font-semibold text-ink hover:bg-sand-50">
+                  {item.label}
+                </a>
+              </li>
+            ))}
+        </ul>
+      </nav>
+      <div class="space-y-3 border-t border-sand-200 p-4">
+        <a href={`tel:${company.phoneHref}`} class="btn btn-secondary w-full">
+          <Icon name="phone" class="h-5 w-5" />
+          {company.phone}
+        </a>
+        <a href="/kontakt/" class="btn btn-primary w-full">Beratung anfragen</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const menu = document.getElementById('mobile-menu');
+  const openBtn = document.getElementById('menu-open');
+  const closeBtn = document.getElementById('menu-close');
+  const backdrop = document.getElementById('menu-backdrop');
+
+  const open = () => {
+    menu?.classList.remove('hidden');
+    openBtn?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  };
+  const close = () => {
+    menu?.classList.add('hidden');
+    openBtn?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  };
+
+  openBtn?.addEventListener('click', open);
+  closeBtn?.addEventListener('click', close);
+  backdrop?.addEventListener('click', close);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !menu?.classList.contains('hidden')) close();
+  });
+  // Beim Klick auf einen Link schließen
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
+</script>

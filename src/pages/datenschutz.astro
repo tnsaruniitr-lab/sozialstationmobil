@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { company } from '../data/site';
+
+const breadcrumbs = [
+  { name: 'Startseite', href: '/' },
+  { name: 'Datenschutz', href: '/datenschutz/' },
+];
+---
+<BaseLayout
+  title="Datenschutzerklärung"
+  description="Datenschutzerklärung der Sozialstation Mobil GmbH gemäß DSGVO – Informationen zur Verarbeitung Ihrer personenbezogenen Daten."
+  breadcrumbs={breadcrumbs}
+  noindex
+>
+  <section class="container-page py-10 lg:py-14">
+    <Breadcrumbs items={breadcrumbs} />
+    <div class="mt-8 max-w-3xl">
+      <h1 class="font-display text-4xl font-extrabold text-brand-950">Datenschutzerklärung</h1>
+
+      <div class="prose-care mt-8">
+        <p>
+          Der Schutz Ihrer persönlichen Daten ist uns ein wichtiges Anliegen. Wir verarbeiten Ihre
+          Daten ausschließlich auf Grundlage der gesetzlichen Bestimmungen (DSGVO, BDSG). In dieser
+          Datenschutzerklärung informieren wir Sie über die wichtigsten Aspekte der
+          Datenverarbeitung im Rahmen unserer Website.
+        </p>
+
+        <h2>1. Verantwortlicher</h2>
+        <p>
+          Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br />
+          {company.legalName}<br />
+          {company.address.street}, {company.address.postalCode} {company.address.city}<br />
+          Telefon: {company.phone} · E-Mail: {company.email}<br />
+          Geschäftsführer: {company.managingDirector}
+        </p>
+
+        <h2>2. Hosting</h2>
+        <p>
+          Diese Website wird bei einem externen Dienstleister gehostet (Auftragsverarbeiter).
+          Anbieter: [Hosting-Anbieter und Anschrift bitte ergänzen]. Mit dem Anbieter wurde ein
+          Vertrag über Auftragsverarbeitung (AVV) gemäß Art. 28 DSGVO geschlossen. Beim Aufruf der
+          Website werden technisch notwendige Daten (siehe Server-Logfiles) verarbeitet.
+        </p>
+
+        <h2>3. Server-Logfiles</h2>
+        <p>
+          Beim Besuch unserer Website werden automatisch Informationen in sogenannten
+          Server-Logfiles gespeichert, die Ihr Browser automatisch übermittelt. Dies sind
+          insbesondere:
+        </p>
+        <ul>
+          <li>Browsertyp und Browserversion</li>
+          <li>verwendetes Betriebssystem</li>
+          <li>Referrer-URL</li>
+          <li>Datum und Uhrzeit der Serveranfrage</li>
+          <li>(gekürzte) IP-Adresse</li>
+        </ul>
+        <p>
+          Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes
+          Interesse an einem technisch fehlerfreien und sicheren Betrieb der Website).
+        </p>
+
+        <h2>4. Cookies &amp; Tracking</h2>
+        <p>
+          Diese Website verwendet keine Tracking- oder Analyse-Cookies und bindet keine externen
+          Werbe- oder Analysedienste ein. Schriftarten werden lokal ausgeliefert; es findet keine
+          Verbindung zu Drittanbietern (z. B. Google Fonts) statt. Sollten zukünftig Cookies oder
+          Dienste eingesetzt werden, wird zuvor Ihre Einwilligung eingeholt.
+        </p>
+
+        <h2>5. Kontaktaufnahme (Formular, E-Mail, Telefon)</h2>
+        <p>
+          Wenn Sie uns über das Kontaktformular, per E-Mail oder telefonisch kontaktieren, werden
+          Ihre Angaben zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns
+          gespeichert. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Anbahnung/Erfüllung eines
+          Vertrags) bzw. lit. f DSGVO (berechtigtes Interesse an der Bearbeitung Ihrer Anfrage).
+          Die Daten werden gelöscht, sobald sie für die Zweckerreichung nicht mehr erforderlich
+          sind und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.
+        </p>
+
+        <h2>6. Gesundheitsdaten</h2>
+        <p>
+          Im Rahmen einer Pflegebeziehung verarbeiten wir besondere Kategorien personenbezogener
+          Daten (Gesundheitsdaten, Art. 9 DSGVO). Dies erfolgt ausschließlich auf gesonderter
+          Rechtsgrundlage (z. B. Pflege-/Behandlungsvertrag, Art. 9 Abs. 2 lit. h DSGVO) und wird
+          Ihnen im Rahmen der Vertragsanbahnung gesondert transparent gemacht. Über die Website
+          selbst sollten keine sensiblen Gesundheitsdaten übermittelt werden.
+        </p>
+
+        <h2>7. Ihre Rechte</h2>
+        <p>Ihnen stehen gegenüber uns folgende Rechte hinsichtlich Ihrer personenbezogenen Daten zu:</p>
+        <ul>
+          <li>Recht auf Auskunft (Art. 15 DSGVO)</li>
+          <li>Recht auf Berichtigung (Art. 16 DSGVO)</li>
+          <li>Recht auf Löschung (Art. 17 DSGVO)</li>
+          <li>Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
+          <li>Recht auf Datenübertragbarkeit (Art. 20 DSGVO)</li>
+          <li>Widerspruchsrecht (Art. 21 DSGVO)</li>
+        </ul>
+
+        <h2>8. Beschwerderecht bei der Aufsichtsbehörde</h2>
+        <p>
+          Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren. Die für
+          uns zuständige Behörde ist die Berliner Beauftragte für Datenschutz und
+          Informationsfreiheit.
+        </p>
+
+        <p class="not-prose mt-10 rounded-2xl bg-sand-100 px-5 py-4 text-sm text-ink-soft">
+          Hinweis: Diese Datenschutzerklärung ist eine Vorlage und sollte vor Veröffentlichung an
+          die tatsächlich eingesetzten Dienste (Hosting, ggf. Formular-Dienst) angepasst und
+          rechtlich geprüft werden.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

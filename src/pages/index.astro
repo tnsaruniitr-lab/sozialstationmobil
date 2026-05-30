@@ -1,0 +1,329 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import HeroArt from '../components/HeroArt.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { company, services, usps, steps, faqs, serviceAreas } from '../data/site';
+import { faqSchema } from '../lib/schema';
+
+const homeFaqs = faqs.slice(0, 6);
+const description =
+  'Sozialstation Mobil – Ihr ambulanter Pflegedienst in Berlin-Reinickendorf. Grund- & Behandlungspflege, Diabetes-Fachpflege, Wundmanagement, Betreuung & Demenz-WG. Liebevoll, kompetent, rund um die Uhr. Jetzt kostenlos beraten lassen ☎ 030 4169811.';
+---
+<BaseLayout
+  title="Sozialstation Mobil – Ambulanter Pflegedienst Berlin-Reinickendorf"
+  rawTitle
+  description={description}
+  schema={[faqSchema(homeFaqs)]}
+>
+  <!-- ============================= HERO ============================= -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-brand-50 via-sand-50 to-sand-50">
+    <div class="pointer-events-none absolute -left-32 -top-24 h-80 w-80 rounded-full bg-brand-100/60 blur-2xl"></div>
+    <div class="pointer-events-none absolute right-0 top-32 h-72 w-72 rounded-full bg-accent-100/50 blur-2xl"></div>
+
+    <div class="container-page relative grid items-center gap-10 py-12 lg:grid-cols-2 lg:gap-8 lg:py-20">
+      <div>
+        <p class="eyebrow">
+          <span class="inline-block h-2 w-2 rounded-full bg-accent-500"></span>
+          Ambulanter Fachpflegedienst · Berlin-Reinickendorf
+        </p>
+        <h1 class="mt-4 font-display text-4xl font-extrabold leading-[1.08] text-brand-950 sm:text-5xl lg:text-[3.4rem]">
+          Liebevolle Pflege,
+          <span class="relative whitespace-nowrap text-brand-600">
+            die zu Ihnen
+            <svg class="absolute -bottom-2 left-0 h-3 w-full text-accent-400" viewBox="0 0 300 12" fill="none" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M2 9c60-6 230-9 296-3" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+            </svg>
+          </span>
+          nach Hause kommt.
+        </h1>
+        <p class="mt-6 max-w-xl text-lg text-ink-soft">
+          Damit das Leben in den eigenen vier Wänden gelingt: Unser erfahrenes Team aus
+          examinierten Pflegefachkräften versorgt, pflegt und betreut Sie zuverlässig –
+          mit Herz, Fachkompetenz und auf Augenhöhe.
+        </p>
+
+        <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+          <a href={`tel:${company.phoneHref}`} class="btn btn-primary text-lg">
+            <Icon name="phone" class="h-5 w-5" />
+            {company.phone}
+          </a>
+          <a href="/kontakt/" class="btn btn-secondary text-lg">
+            Kostenlose Beratung
+            <Icon name="arrow" class="h-5 w-5" />
+          </a>
+        </div>
+
+        <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-brand-800">
+          <li class="flex items-center gap-2"><Icon name="check-circle" class="h-5 w-5 text-accent-500" /> Examinierte Fachkräfte</li>
+          <li class="flex items-center gap-2"><Icon name="check-circle" class="h-5 w-5 text-accent-500" /> Alle Kassen &amp; Pflegegrade</li>
+          <li class="flex items-center gap-2"><Icon name="check-circle" class="h-5 w-5 text-accent-500" /> Rund um die Uhr</li>
+        </ul>
+      </div>
+
+      <!-- Visual -->
+      <div class="relative">
+        <div class="relative mx-auto max-w-lg rounded-[2.5rem] bg-gradient-to-br from-white to-brand-50 p-3 shadow-lift ring-1 ring-sand-200">
+          <div class="overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand-100/60 to-accent-50">
+            <HeroArt class="h-auto w-full" />
+          </div>
+        </div>
+
+        <!-- Schwebende Vertrauens-Karten -->
+        <div class="absolute -left-2 top-6 hidden rounded-2xl bg-white p-4 shadow-lift ring-1 ring-sand-200 sm:flex sm:items-center sm:gap-3 lg:-left-6">
+          <span class="grid h-11 w-11 place-items-center rounded-xl bg-accent-50 text-accent-600">
+            <Icon name="clock" class="h-6 w-6" />
+          </span>
+          <span>
+            <span class="block font-display font-bold text-brand-950">Rund um die Uhr</span>
+            <span class="block text-sm text-ink-soft">7 Tage die Woche im Einsatz</span>
+          </span>
+        </div>
+
+        <div class="absolute -bottom-4 right-0 hidden rounded-2xl bg-white p-4 shadow-lift ring-1 ring-sand-200 sm:block lg:-right-4">
+          <div class="flex items-center gap-3">
+            <div class="flex -space-x-3">
+              <span class="grid h-9 w-9 place-items-center rounded-full bg-brand-500 text-xs font-bold text-white ring-2 ring-white">SM</span>
+              <span class="grid h-9 w-9 place-items-center rounded-full bg-accent-500 text-xs font-bold text-white ring-2 ring-white">AB</span>
+              <span class="grid h-9 w-9 place-items-center rounded-full bg-brand-700 text-xs font-bold text-white ring-2 ring-white">+</span>
+            </div>
+            <span>
+              <span class="block font-display font-bold text-brand-950">Festes Team</span>
+              <span class="block text-sm text-ink-soft">Ihre Bezugspflegekraft</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= USPs ============================= -->
+  <section class="container-page -mt-6 pb-4 lg:-mt-12">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {usps.map((u) => (
+        <div class="card p-6">
+          <span class="grid h-12 w-12 place-items-center rounded-2xl bg-accent-50 text-accent-600">
+            <Icon name={u.icon} class="h-6 w-6" />
+          </span>
+          <h2 class="mt-4 font-display text-lg font-bold text-brand-950">{u.title}</h2>
+          <p class="mt-1.5 text-[0.95rem] text-ink-soft">{u.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ============================= LEISTUNGEN ============================= -->
+  <section class="container-page py-16 md:py-20">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="eyebrow justify-center">Unsere Leistungen</p>
+      <h2 class="mt-3 font-display text-3xl font-extrabold text-brand-950 md:text-4xl">
+        Pflege und Betreuung – alles aus einer Hand
+      </h2>
+      <p class="mt-4 text-lg text-ink-soft">
+        Von der medizinischen Behandlungspflege bis zur liebevollen Begleitung im Alltag:
+        Wir stellen Ihre Versorgung individuell zusammen.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {services.map((service) => <ServiceCard service={service} />)}
+      <!-- Abschluss-Karte -->
+      <div class="flex flex-col justify-center rounded-[2rem] bg-brand-800 p-7 text-white">
+        <Icon name="heart-hands" class="h-9 w-9 text-accent-400" />
+        <h3 class="mt-4 font-display text-xl font-bold">Nicht sicher, was Sie brauchen?</h3>
+        <p class="mt-2 text-brand-100">Wir beraten Sie kostenlos und finden gemeinsam die passende Lösung.</p>
+        <a href="/kontakt/" class="btn btn-primary mt-6 w-fit">Jetzt beraten lassen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= ABLAUF ============================= -->
+  <section class="bg-white">
+    <div class="container-page py-16 md:py-20">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="eyebrow justify-center">In 4 Schritten zur Pflege</p>
+        <h2 class="mt-3 font-display text-3xl font-extrabold text-brand-950 md:text-4xl">
+          So einfach beginnt Ihre Versorgung
+        </h2>
+      </div>
+
+      <ol class="mt-14 grid gap-8 md:grid-cols-4">
+        {steps.map((step, i) => (
+          <li class="relative">
+            <div class="flex items-center gap-4 md:block">
+              <span class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-brand-600 font-display text-2xl font-extrabold text-white shadow-soft">
+                {i + 1}
+              </span>
+              {i < steps.length - 1 && (
+                <span class="absolute left-16 top-7 hidden h-0.5 w-[calc(100%-2rem)] bg-sand-200 md:block" aria-hidden="true"></span>
+              )}
+            </div>
+            <h3 class="mt-5 font-display text-lg font-bold text-brand-950">{step.title}</h3>
+            <p class="mt-1.5 text-ink-soft">{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================= ÜBER UNS TEASER ============================= -->
+  <section class="container-page py-16 md:py-20">
+    <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <div class="relative order-2 lg:order-1">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="space-y-4">
+            <div class="card p-6 text-center">
+              <p class="font-display text-4xl font-extrabold text-brand-600">100%</p>
+              <p class="mt-1 text-sm text-ink-soft">examinierte Pflegefachkräfte</p>
+            </div>
+            <div class="rounded-[2rem] bg-accent-500 p-6 text-center text-white shadow-soft">
+              <p class="font-display text-4xl font-extrabold">7&nbsp;Tage</p>
+              <p class="mt-1 text-sm text-accent-50">die Woche für Sie da</p>
+            </div>
+          </div>
+          <div class="mt-8 space-y-4">
+            <div class="rounded-[2rem] bg-brand-700 p-6 text-center text-white shadow-soft">
+              <p class="font-display text-4xl font-extrabold">10+</p>
+              <p class="mt-1 text-sm text-brand-100">Ortsteile im Norden Berlins</p>
+            </div>
+            <div class="card p-6 text-center">
+              <p class="font-display text-4xl font-extrabold text-brand-600">Alle</p>
+              <p class="mt-1 text-sm text-ink-soft">Kassen &amp; Pflegegrade</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-1 lg:order-2">
+        <p class="eyebrow">Über die Sozialstation Mobil</p>
+        <h2 class="mt-3 font-display text-3xl font-extrabold text-brand-950 md:text-4xl">
+          Ein vertrautes Gesicht – fest verwurzelt in Reinickendorf
+        </h2>
+        <p class="mt-4 text-lg text-ink-soft">
+          Wir sind mehr als ein Pflegedienst: Wir sind Nachbarn, die füreinander da sind.
+          Mit kurzen Wegen, festen Bezugspflegekräften und einem offenen Ohr begleiten wir
+          Menschen in jeder Lebenslage – damit Sie sich zuhause sicher und gut aufgehoben fühlen.
+        </p>
+        <ul class="mt-6 space-y-3">
+          {[
+            'Feste Bezugspflegekräfte statt wechselnder Gesichter',
+            'Direkte Abrechnung mit Kranken- und Pflegekassen',
+            'Persönliche Beratung – auch bei Ihnen zu Hause',
+          ].map((point) => (
+            <li class="flex items-start gap-3">
+              <Icon name="check-circle" class="mt-0.5 h-6 w-6 shrink-0 text-accent-500" />
+              <span class="text-ink">{point}</span>
+            </li>
+          ))}
+        </ul>
+        <a href="/ueber-uns/" class="btn btn-ghost mt-8">
+          Mehr über uns
+          <Icon name="arrow" class="h-5 w-5" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= VERSORGUNGSGEBIET ============================= -->
+  <section class="bg-brand-50/60">
+    <div class="container-page py-16 md:py-20">
+      <div class="grid items-center gap-10 lg:grid-cols-[1fr_1.1fr]">
+        <div>
+          <p class="eyebrow"><Icon name="pin" class="h-4 w-4" /> Versorgungsgebiet</p>
+          <h2 class="mt-3 font-display text-3xl font-extrabold text-brand-950 md:text-4xl">
+            Wir kommen zu Ihnen – im Berliner Norden
+          </h2>
+          <p class="mt-4 text-lg text-ink-soft">
+            Unser Team ist in Reinickendorf und Pankow zu Hause. Ob Märkisches Viertel,
+            Wittenau oder Frohnau – fragen Sie einfach an, ob wir auch Ihre Straße versorgen.
+          </p>
+          <a href="/kontakt/" class="btn btn-primary mt-8">
+            Versorgung anfragen
+            <Icon name="arrow" class="h-5 w-5" />
+          </a>
+        </div>
+        <ul class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+          {serviceAreas.map((area) => (
+            <li class="flex items-center gap-2.5 rounded-2xl bg-white px-4 py-3 font-semibold text-brand-800 shadow-soft ring-1 ring-sand-200">
+              <Icon name="pin" class="h-5 w-5 shrink-0 text-accent-500" />
+              {area}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= STIMMEN ============================= -->
+  <section class="container-page py-16 md:py-20">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="eyebrow justify-center">Was Angehörigen wichtig ist</p>
+      <h2 class="mt-3 font-display text-3xl font-extrabold text-brand-950 md:text-4xl">
+        Vertrauen, das man spürt
+      </h2>
+    </div>
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      {[
+        {
+          quote:
+            'Endlich ein Pflegedienst, bei dem immer dieselben vertrauten Gesichter kommen. Meine Mutter fühlt sich sichtbar wohl.',
+          who: 'Tochter einer Patientin',
+          where: 'Märkisches Viertel',
+        },
+        {
+          quote:
+            'Die Beratung war ehrlich und geduldig. Man hat uns alles zum Pflegegrad und zu den Kosten in Ruhe erklärt.',
+          who: 'Angehöriger',
+          where: 'Wittenau',
+        },
+        {
+          quote:
+            'Auch am Wochenende war immer jemand erreichbar. Diese Verlässlichkeit gibt uns als Familie enorme Sicherheit.',
+          who: 'Sohn eines Patienten',
+          where: 'Hermsdorf',
+        },
+      ].map((t) => (
+        <figure class="card flex h-full flex-col p-7">
+          <Icon name="quote" class="h-8 w-8 text-accent-400" />
+          <blockquote class="mt-4 flex-1 text-lg text-ink">„{t.quote}"</blockquote>
+          <figcaption class="mt-6 border-t border-sand-200 pt-4">
+            <span class="block font-display font-bold text-brand-900">{t.who}</span>
+            <span class="block text-sm text-ink-soft">aus {t.where}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+    <p class="mt-6 text-center text-sm text-ink-soft">
+      Stimmen aus unserem Versorgungsalltag – anonymisiert zum Schutz unserer Patientinnen und Patienten.
+    </p>
+  </section>
+
+  <!-- ============================= FAQ ============================= -->
+  <section class="bg-white">
+    <div class="container-page py-16 md:py-20">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="eyebrow justify-center">Häufige Fragen</p>
+        <h2 class="mt-3 font-display text-3xl font-extrabold text-brand-950 md:text-4xl">
+          Antworten rund um die häusliche Pflege
+        </h2>
+        <p class="mt-4 text-lg text-ink-soft">
+          Sie haben weitere Fragen? Rufen Sie uns an unter
+          <a href={`tel:${company.phoneHref}`} class="font-semibold text-brand-700 hover:text-accent-600"> {company.phone}</a>.
+        </p>
+      </div>
+      <div class="mt-12">
+        <FaqAccordion items={homeFaqs} />
+      </div>
+      <p class="mt-6 text-center">
+        <a href="/ratgeber/pflegekosten-pflegegrad/" class="inline-flex items-center gap-1.5 font-display font-semibold text-brand-700 hover:text-accent-600">
+          Mehr zu Pflegekosten &amp; Pflegegrad
+          <Icon name="arrow" class="h-5 w-5" />
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>

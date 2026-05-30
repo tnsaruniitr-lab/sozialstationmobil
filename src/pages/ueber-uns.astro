@@ -1,0 +1,163 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { company, serviceAreas } from '../data/site';
+
+const breadcrumbs = [
+  { name: 'Startseite', href: '/' },
+  { name: 'Über uns', href: '/ueber-uns/' },
+];
+
+const values = [
+  { icon: 'heart', title: 'Würde', text: 'Jeder Mensch verdient Respekt. Wir pflegen einfühlsam und bewahren Selbstbestimmung.' },
+  { icon: 'shield', title: 'Verlässlichkeit', text: 'Auf uns ist Verlass – pünktlich, fachkundig und rund um die Uhr, auch am Wochenende.' },
+  { icon: 'pin', title: 'Nähe', text: 'Fest verwurzelt in Reinickendorf. Wir kennen den Kiez und sind schnell bei Ihnen.' },
+  { icon: 'award', title: 'Fachlichkeit', text: 'Examinierte Fachkräfte, regelmäßige Fortbildung und moderne Pflegestandards.' },
+];
+
+const promises = [
+  'Feste Bezugspflegekräfte – Sie werden von vertrauten Gesichtern versorgt.',
+  'Transparente Beratung zu Leistungen, Pflegegrad und Kosten – ohne Fachchinesisch.',
+  'Enge Zusammenarbeit mit Haus- und Fachärzten, Apotheken und Sanitätshäusern.',
+  'Einbindung der Angehörigen auf Augenhöhe.',
+];
+---
+<BaseLayout
+  title="Über uns – Ihr Pflegedienst aus Berlin-Reinickendorf"
+  description="Lernen Sie die Sozialstation Mobil kennen: ambulanter Fachpflegedienst in Berlin-Reinickendorf mit Herz, Erfahrung und einem klaren Leitbild – Würde, Verlässlichkeit, Nähe und Fachlichkeit."
+  breadcrumbs={breadcrumbs}
+>
+  <section class="bg-gradient-to-b from-brand-50 to-sand-50">
+    <div class="container-page py-10 lg:py-16">
+      <Breadcrumbs items={breadcrumbs} />
+      <div class="mt-8 grid items-center gap-10 lg:grid-cols-2">
+        <div>
+          <p class="eyebrow">Über die Sozialstation Mobil</p>
+          <h1 class="mt-3 font-display text-4xl font-extrabold leading-tight text-brand-950 md:text-5xl">
+            Pflege mit Herz – aus dem Kiez, für den Kiez
+          </h1>
+          <p class="mt-5 text-lg text-ink-soft">
+            Wir sind ein ambulanter Fachpflegedienst aus Berlin-Reinickendorf. Unser Anspruch:
+            Menschen so zu versorgen, wie wir es uns für unsere eigenen Angehörigen wünschen
+            würden – kompetent, verlässlich und mit echter Zuwendung.
+          </p>
+        </div>
+        <div class="relative">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="rounded-[2rem] bg-brand-700 p-7 text-white shadow-soft">
+              <Icon name="heart-hands" class="h-9 w-9 text-accent-300" />
+              <p class="mt-3 font-display text-lg font-bold">Mit Herz</p>
+              <p class="mt-1 text-sm text-brand-100">Pflege, die den Menschen sieht.</p>
+            </div>
+            <div class="mt-8 rounded-[2rem] bg-white p-7 shadow-soft ring-1 ring-sand-200">
+              <Icon name="award" class="h-9 w-9 text-brand-600" />
+              <p class="mt-3 font-display text-lg font-bold text-brand-950">Examiniert</p>
+              <p class="mt-1 text-sm text-ink-soft">Qualifizierte Fachkräfte.</p>
+            </div>
+            <div class="rounded-[2rem] bg-accent-500 p-7 text-white shadow-soft">
+              <Icon name="clock" class="h-9 w-9" />
+              <p class="mt-3 font-display text-lg font-bold">Rund um die Uhr</p>
+              <p class="mt-1 text-sm text-accent-50">7 Tage die Woche da.</p>
+            </div>
+            <div class="-mt-8 rounded-[2rem] bg-white p-7 shadow-soft ring-1 ring-sand-200">
+              <Icon name="pin" class="h-9 w-9 text-brand-600" />
+              <p class="mt-3 font-display text-lg font-bold text-brand-950">Vor Ort</p>
+              <p class="mt-1 text-sm text-ink-soft">Verwurzelt in Reinickendorf.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leitbild -->
+  <section class="container-page py-16 md:py-20">
+    <div class="mx-auto max-w-3xl text-center">
+      <p class="eyebrow justify-center">Unser Leitbild</p>
+      <h2 class="mt-3 font-display text-3xl font-extrabold text-brand-950 md:text-4xl">
+        Damit Pflege zuhause gelingt
+      </h2>
+      <p class="mt-5 text-lg text-ink-soft">
+        Die meisten Menschen möchten so lange wie möglich in den eigenen vier Wänden leben –
+        umgeben von Vertrautem. Genau das ermöglichen wir: eine professionelle Versorgung,
+        die sich dem Menschen anpasst, nicht umgekehrt. Würdevoll, individuell und verlässlich.
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {values.map((v) => (
+        <div class="card p-7 text-center">
+          <span class="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-brand-50 text-brand-600">
+            <Icon name={v.icon} class="h-7 w-7" />
+          </span>
+          <h3 class="mt-5 font-display text-xl font-bold text-brand-950">{v.title}</h3>
+          <p class="mt-2 text-ink-soft">{v.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Versprechen -->
+  <section class="bg-white">
+    <div class="container-page py-16 md:py-20">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div>
+          <p class="eyebrow">Unser Versprechen</p>
+          <h2 class="mt-3 font-display text-3xl font-extrabold text-brand-950 md:text-4xl">
+            Worauf Sie sich bei uns verlassen können
+          </h2>
+          <ul class="mt-8 space-y-4">
+            {promises.map((p) => (
+              <li class="flex items-start gap-3">
+                <Icon name="check-circle" class="mt-0.5 h-6 w-6 shrink-0 text-accent-500" />
+                <span class="text-ink">{p}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Geschäftsführung -->
+        <div class="rounded-[2.5rem] bg-brand-50 p-8 ring-1 ring-brand-100 md:p-10">
+          <div class="flex items-center gap-5">
+            <span class="grid h-20 w-20 shrink-0 place-items-center rounded-full bg-brand-700 font-display text-2xl font-extrabold text-white">
+              JB
+            </span>
+            <div>
+              <p class="font-display text-xl font-bold text-brand-950">{company.managingDirector}</p>
+              <p class="text-ink-soft">Geschäftsführer</p>
+            </div>
+          </div>
+          <blockquote class="mt-6 text-lg text-ink">
+            „Gute Pflege entsteht aus Vertrauen. Deshalb setzen wir auf feste Bezugspflegekräfte,
+            klare Absprachen und ein Team, das mit Herz bei der Sache ist."
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Versorgungsgebiet -->
+  <section class="container-page py-16 md:py-20">
+    <div class="rounded-[2.5rem] bg-brand-800 p-8 text-white md:p-12">
+      <div class="grid items-center gap-8 lg:grid-cols-[1fr_1.2fr]">
+        <div>
+          <p class="eyebrow text-accent-300"><Icon name="pin" class="h-4 w-4" /> Versorgungsgebiet</p>
+          <h2 class="mt-3 font-display text-3xl font-extrabold text-white">Im Berliner Norden für Sie da</h2>
+          <p class="mt-4 text-brand-100">
+            Von unserem Standort am {company.address.street} erreichen wir Sie schnell –
+            in ganz Reinickendorf und Teilen von Pankow.
+          </p>
+        </div>
+        <ul class="flex flex-wrap gap-2.5">
+          {serviceAreas.map((area) => (
+            <li class="rounded-full bg-white/10 px-4 py-2 font-semibold text-brand-50">{area}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>

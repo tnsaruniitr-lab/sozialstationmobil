@@ -1,0 +1,183 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { company } from '../data/site';
+
+const breadcrumbs = [
+  { name: 'Startseite', href: '/' },
+  { name: 'Kontakt', href: '/kontakt/' },
+];
+
+const mapsQuery = encodeURIComponent(
+  `${company.legalName}, ${company.address.street}, ${company.address.postalCode} ${company.address.city}`
+);
+const mapsDir = `https://www.google.com/maps/dir/?api=1&destination=${mapsQuery}`;
+---
+<BaseLayout
+  title="Kontakt – Jetzt kostenlos beraten lassen"
+  description={`Kontaktieren Sie die Sozialstation Mobil in Berlin-Reinickendorf: ☎ ${company.phone}, ${company.email} oder ${company.address.street}, ${company.address.postalCode} ${company.address.city}. Kostenlose, unverbindliche Pflegeberatung.`}
+  breadcrumbs={breadcrumbs}
+>
+  <section class="bg-gradient-to-b from-brand-50 to-sand-50">
+    <div class="container-page py-10 lg:py-14">
+      <Breadcrumbs items={breadcrumbs} />
+      <div class="mt-8 max-w-3xl">
+        <p class="eyebrow">Kontakt</p>
+        <h1 class="mt-3 font-display text-4xl font-extrabold leading-tight text-brand-950 md:text-5xl">
+          Wir sind für Sie da
+        </h1>
+        <p class="mt-5 text-lg text-ink-soft">
+          Ob Erstberatung, Pflegegrad-Fragen oder kurzfristiger Versorgungsbedarf – rufen Sie
+          uns an oder schreiben Sie uns. Wir hören zu und finden gemeinsam eine Lösung.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-page py-14 md:py-20">
+    <div class="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-14">
+      <!-- Kontaktinfos -->
+      <div class="space-y-5">
+        <a href={`tel:${company.phoneHref}`} class="card flex items-center gap-5 p-6 transition-all hover:-translate-y-0.5 hover:shadow-lift">
+          <span class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-accent-500 text-white"><Icon name="phone" class="h-7 w-7" /></span>
+          <span>
+            <span class="block text-sm font-semibold uppercase tracking-wide text-ink-soft">Telefon</span>
+            <span class="block font-display text-xl font-bold text-brand-950">{company.phone}</span>
+          </span>
+        </a>
+        <a href={`mailto:${company.email}`} class="card flex items-center gap-5 p-6 transition-all hover:-translate-y-0.5 hover:shadow-lift">
+          <span class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-brand-600 text-white"><Icon name="mail" class="h-7 w-7" /></span>
+          <span>
+            <span class="block text-sm font-semibold uppercase tracking-wide text-ink-soft">E-Mail</span>
+            <span class="block font-display text-xl font-bold text-brand-950">{company.email}</span>
+          </span>
+        </a>
+        <div class="card flex items-start gap-5 p-6">
+          <span class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-brand-700 text-white"><Icon name="pin" class="h-7 w-7" /></span>
+          <span>
+            <span class="block text-sm font-semibold uppercase tracking-wide text-ink-soft">Adresse</span>
+            <span class="block font-display text-lg font-bold text-brand-950">{company.address.street}</span>
+            <span class="block text-ink-soft">{company.address.postalCode} {company.address.city} · {company.address.district}</span>
+            <a href={mapsDir} target="_blank" rel="noopener" class="mt-2 inline-flex items-center gap-1.5 font-semibold text-brand-700 hover:text-accent-600">
+              Route planen <Icon name="arrow" class="h-4 w-4" />
+            </a>
+          </span>
+        </div>
+        <div class="card flex items-start gap-5 p-6">
+          <span class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-brand-50 text-brand-600"><Icon name="clock" class="h-7 w-7" /></span>
+          <span>
+            <span class="block text-sm font-semibold uppercase tracking-wide text-ink-soft">Erreichbarkeit</span>
+            <span class="block font-semibold text-brand-950">Büro: Mo–Fr 8:00–16:30 Uhr</span>
+            <span class="block text-accent-600">Pflege: rund um die Uhr, 7 Tage die Woche</span>
+          </span>
+        </div>
+
+        <!-- Karten-Karte (datenschutzfreundlich, ohne Tracking-Einbettung) -->
+        <a href={mapsDir} target="_blank" rel="noopener" class="relative block h-44 overflow-hidden rounded-[2rem] ring-1 ring-sand-200" aria-label="Standort in Google Maps öffnen">
+          <svg class="absolute inset-0 h-full w-full" viewBox="0 0 400 180" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="400" height="180" fill="#e7eee8" />
+            <path d="M-20 30 L180 180 M120 -20 L400 150" stroke="#cfe0ef" stroke-width="16" fill="none" />
+            <path d="M0 60 H400 M0 120 H400 M120 0 V180 M280 0 V180" stroke="#ffffff" stroke-width="4" fill="none" opacity="0.9" />
+            <circle cx="200" cy="90" r="46" fill="#1f6c9b" opacity="0.1" />
+          </svg>
+          <span class="absolute left-1/2 top-1/2 grid -translate-x-1/2 -translate-y-full place-items-center text-accent-500">
+            <Icon name="pin" class="h-12 w-12 drop-shadow" />
+          </span>
+          <span class="absolute bottom-3 left-3 rounded-full bg-white/95 px-4 py-1.5 text-sm font-semibold text-brand-800 shadow-soft">
+            {company.address.street}, {company.address.city}
+          </span>
+        </a>
+      </div>
+
+      <!-- Formular -->
+      <div class="card p-7 md:p-9">
+        <h2 class="font-display text-2xl font-extrabold text-brand-950">Schreiben Sie uns</h2>
+        <p class="mt-2 text-ink-soft">Wir melden uns in der Regel innerhalb eines Werktags bei Ihnen.</p>
+
+        <form id="kontakt-form" class="mt-7 space-y-5" action="#" method="post" novalidate>
+          <!-- Honeypot gegen Spam -->
+          <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label for="name" class="mb-1.5 block font-semibold text-ink">Ihr Name <span class="text-accent-600">*</span></label>
+              <input id="name" name="name" type="text" required autocomplete="name"
+                class="w-full rounded-2xl border-2 border-sand-200 bg-sand-50 px-4 py-3 text-ink outline-none transition-colors focus:border-brand-400 focus:bg-white" />
+            </div>
+            <div>
+              <label for="telefon" class="mb-1.5 block font-semibold text-ink">Telefon</label>
+              <input id="telefon" name="telefon" type="tel" autocomplete="tel"
+                class="w-full rounded-2xl border-2 border-sand-200 bg-sand-50 px-4 py-3 text-ink outline-none transition-colors focus:border-brand-400 focus:bg-white" />
+            </div>
+          </div>
+
+          <div>
+            <label for="email" class="mb-1.5 block font-semibold text-ink">E-Mail <span class="text-accent-600">*</span></label>
+            <input id="email" name="email" type="email" required autocomplete="email"
+              class="w-full rounded-2xl border-2 border-sand-200 bg-sand-50 px-4 py-3 text-ink outline-none transition-colors focus:border-brand-400 focus:bg-white" />
+          </div>
+
+          <div>
+            <label for="anliegen" class="mb-1.5 block font-semibold text-ink">Ihr Anliegen</label>
+            <select id="anliegen" name="anliegen"
+              class="w-full rounded-2xl border-2 border-sand-200 bg-sand-50 px-4 py-3 text-ink outline-none transition-colors focus:border-brand-400 focus:bg-white">
+              <option>Pflege für Angehörige</option>
+              <option>Pflege für mich selbst</option>
+              <option>Beratung zu Kosten &amp; Pflegegrad</option>
+              <option>Bewerbung / Karriere</option>
+              <option>Sonstiges</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="nachricht" class="mb-1.5 block font-semibold text-ink">Ihre Nachricht <span class="text-accent-600">*</span></label>
+            <textarea id="nachricht" name="nachricht" rows="5" required
+              class="w-full rounded-2xl border-2 border-sand-200 bg-sand-50 px-4 py-3 text-ink outline-none transition-colors focus:border-brand-400 focus:bg-white"></textarea>
+          </div>
+
+          <label class="flex items-start gap-3 text-sm text-ink-soft">
+            <input type="checkbox" name="datenschutz" required class="mt-1 h-5 w-5 shrink-0 rounded border-2 border-sand-300 text-brand-600 focus:ring-brand-400" />
+            <span>Ich habe die <a href="/datenschutz/" class="font-semibold text-brand-700 underline hover:text-accent-600">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage einverstanden. <span class="text-accent-600">*</span></span>
+          </label>
+
+          <button type="submit" class="btn btn-primary w-full text-lg">
+            Nachricht senden
+            <Icon name="arrow" class="h-5 w-5" />
+          </button>
+          <p id="form-status" class="hidden rounded-2xl bg-brand-50 px-4 py-3 text-center font-semibold text-brand-800" role="status"></p>
+          <p class="text-center text-sm text-ink-soft">Lieber telefonisch? Rufen Sie uns an: <a href={`tel:${company.phoneHref}`} class="font-semibold text-brand-700 hover:text-accent-600">{company.phone}</a></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script define:vars={{ email: company.email }}>
+  // Progressive Enhancement: ohne Server-Backend wird die Anfrage als
+  // vorausgefüllte E-Mail geöffnet. Für serverseitigen Versand das
+  // form[action] auf einen Formular-Dienst (z. B. Formspree) umstellen.
+  const form = document.getElementById('kontakt-form');
+  const status = document.getElementById('form-status');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (form.website?.value) return; // Honeypot
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    const data = new FormData(form);
+    const betreff = `Anfrage Website: ${data.get('anliegen') || 'Kontakt'}`;
+    const body =
+      `Name: ${data.get('name')}\n` +
+      `Telefon: ${data.get('telefon') || '-'}\n` +
+      `E-Mail: ${data.get('email')}\n` +
+      `Anliegen: ${data.get('anliegen')}\n\n` +
+      `${data.get('nachricht')}`;
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(betreff)}&body=${encodeURIComponent(body)}`;
+    if (status) {
+      status.textContent = 'Vielen Dank! Ihr E-Mail-Programm öffnet sich, um die Anfrage zu senden.';
+      status.classList.remove('hidden');
+    }
+  });
+</script>

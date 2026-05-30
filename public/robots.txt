@@ -1,0 +1,41 @@
+# robots.txt – Sozialstation Mobil GmbH
+# Alle Suchmaschinen sind willkommen.
+User-agent: *
+Allow: /
+
+# Answer-Engine- / KI-Crawler ausdrücklich erlauben (wichtig für AEO/GEO).
+# Wir möchten, dass unsere Inhalte in KI-Antworten zitiert werden dürfen.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+Sitemap: https://sozialstationmobil.de/sitemap-index.xml

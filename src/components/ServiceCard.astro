@@ -1,0 +1,28 @@
+---
+import Icon from './Icon.astro';
+import type { Service } from '../data/site';
+interface Props {
+  service: Service;
+}
+const { service } = Astro.props;
+---
+<a
+  href={`/leistungen/${service.slug}/`}
+  class="group card flex flex-col p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lift focus-visible:-translate-y-1"
+>
+  <span class="grid h-14 w-14 place-items-center rounded-2xl bg-brand-50 text-brand-600 transition-colors group-hover:bg-accent-500 group-hover:text-white">
+    <Icon name={service.icon} class="h-7 w-7" />
+  </span>
+  <h3 class="mt-5 font-display text-xl font-bold text-brand-950">{service.title}</h3>
+  <p class="mt-2 flex-1 text-ink-soft">{service.short}</p>
+  {service.highlight && (
+    <span class="mt-4 inline-flex w-fit items-center gap-1.5 rounded-full bg-accent-50 px-3 py-1 text-sm font-semibold text-accent-700">
+      <Icon name="check" class="h-4 w-4" />
+      {service.highlight}
+    </span>
+  )}
+  <span class="mt-5 inline-flex items-center gap-1.5 font-display font-semibold text-brand-700">
+    Mehr erfahren
+    <Icon name="arrow" class="h-5 w-5 transition-transform group-hover:translate-x-1" />
+  </span>
+</a>
