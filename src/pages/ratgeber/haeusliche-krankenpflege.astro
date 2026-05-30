@@ -1,0 +1,86 @@
+---
+import RatgeberArticle from '../../layouts/RatgeberArticle.astro';
+import { getRatgeberArticle } from '../../data/site';
+
+const a = getRatgeberArticle('haeusliche-krankenpflege')!;
+const faqs = [
+  {
+    question: 'Brauche ich für die häusliche Krankenpflege einen Pflegegrad?',
+    answer:
+      'Nein. Häusliche Krankenpflege nach § 37 SGB V ist eine Leistung der Krankenkasse und unabhängig von einem Pflegegrad. Sie wird ärztlich verordnet – einen Pflegegrad benötigen Sie dafür nicht.',
+  },
+  {
+    question: 'Wie lange wird häusliche Krankenpflege verordnet?',
+    answer:
+      'Die Erstverordnung ist meist auf einige Tage bis Wochen befristet. Besteht der Bedarf weiter, stellt der Arzt eine Folgeverordnung aus. Wir behalten die Fristen für Sie im Blick.',
+  },
+  {
+    question: 'Welche Zuzahlung fällt an?',
+    answer:
+      'Erwachsene zahlen in der Regel 10 % der Kosten für die ersten 28 Tage im Kalenderjahr sowie 10 € je Verordnung. Wer die jährliche Belastungsgrenze erreicht, kann sich von Zuzahlungen befreien lassen.',
+  },
+];
+---
+<RatgeberArticle
+  slug={a.slug}
+  title="Häusliche Krankenpflege (§ 37 SGB V): ärztlich verordnete Pflege zu Hause"
+  description="Häusliche Krankenpflege einfach erklärt: Was die ärztlich verordnete Behandlungspflege umfasst, wie die Verordnung (Muster 12) abläuft, wer die Kosten trägt und welche Zuzahlung anfällt."
+  excerpt={a.excerpt}
+  faqs={faqs}
+  relatedServices={a.relatedServices}
+>
+  <p>
+    Nach einer Operation, im Krankheitsfall oder bei chronischen Erkrankungen müssen viele
+    medizinische Maßnahmen zu Hause fortgeführt werden. Die häusliche Krankenpflege nach
+    § 37 SGB V macht das möglich – verordnet vom Arzt und durchgeführt von examinierten
+    Pflegefachkräften in den eigenen vier Wänden.
+  </p>
+
+  <h2>Was umfasst die häusliche Krankenpflege?</h2>
+  <p>
+    Im Mittelpunkt steht die <strong>Behandlungspflege</strong> – also medizinisch notwendige
+    Maßnahmen auf ärztliche Anordnung. Typische Leistungen sind:
+  </p>
+  <ul>
+    <li>Medikamentengabe und Medikamentenmanagement</li>
+    <li>Injektionen (z. B. Insulin) und Blutzuckerkontrolle</li>
+    <li>Verbandwechsel und moderne Wundversorgung</li>
+    <li>An- und Ausziehen von Kompressionsstrümpfen</li>
+    <li>Versorgung von Kathetern, Stoma oder Portsystemen</li>
+  </ul>
+  <p>
+    In bestimmten Fällen kann die Krankenkasse vorübergehend auch Grundpflege und hauswirtschaftliche
+    Versorgung übernehmen – etwa, wenn keine andere Person im Haushalt die Versorgung sicherstellen kann.
+  </p>
+
+  <h2>So läuft die Verordnung ab</h2>
+  <h3>1. Ärztliche Verordnung</h3>
+  <p>
+    Ihr Haus- oder Facharzt stellt eine „Verordnung häuslicher Krankenpflege" aus (Formular Muster 12)
+    und legt fest, welche Maßnahmen wie oft nötig sind.
+  </p>
+  <h3>2. Einreichen bei der Krankenkasse</h3>
+  <p>
+    Die Verordnung wird bei der Krankenkasse eingereicht. Gerne übernehmen wir diesen Schritt für Sie.
+  </p>
+  <h3>3. Genehmigung und Start</h3>
+  <p>
+    Nach der Genehmigung beginnt die Versorgung durch unsere Pflegefachkräfte – zuverlässig und
+    genau nach Verordnungsplan.
+  </p>
+
+  <h2>Wer trägt die Kosten?</h2>
+  <p>
+    Die Kosten der häuslichen Krankenpflege übernimmt die <strong>Krankenkasse</strong> (SGB V).
+    Für Erwachsene fällt eine gesetzliche Zuzahlung an (10 % für die ersten 28 Tage im Jahr sowie
+    10 € je Verordnung). Wer die individuelle Belastungsgrenze erreicht, kann sich befreien lassen.
+    Die Abrechnung läuft direkt zwischen uns und Ihrer Kasse.
+  </p>
+
+  <p>
+    Welche dieser Leistungen wir konkret übernehmen, sehen Sie auf unseren Seiten zur
+    <a href="/leistungen/behandlungspflege/">Behandlungspflege</a>,
+    zum <a href="/leistungen/wundmanagement/">Wundmanagement</a> und zur
+    <a href="/leistungen/diabetologische-fachpflege/">diabetologischen Fachpflege</a>.
+  </p>
+</RatgeberArticle>

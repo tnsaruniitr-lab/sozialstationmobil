@@ -1,14 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
-import HeroArt from '../components/HeroArt.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { company, services, usps, steps, faqs, serviceAreas } from '../data/site';
+import { company, services, usps, steps, homeFaqs, serviceAreas, trustSignals } from '../data/site';
 import { faqSchema } from '../lib/schema';
 
-const homeFaqs = faqs.slice(0, 6);
+const shownTrust = trustSignals.filter((t) => t.confirmed);
 const description =
   'Sozialstation Mobil – Ihr ambulanter Pflegedienst in Berlin-Reinickendorf. Grund- & Behandlungspflege, Diabetes-Fachpflege, Wundmanagement, Betreuung & Demenz-WG. Liebevoll, kompetent, rund um die Uhr. Jetzt kostenlos beraten lassen ☎ 030 4169811.';
 ---
@@ -18,24 +17,109 @@ const description =
   description={description}
   schema={[faqSchema(homeFaqs)]}
 >
-  <!-- ============================= HERO ============================= -->
-  <section class="relative overflow-hidden bg-gradient-to-b from-brand-50 via-sand-50 to-sand-50">
+  {/* No-Flash: gewählte Hero-Variante VOR dem Rendern setzen */}
+  <script is:inline>
+    (function () {
+      try { document.documentElement.classList.add('hero-' + (localStorage.getItem('heroVariant') || 'vollbild')); }
+      catch (e) { document.documentElement.classList.add('hero-vollbild'); }
+    })();
+  </script>
+
+  <!-- ===================== HERO – Variante „Vollbild-Hintergrund" ===================== -->
+  <section data-hero-variant="vollbild" class="relative overflow-hidden">
+    <img
+      src="/images/hero-care.jpg"
+      alt="Eine Pflegekraft der Sozialstation Mobil hält die Hände einer lächelnden Seniorin in einem hellen Wohnzimmer."
+      class="absolute inset-0 h-full w-full object-cover object-center"
+      width="2000"
+      height="913"
+      fetchpriority="high"
+    />
+    <div class="absolute inset-0" style="background-image: linear-gradient(to right, rgba(19,40,60,0.92), rgba(19,40,60,0.66) 48%, rgba(19,40,60,0.16));"></div>
+    <div class="container-page relative flex min-h-[33rem] items-center py-16 lg:min-h-[39rem] lg:py-24">
+      <div class="max-w-2xl text-white">
+        <p class="eyebrow text-accent-300"><span class="inline-block h-2 w-2 rounded-full bg-accent-400"></span> Ambulanter Fachpflegedienst · Berlin-Reinickendorf</p>
+        <h1 class="mt-4 font-display text-4xl font-extrabold leading-[1.08] text-white sm:text-5xl lg:text-6xl">
+          Liebevolle Pflege,
+          <span class="relative whitespace-nowrap text-brand-200">die zu Ihnen
+            <svg class="absolute -bottom-2 left-0 h-3 w-full text-accent-400" viewBox="0 0 300 12" fill="none" preserveAspectRatio="none" aria-hidden="true"><path d="M2 9c60-6 230-9 296-3" stroke="currentColor" stroke-width="4" stroke-linecap="round" /></svg>
+          </span>
+          nach Hause kommt.
+        </h1>
+        <p class="mt-6 max-w-xl text-lg text-brand-50">
+          Damit das Leben in den eigenen vier Wänden gelingt – mit Herz, Fachkompetenz und
+          Menschen, auf die Sie sich verlassen können. 7 Tage die Woche für Sie da.
+        </p>
+        <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+          <a href={`tel:${company.phoneHref}`} class="btn btn-primary text-lg"><Icon name="phone" class="h-5 w-5" />{company.phone}</a>
+          <a href="/kontakt/" class="btn btn-secondary text-lg">Kostenlose Beratung<Icon name="arrow" class="h-5 w-5" /></a>
+        </div>
+        <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-white/90">
+          <li class="flex items-center gap-2"><Icon name="check-circle" class="h-5 w-5 text-accent-400" /> Examinierte Fachkräfte</li>
+          <li class="flex items-center gap-2"><Icon name="check-circle" class="h-5 w-5 text-accent-400" /> Alle Kassen &amp; Pflegegrade</li>
+          <li class="flex items-center gap-2"><Icon name="check-circle" class="h-5 w-5 text-accent-400" /> Rund um die Uhr</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HERO – Variante „Video-Hintergrund" ===================== -->
+  <section data-hero-variant="video" class="relative overflow-hidden">
+    <video
+      class="absolute inset-0 h-full w-full object-cover object-center"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="none"
+      poster="/videos/hero-poster.jpg"
+      aria-hidden="true"
+      tabindex="-1"
+      disablepictureinpicture
+      controlslist="nodownload nofullscreen noremoteplayback"
+    >
+      <source src="/videos/hero.mp4" type="video/mp4" />
+    </video>
+    <div class="absolute inset-0" style="background-image: linear-gradient(to right, rgba(19,40,60,0.92), rgba(19,40,60,0.66) 48%, rgba(19,40,60,0.16));"></div>
+    <div class="container-page relative flex min-h-[33rem] items-center py-16 lg:min-h-[39rem] lg:py-24">
+      <div class="max-w-2xl text-white">
+        <p class="eyebrow text-accent-300"><span class="inline-block h-2 w-2 rounded-full bg-accent-400"></span> Ambulanter Fachpflegedienst · Berlin-Reinickendorf</p>
+        <h1 class="mt-4 font-display text-4xl font-extrabold leading-[1.08] text-white sm:text-5xl lg:text-6xl">
+          Liebevolle Pflege,
+          <span class="relative whitespace-nowrap text-brand-200">die zu Ihnen
+            <svg class="absolute -bottom-2 left-0 h-3 w-full text-accent-400" viewBox="0 0 300 12" fill="none" preserveAspectRatio="none" aria-hidden="true"><path d="M2 9c60-6 230-9 296-3" stroke="currentColor" stroke-width="4" stroke-linecap="round" /></svg>
+          </span>
+          nach Hause kommt.
+        </h1>
+        <p class="mt-6 max-w-xl text-lg text-brand-50">
+          Damit das Leben in den eigenen vier Wänden gelingt – mit Herz, Fachkompetenz und
+          Menschen, auf die Sie sich verlassen können. 7 Tage die Woche für Sie da.
+        </p>
+        <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+          <a href={`tel:${company.phoneHref}`} class="btn btn-primary text-lg"><Icon name="phone" class="h-5 w-5" />{company.phone}</a>
+          <a href="/kontakt/" class="btn btn-secondary text-lg">Kostenlose Beratung<Icon name="arrow" class="h-5 w-5" /></a>
+        </div>
+        <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-white/90">
+          <li class="flex items-center gap-2"><Icon name="check-circle" class="h-5 w-5 text-accent-400" /> Examinierte Fachkräfte</li>
+          <li class="flex items-center gap-2"><Icon name="check-circle" class="h-5 w-5 text-accent-400" /> Alle Kassen &amp; Pflegegrade</li>
+          <li class="flex items-center gap-2"><Icon name="check-circle" class="h-5 w-5 text-accent-400" /> Rund um die Uhr</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HERO – Variante „Foto im Rahmen" ===================== -->
+  <section data-hero-variant="rahmen" class="relative overflow-hidden bg-gradient-to-b from-brand-50 via-sand-50 to-sand-50">
     <div class="pointer-events-none absolute -left-32 -top-24 h-80 w-80 rounded-full bg-brand-100/60 blur-2xl"></div>
     <div class="pointer-events-none absolute right-0 top-32 h-72 w-72 rounded-full bg-accent-100/50 blur-2xl"></div>
 
-    <div class="container-page relative grid items-center gap-10 py-12 lg:grid-cols-2 lg:gap-8 lg:py-20">
+    <div class="container-page relative grid items-center gap-10 py-12 lg:grid-cols-2 lg:gap-12 lg:py-20">
       <div>
-        <p class="eyebrow">
-          <span class="inline-block h-2 w-2 rounded-full bg-accent-500"></span>
-          Ambulanter Fachpflegedienst · Berlin-Reinickendorf
-        </p>
+        <p class="eyebrow"><span class="inline-block h-2 w-2 rounded-full bg-accent-500"></span> Ambulanter Fachpflegedienst · Berlin-Reinickendorf</p>
         <h1 class="mt-4 font-display text-4xl font-extrabold leading-[1.08] text-brand-950 sm:text-5xl lg:text-[3.4rem]">
           Liebevolle Pflege,
-          <span class="relative whitespace-nowrap text-brand-600">
-            die zu Ihnen
-            <svg class="absolute -bottom-2 left-0 h-3 w-full text-accent-400" viewBox="0 0 300 12" fill="none" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M2 9c60-6 230-9 296-3" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
-            </svg>
+          <span class="relative whitespace-nowrap text-brand-600">die zu Ihnen
+            <svg class="absolute -bottom-2 left-0 h-3 w-full text-accent-400" viewBox="0 0 300 12" fill="none" preserveAspectRatio="none" aria-hidden="true"><path d="M2 9c60-6 230-9 296-3" stroke="currentColor" stroke-width="4" stroke-linecap="round" /></svg>
           </span>
           nach Hause kommt.
         </h1>
@@ -44,18 +128,10 @@ const description =
           examinierten Pflegefachkräften versorgt, pflegt und betreut Sie zuverlässig –
           mit Herz, Fachkompetenz und auf Augenhöhe.
         </p>
-
         <div class="mt-8 flex flex-col gap-4 sm:flex-row">
-          <a href={`tel:${company.phoneHref}`} class="btn btn-primary text-lg">
-            <Icon name="phone" class="h-5 w-5" />
-            {company.phone}
-          </a>
-          <a href="/kontakt/" class="btn btn-secondary text-lg">
-            Kostenlose Beratung
-            <Icon name="arrow" class="h-5 w-5" />
-          </a>
+          <a href={`tel:${company.phoneHref}`} class="btn btn-primary text-lg"><Icon name="phone" class="h-5 w-5" />{company.phone}</a>
+          <a href="/kontakt/" class="btn btn-secondary text-lg">Kostenlose Beratung<Icon name="arrow" class="h-5 w-5" /></a>
         </div>
-
         <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-brand-800">
           <li class="flex items-center gap-2"><Icon name="check-circle" class="h-5 w-5 text-accent-500" /> Examinierte Fachkräfte</li>
           <li class="flex items-center gap-2"><Icon name="check-circle" class="h-5 w-5 text-accent-500" /> Alle Kassen &amp; Pflegegrade</li>
@@ -63,25 +139,14 @@ const description =
         </ul>
       </div>
 
-      <!-- Visual -->
       <div class="relative">
-        <div class="relative mx-auto max-w-lg rounded-[2.5rem] bg-gradient-to-br from-white to-brand-50 p-3 shadow-lift ring-1 ring-sand-200">
-          <div class="overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand-100/60 to-accent-50">
-            <HeroArt class="h-auto w-full" />
-          </div>
+        <div class="relative overflow-hidden rounded-[2.5rem] bg-white p-2.5 shadow-lift ring-1 ring-sand-200">
+          <img src="/images/hero-care.jpg" alt="Eine Pflegekraft der Sozialstation Mobil hält die Hände einer lächelnden Seniorin." class="aspect-[4/3] w-full rounded-[2rem] object-cover" width="2000" height="913" />
         </div>
-
-        <!-- Schwebende Vertrauens-Karten -->
         <div class="absolute -left-2 top-6 hidden rounded-2xl bg-white p-4 shadow-lift ring-1 ring-sand-200 sm:flex sm:items-center sm:gap-3 lg:-left-6">
-          <span class="grid h-11 w-11 place-items-center rounded-xl bg-accent-50 text-accent-600">
-            <Icon name="clock" class="h-6 w-6" />
-          </span>
-          <span>
-            <span class="block font-display font-bold text-brand-950">Rund um die Uhr</span>
-            <span class="block text-sm text-ink-soft">7 Tage die Woche im Einsatz</span>
-          </span>
+          <span class="grid h-11 w-11 place-items-center rounded-xl bg-accent-50 text-accent-600"><Icon name="clock" class="h-6 w-6" /></span>
+          <span><span class="block font-display font-bold text-brand-950">Rund um die Uhr</span><span class="block text-sm text-ink-soft">7 Tage die Woche im Einsatz</span></span>
         </div>
-
         <div class="absolute -bottom-4 right-0 hidden rounded-2xl bg-white p-4 shadow-lift ring-1 ring-sand-200 sm:block lg:-right-4">
           <div class="flex items-center gap-3">
             <div class="flex -space-x-3">
@@ -89,10 +154,7 @@ const description =
               <span class="grid h-9 w-9 place-items-center rounded-full bg-accent-500 text-xs font-bold text-white ring-2 ring-white">AB</span>
               <span class="grid h-9 w-9 place-items-center rounded-full bg-brand-700 text-xs font-bold text-white ring-2 ring-white">+</span>
             </div>
-            <span>
-              <span class="block font-display font-bold text-brand-950">Festes Team</span>
-              <span class="block text-sm text-ink-soft">Ihre Bezugspflegekraft</span>
-            </span>
+            <span><span class="block font-display font-bold text-brand-950">Festes Team</span><span class="block text-sm text-ink-soft">Ihre Bezugspflegekraft</span></span>
           </div>
         </div>
       </div>
@@ -100,7 +162,7 @@ const description =
   </section>
 
   <!-- ============================= USPs ============================= -->
-  <section class="container-page -mt-6 pb-4 lg:-mt-12">
+  <section class="home-usp container-page pb-4">
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {usps.map((u) => (
         <div class="card p-6">
@@ -165,6 +227,35 @@ const description =
           </li>
         ))}
       </ol>
+    </div>
+  </section>
+
+  <!-- ============================= QUALITÄT & VERTRAUEN ============================= -->
+  <section class="bg-white">
+    <div class="container-page py-16 md:py-20">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="eyebrow justify-center"><Icon name="shield" class="h-4 w-4" /> Qualität &amp; Vertrauen</p>
+        <h2 class="mt-3 font-display text-3xl font-extrabold text-brand-950 md:text-4xl">
+          Geprüfte Qualität, auf die Sie sich verlassen können
+        </h2>
+        <p class="mt-4 text-lg text-ink-soft">
+          Als anerkannter Pflegedienst arbeiten wir nach klaren gesetzlichen Standards –
+          für Ihre Sicherheit und Ihr gutes Gefühl.
+        </p>
+      </div>
+      <ul class="mx-auto mt-12 grid max-w-5xl gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {shownTrust.map((t) => (
+          <li class="flex items-start gap-4 rounded-2xl border border-sand-200 bg-sand-50 p-5">
+            <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-brand-600 text-white">
+              <Icon name={t.icon} class="h-6 w-6" />
+            </span>
+            <span>
+              <span class="block font-display font-bold text-brand-950">{t.title}</span>
+              <span class="mt-1 block text-sm text-ink-soft">{t.text}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
@@ -317,8 +408,8 @@ const description =
         <FaqAccordion items={homeFaqs} />
       </div>
       <p class="mt-6 text-center">
-        <a href="/ratgeber/pflegekosten-pflegegrad/" class="inline-flex items-center gap-1.5 font-display font-semibold text-brand-700 hover:text-accent-600">
-          Mehr zu Pflegekosten &amp; Pflegegrad
+        <a href="/ratgeber/" class="inline-flex items-center gap-1.5 font-display font-semibold text-brand-700 hover:text-accent-600">
+          Zum Pflege-Ratgeber – alle Themen
           <Icon name="arrow" class="h-5 w-5" />
         </a>
       </p>
@@ -326,4 +417,82 @@ const description =
   </section>
 
   <CtaBand />
+
+  {/* ===== Temporärer Design-Umschalter (Hero-Stil) – vor Veröffentlichung entfernen ===== */}
+  <div id="hero-switch" class="fixed bottom-4 left-4 z-[70] text-sm">
+    <button
+      id="hero-switch-toggle"
+      type="button"
+      class="flex items-center gap-2 rounded-full bg-brand-950/95 px-3.5 py-2 font-semibold text-white shadow-lift ring-1 ring-white/15 backdrop-blur transition-colors hover:bg-brand-900"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      <Icon name="sliders" class="h-4 w-4 text-accent-300" />
+      <span class="hidden sm:inline">Hero:</span>
+      <span id="hero-switch-current" class="text-accent-200">Video</span>
+      <Icon name="chevron-down" class="hero-switch-chevron h-4 w-4 transition-transform" />
+    </button>
+    <div id="hero-switch-menu" class="absolute bottom-full left-0 mb-2 hidden w-52 overflow-hidden rounded-2xl bg-brand-950/95 p-1.5 font-semibold shadow-lift ring-1 ring-white/15 backdrop-blur" role="menu">
+      {[
+        { v: 'rahmen', label: 'Foto im Rahmen' },
+        { v: 'vollbild', label: 'Vollbild-Hintergrund' },
+        { v: 'video', label: 'Video-Hintergrund' },
+      ].map((o) => (
+        <button type="button" data-hero-btn={o.v} role="menuitemradio" class="flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-brand-100 transition-colors hover:bg-white/10 hover:text-white">
+          {o.label}
+          <span data-check class="text-accent-300 opacity-0"><Icon name="check" class="h-4 w-4" /></span>
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <script>
+    const root = document.documentElement;
+    const sw = document.getElementById('hero-switch');
+    const toggle = document.getElementById('hero-switch-toggle');
+    const menu = document.getElementById('hero-switch-menu');
+    const chevron = sw?.querySelector('.hero-switch-chevron');
+    const currentLabel = document.getElementById('hero-switch-current');
+    const btns = document.querySelectorAll<HTMLButtonElement>('[data-hero-btn]');
+    const shortLabels: Record<string, string> = { rahmen: 'Rahmen', vollbild: 'Vollbild', video: 'Video' };
+
+    const playHeroVideo = () => {
+      const v = document.querySelector<HTMLVideoElement>('[data-hero-variant="video"] video');
+      if (!v) return;
+      const go = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+      if (v.readyState >= 3) go();
+      else { v.addEventListener('canplay', go, { once: true }); go(); } // go() startet das Laden (preload=none)
+    };
+    const setActive = (val: string) => {
+      btns.forEach((b) => {
+        const on = b.dataset.heroBtn === val;
+        b.setAttribute('aria-checked', on ? 'true' : 'false');
+        b.classList.toggle('text-white', on);
+        b.querySelector<HTMLElement>('[data-check]')?.classList.toggle('opacity-0', !on);
+      });
+      if (currentLabel) currentLabel.textContent = shortLabels[val] || 'Vollbild';
+    };
+    const openMenu = (open: boolean) => {
+      menu?.classList.toggle('hidden', !open);
+      toggle?.setAttribute('aria-expanded', open ? 'true' : 'false');
+      chevron?.classList.toggle('rotate-180', open);
+    };
+    const apply = (val: string) => {
+      root.classList.remove('hero-rahmen', 'hero-vollbild', 'hero-video');
+      root.classList.add('hero-' + val);
+      try { localStorage.setItem('heroVariant', val); } catch (e) {}
+      setActive(val);
+      openMenu(false);
+      window.scrollTo({ top: 0 });
+      if (val === 'video') playHeroVideo();
+    };
+    toggle?.addEventListener('click', (e) => { e.stopPropagation(); openMenu(menu?.classList.contains('hidden') ?? true); });
+    btns.forEach((b) => b.addEventListener('click', () => apply(b.dataset.heroBtn || 'vollbild')));
+    document.addEventListener('click', (e) => { if (sw && !sw.contains(e.target as Node)) openMenu(false); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') openMenu(false); });
+
+    const current = root.classList.contains('hero-rahmen') ? 'rahmen' : root.classList.contains('hero-video') ? 'video' : 'vollbild';
+    setActive(current);
+    if (current === 'video') playHeroVideo();
+  </script>
 </BaseLayout>

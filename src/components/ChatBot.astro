@@ -1,0 +1,288 @@
+---
+/**
+ * Deterministischer Chat-Assistent (regelbasiert, zweisprachig DE/EN).
+ * Läuft vollständig im Browser – keine KI, keine externen Requests.
+ * Daten werden erst beim Absenden einer Rückruf-Anfrage versendet (per E-Mail,
+ * mit Einwilligung). Für Produktion: an ein Formular-/CRM-Backend anbinden.
+ */
+import Icon from './Icon.astro';
+import { company } from '../data/site';
+import { botUI, botServices, botFaqs, intentKeywords } from '../data/bot';
+
+const payload = {
+  ui: botUI,
+  services: botServices,
+  faqs: botFaqs,
+  intents: intentKeywords,
+  company: { phone: company.phone, phoneHref: company.phoneHref, email: company.email },
+};
+---
+<!-- Launcher -->
+<button
+  id="cb-launcher"
+  type="button"
+  class="fixed bottom-4 right-4 z-[80] flex items-center gap-2.5 rounded-full bg-brand-700 py-3 pl-3 pr-5 text-white shadow-lift ring-1 ring-white/10 transition-transform hover:-translate-y-0.5 hover:bg-brand-800"
+  aria-label="Chat öffnen"
+  aria-expanded="false"
+  aria-controls="cb-panel"
+>
+  <span class="grid h-9 w-9 place-items-center rounded-full bg-white/15">
+    <Icon name="chat" class="h-5 w-5" />
+  </span>
+  <span id="cb-launcher-label" class="font-display text-sm font-semibold">Fragen? Wir helfen</span>
+</button>
+
+<!-- Panel -->
+<section
+  id="cb-panel"
+  class="fixed inset-x-2 bottom-2 z-[80] hidden h-[78vh] max-h-[640px] flex-col overflow-hidden rounded-3xl bg-sand-50 shadow-2xl ring-1 ring-sand-300 sm:inset-x-auto sm:bottom-4 sm:right-4 sm:w-[384px]"
+  role="dialog"
+  aria-label="Chat mit der Sozialstation Mobil"
+>
+  <!-- Header -->
+  <header class="flex items-center gap-3 bg-brand-800 px-4 py-3 text-white">
+    <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white/15">
+      <Icon name="heart-hands" class="h-6 w-6 text-accent-300" />
+    </span>
+    <div class="min-w-0 flex-1">
+      <p id="cb-title" class="font-display text-sm font-bold leading-tight">Sozialstation Mobil</p>
+      <p id="cb-subtitle" class="flex items-center gap-1.5 text-xs text-brand-100">
+        <span class="inline-block h-2 w-2 rounded-full bg-green-400"></span>
+        <span id="cb-online">Antwort meist sofort</span>
+      </p>
+    </div>
+    <div class="flex items-center gap-1 rounded-full bg-white/10 p-0.5 text-xs font-bold">
+      <button type="button" data-bot-lang="de" class="cb-lang rounded-full px-2 py-1">DE</button>
+      <button type="button" data-bot-lang="en" class="cb-lang rounded-full px-2 py-1">EN</button>
+    </div>
+    <button id="cb-close" type="button" class="grid h-8 w-8 shrink-0 place-items-center rounded-full hover:bg-white/15" aria-label="Chat schließen">
+      <Icon name="close" class="h-5 w-5" />
+    </button>
+  </header>
+
+  <!-- Messages -->
+  <div id="cb-msgs" class="flex-1 space-y-3 overflow-y-auto px-4 py-4" aria-live="polite"></div>
+
+  <!-- Quick replies -->
+  <div id="cb-chips" class="flex flex-wrap gap-2 px-4"></div>
+
+  <!-- Input -->
+  <form id="cb-inputrow" class="flex items-center gap-2 border-t border-sand-200 bg-white p-3">
+    <input
+      id="cb-input"
+      type="text"
+      class="min-w-0 flex-1 rounded-full border-2 border-sand-200 bg-sand-50 px-4 py-2.5 text-[0.95rem] text-ink outline-none focus:border-brand-400 focus:bg-white"
+      placeholder="Nachricht schreiben …"
+      aria-label="Nachricht schreiben"
+      autocomplete="off"
+    />
+    <button type="submit" class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-accent-500 text-white hover:bg-accent-600" aria-label="Senden">
+      <Icon name="send" class="h-5 w-5" />
+    </button>
+  </form>
+</section>
+
+<style is:global>
+  #cb-msgs .cb-bot,
+  #cb-msgs .cb-user { max-width: 88%; border-radius: 1.1rem; padding: 0.6rem 0.9rem; font-size: 0.95rem; line-height: 1.5; }
+  #cb-msgs .cb-bot { margin-right: auto; background: #fff; color: var(--color-ink); border: 1px solid var(--color-sand-200); border-bottom-left-radius: 0.3rem; }
+  #cb-msgs .cb-user { margin-left: auto; background: var(--color-brand-600); color: #fff; border-bottom-right-radius: 0.3rem; }
+  #cb-msgs .cb-link { color: var(--color-brand-700); font-weight: 600; text-decoration: underline; }
+  #cb-msgs .cb-user .cb-link, #cb-msgs .cb-bot a.cb-link { text-underline-offset: 2px; }
+  #cb-msgs .cb-form { max-width: 100%; display: flex; flex-direction: column; gap: 0.55rem; }
+  #cb-msgs .cb-form input[type='text'] { width: 100%; border-radius: 0.85rem; border: 2px solid var(--color-sand-200); background: var(--color-sand-50); padding: 0.55rem 0.8rem; font-size: 0.95rem; color: var(--color-ink); outline: none; }
+  #cb-msgs .cb-form input[type='text']:focus { border-color: var(--color-brand-400); background: #fff; }
+  #cb-msgs .cb-consent { display: flex; gap: 0.5rem; align-items: flex-start; font-size: 0.8rem; color: var(--color-ink-soft); }
+  #cb-msgs .cb-consent input { margin-top: 0.15rem; height: 1.05rem; width: 1.05rem; flex-shrink: 0; }
+  #cb-msgs .cb-note { font-size: 0.72rem; color: var(--color-ink-soft); }
+  #cb-msgs .cb-err { font-size: 0.8rem; font-weight: 600; color: var(--color-accent-700); }
+  #cb-msgs .cb-send { margin-top: 0.15rem; border-radius: 9999px; background: var(--color-accent-500); color: #fff; font-weight: 700; padding: 0.6rem 1rem; font-family: var(--font-display); cursor: pointer; }
+  #cb-msgs .cb-send:hover { background: var(--color-accent-600); }
+  #cb-chips:empty { padding: 0; }
+  #cb-chips:not(:empty) { padding-bottom: 0.75rem; }
+  .cb-chip { border-radius: 9999px; border: 1.5px solid var(--color-brand-200); background: #fff; color: var(--color-brand-700); font-weight: 600; font-size: 0.875rem; padding: 0.4rem 0.85rem; cursor: pointer; transition: background-color .15s, border-color .15s; }
+  .cb-chip:hover { background: var(--color-brand-50); border-color: var(--color-brand-400); }
+  .cb-lang { color: rgba(255,255,255,0.7); }
+  .cb-lang.cb-lang-on { background: #fff; color: var(--color-brand-900); }
+  @media (prefers-reduced-motion: no-preference) {
+    #cb-msgs .cb-bot, #cb-msgs .cb-user { animation: cb-pop .25s ease; }
+    @keyframes cb-pop { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  }
+</style>
+
+<script define:vars={{ data: payload }}>
+  (function () {
+    const $ = (id) => document.getElementById(id);
+    const panel = $('cb-panel'), launcher = $('cb-launcher'), msgs = $('cb-msgs'),
+      chipsEl = $('cb-chips'), form = $('cb-inputrow'), input = $('cb-input');
+    if (!panel) return;
+
+    let lang = 'de';
+    try { lang = localStorage.getItem('botLang') || (document.documentElement.lang === 'en' ? 'en' : 'de'); } catch (e) {}
+    let selectedService = null;
+
+    const L = (k) => (data.ui[k] ? data.ui[k][lang] : '');
+    const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const scrollDown = () => { msgs.scrollTop = msgs.scrollHeight; };
+
+    function botMsg(html) { const d = document.createElement('div'); d.className = 'cb-bot'; d.innerHTML = html; msgs.appendChild(d); scrollDown(); return d; }
+    function userMsg(text) { const d = document.createElement('div'); d.className = 'cb-user'; d.textContent = text; msgs.appendChild(d); scrollDown(); }
+    function clearChips() { chipsEl.innerHTML = ''; }
+    function chips(items) {
+      clearChips();
+      items.forEach((it) => {
+        const b = document.createElement('button');
+        b.type = 'button'; b.className = 'cb-chip'; b.textContent = it.label;
+        b.addEventListener('click', it.onClick);
+        chipsEl.appendChild(b);
+      });
+      scrollDown();
+    }
+
+    const askChips = () => [
+      { label: L('moreQuestion'), onClick: faqMenu },
+      { label: L('requestCallback'), onClick: () => { selectedService = null; capture(); } },
+      { label: L('toStart'), onClick: start },
+    ];
+
+    function start() {
+      msgs.innerHTML = ''; clearChips();
+      botMsg(esc(L('greeting')));
+      chips([
+        { label: L('optService'), onClick: askService },
+        { label: L('optFaq'), onClick: faqMenu },
+        { label: L('optCall'), onClick: callNow },
+      ]);
+    }
+
+    function askService() {
+      userMsg(L('optService')); botMsg(esc(L('askService')));
+      const items = data.services.map((s) => ({ label: s.label[lang], onClick: () => pickService(s) }));
+      items.push({ label: L('otherService'), onClick: () => pickService(null) });
+      chips(items);
+    }
+
+    function pickService(s) { selectedService = s; userMsg(s ? s.label[lang] : L('otherService')); capture(); }
+
+    function faqMenu() {
+      userMsg(L('optFaq')); botMsg(esc(L('faqIntro')));
+      const items = data.faqs.map((f) => ({ label: f.chip[lang], onClick: () => answerFaq(f) }));
+      items.push({ label: L('requestCallback'), onClick: () => { selectedService = null; capture(); } });
+      chips(items);
+    }
+
+    function answerFaq(f) { userMsg(f.chip[lang]); botMsg(esc(f.answer[lang])); chips(askChips()); }
+
+    function callNow() {
+      userMsg(L('optCall'));
+      botMsg('<a href="tel:' + data.company.phoneHref + '" class="cb-link">' + esc(data.company.phone) + '</a> · ' + esc(L('online')));
+      chips([{ label: L('toStart'), onClick: start }]);
+    }
+
+    function capture() {
+      clearChips();
+      if (selectedService) botMsg(esc(L('serviceChosen')) + ' <strong>' + esc(selectedService.label[lang]) + '</strong>');
+      botMsg(esc(L('askContact')));
+      const wrap = document.createElement('div');
+      wrap.className = 'cb-bot cb-form';
+      wrap.innerHTML =
+        '<input id="cb-name" type="text" autocomplete="name" placeholder="' + esc(L('nameLabel')) + '" />' +
+        '<input id="cb-contact" type="text" placeholder="' + esc(L('contactLabel')) + '" />' +
+        '<input id="cb-time" type="text" placeholder="' + esc(L('timePlaceholder')) + '" />' +
+        '<label class="cb-consent"><input id="cb-consent" type="checkbox" /><span>' + esc(L('consent')) +
+        ' (<a href="/datenschutz/" target="_blank" rel="noopener" class="cb-link">' + esc(L('privacyLink')) + '</a>)</span></label>' +
+        '<p class="cb-note">' + esc(L('noHealthData')) + '</p>' +
+        '<button id="cb-submit" type="button" class="cb-send">' + esc(L('send')) + '</button>' +
+        '<p id="cb-err" class="cb-err" hidden></p>';
+      msgs.appendChild(wrap); scrollDown();
+      $('cb-submit').addEventListener('click', submitLead);
+      const c = $('cb-contact'); if (c) c.focus();
+    }
+
+    function submitLead() {
+      const name = ($('cb-name').value || '').trim();
+      const contact = ($('cb-contact').value || '').trim();
+      const time = ($('cb-time').value || '').trim();
+      const consent = $('cb-consent').checked;
+      const err = $('cb-err');
+      if (!contact) { err.textContent = L('contactRequired'); err.hidden = false; return; }
+      if (!consent) { err.textContent = L('consentRequired'); err.hidden = false; return; }
+      err.hidden = true;
+      const topic = selectedService ? selectedService.label[lang] : (lang === 'de' ? 'Allgemeine Beratung' : 'General advice');
+      const subject = (lang === 'de' ? 'Rückruf-Anfrage (Website): ' : 'Callback request (website): ') + topic;
+      const body =
+        (lang === 'de' ? 'Thema' : 'Topic') + ': ' + topic + '\n' +
+        L('nameLabel') + ': ' + (name || '-') + '\n' +
+        L('contactLabel') + ': ' + contact + '\n' +
+        L('timeLabel') + ': ' + (time || '-');
+      userMsg(contact + (time ? ' · ' + time : ''));
+      // Kein Backend: Anfrage per E-Mail. Für Produktion an Formular-/CRM-Endpunkt anbinden.
+      window.location.href = 'mailto:' + data.company.email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      botMsg(esc(L('thanks')));
+      botMsg(esc(L('thanksHint')) + ' <a href="tel:' + data.company.phoneHref + '" class="cb-link">' + esc(data.company.phone) + '</a>');
+      chips([{ label: L('toStart'), onClick: start }]);
+    }
+
+    function handleText(text) {
+      userMsg(text);
+      const n = text.toLowerCase();
+      const faq = data.faqs.find((f) => f.keywords.some((k) => n.includes(k)));
+      if (faq) { botMsg(esc(faq.answer[lang])); chips(askChips()); return; }
+      const svc = data.services.find((s) =>
+        n.includes(s.slug.replace(/-/g, ' ')) ||
+        s.label.de.toLowerCase().split(/[ -]/).some((w) => w.length > 4 && n.includes(w)) ||
+        s.label.en.toLowerCase().split(/[ -]/).some((w) => w.length > 4 && n.includes(w))
+      );
+      if (svc) { selectedService = svc; botMsg(esc(L('serviceChosen')) + ' <strong>' + esc(svc.label[lang]) + '</strong>'); capture(); return; }
+      if (data.intents.callback.some((k) => n.includes(k))) { selectedService = null; capture(); return; }
+      if (data.intents.services.some((k) => n.includes(k))) { askService(); return; }
+      botMsg(esc(L('fallback')));
+      chips([
+        { label: L('yesCallback'), onClick: () => { selectedService = null; capture(); } },
+        { label: L('optFaq'), onClick: faqMenu },
+      ]);
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const v = (input.value || '').trim();
+      if (!v) return;
+      input.value = '';
+      handleText(v);
+    });
+
+    function openPanel() {
+      panel.classList.remove('hidden');
+      panel.classList.add('flex');
+      launcher.setAttribute('aria-expanded', 'true');
+      if (!msgs.children.length) start();
+      setTimeout(() => input.focus(), 50);
+    }
+    function closePanel() {
+      panel.classList.add('hidden');
+      panel.classList.remove('flex');
+      launcher.setAttribute('aria-expanded', 'false');
+    }
+    launcher.addEventListener('click', () => (panel.classList.contains('hidden') ? openPanel() : closePanel()));
+    $('cb-close').addEventListener('click', closePanel);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.classList.contains('hidden')) closePanel(); });
+
+    function applyLangUI() {
+      document.querySelectorAll('[data-bot-lang]').forEach((b) => b.classList.toggle('cb-lang-on', b.dataset.botLang === lang));
+      $('cb-launcher-label').textContent = data.ui.launcher[lang];
+      $('cb-online').textContent = data.ui.online[lang];
+      $('cb-subtitle').setAttribute('aria-label', data.ui.subtitle[lang]);
+      input.placeholder = data.ui.inputPlaceholder[lang];
+      launcher.setAttribute('aria-label', lang === 'de' ? 'Chat öffnen' : 'Open chat');
+    }
+    document.querySelectorAll('[data-bot-lang]').forEach((b) =>
+      b.addEventListener('click', () => {
+        lang = b.dataset.botLang;
+        try { localStorage.setItem('botLang', lang); } catch (e) {}
+        applyLangUI();
+        start();
+      })
+    );
+    applyLangUI();
+  })();
+</script>

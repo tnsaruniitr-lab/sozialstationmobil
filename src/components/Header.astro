@@ -6,7 +6,6 @@ import { nav, company } from '../data/site';
 const path = Astro.url.pathname;
 const isActive = (href: string) =>
   href === '/' ? path === '/' : path.startsWith(href);
-const leistungen = nav.find((n) => n.label === 'Leistungen');
 const topLevel = nav.filter((n) => n.label !== 'Startseite');
 ---
 <header class="sticky top-0 z-50">
@@ -18,7 +17,7 @@ const topLevel = nav.filter((n) => n.label !== 'Startseite');
         <span>{company.tagline}</span>
       </p>
       <div class="flex items-center gap-5">
-        <span class="flex items-center gap-2">
+        <span class="hidden items-center gap-2 lg:flex">
           <Icon name="clock" class="h-4 w-4 text-accent-400" />
           Büro: Mo–Fr 8:00–16:30 Uhr
         </span>
@@ -26,6 +25,20 @@ const topLevel = nav.filter((n) => n.label !== 'Startseite');
           <Icon name="phone" class="h-4 w-4 text-accent-400" />
           {company.phone}
         </a>
+        <span class="flex items-center gap-1 border-l border-white/15 pl-3">
+          <a href={company.social.facebook} target="_blank" rel="noopener" class="grid h-9 w-9 place-items-center rounded-full text-brand-100 transition-colors hover:bg-white/10 hover:text-white" aria-label="Facebook">
+            <Icon name="facebook" class="h-5 w-5" />
+          </a>
+          <a href={company.social.instagram} target="_blank" rel="noopener" class="grid h-9 w-9 place-items-center rounded-full text-brand-100 transition-colors hover:bg-white/10 hover:text-white" aria-label="Instagram">
+            <Icon name="instagram" class="h-5 w-5" />
+          </a>
+          <a href={company.social.whatsapp} target="_blank" rel="noopener" class="grid h-9 w-9 place-items-center rounded-full text-brand-100 transition-colors hover:bg-[#25D366] hover:text-white" aria-label="WhatsApp">
+            <Icon name="whatsapp" class="h-5 w-5" />
+          </a>
+          <a href={company.social.messenger} target="_blank" rel="noopener" class="grid h-9 w-9 place-items-center rounded-full text-brand-100 transition-colors hover:bg-[#0084FF] hover:text-white" aria-label="Messenger">
+            <Icon name="messenger" class="h-5 w-5" />
+          </a>
+        </span>
       </div>
     </div>
   </div>
@@ -34,7 +47,7 @@ const topLevel = nav.filter((n) => n.label !== 'Startseite');
   <div class="border-b border-sand-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
     <nav class="container-page flex items-center justify-between gap-4 py-3" aria-label="Hauptnavigation">
       <a href="/" class="shrink-0" aria-label="Sozialstation Mobil – zur Startseite">
-        <Logo />
+        <Logo showTagline={false} />
       </a>
 
       <!-- Desktop -->
@@ -45,7 +58,7 @@ const topLevel = nav.filter((n) => n.label !== 'Startseite');
               <button
                 type="button"
                 class:list={[
-                  'flex items-center gap-1 rounded-full px-3.5 py-2 text-[0.95rem] font-semibold transition-colors',
+                  'flex items-center gap-1 whitespace-nowrap rounded-full px-3 py-2 text-[0.94rem] font-semibold transition-colors',
                   isActive(item.href) ? 'text-brand-700' : 'text-ink hover:text-brand-700',
                 ]}
                 aria-haspopup="true"
@@ -77,7 +90,7 @@ const topLevel = nav.filter((n) => n.label !== 'Startseite');
               <a
                 href={item.href}
                 class:list={[
-                  'rounded-full px-3.5 py-2 text-[0.95rem] font-semibold transition-colors',
+                  'whitespace-nowrap rounded-full px-3 py-2 text-[0.94rem] font-semibold transition-colors',
                   isActive(item.href) ? 'text-brand-700' : 'text-ink hover:text-brand-700',
                 ]}
                 aria-current={isActive(item.href) ? 'page' : undefined}
@@ -90,13 +103,13 @@ const topLevel = nav.filter((n) => n.label !== 'Startseite');
       </ul>
 
       <div class="hidden items-center gap-3 lg:flex">
-        <a href={`tel:${company.phoneHref}`} class="flex items-center gap-2 whitespace-nowrap font-display font-bold text-brand-700 hover:text-accent-600">
+        <a href={`tel:${company.phoneHref}`} class="hidden items-center gap-2 whitespace-nowrap font-display font-bold text-brand-700 hover:text-accent-600 xl:flex">
           <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand-50">
             <Icon name="phone" class="h-5 w-5" />
           </span>
           {company.phone}
         </a>
-        <a href="/kontakt/" class="btn btn-primary">Beratung anfragen</a>
+        <a href="/kontakt/" class="btn btn-primary whitespace-nowrap">Beratung anfragen</a>
       </div>
 
       <!-- Mobile-Toggle -->
@@ -133,32 +146,35 @@ const topLevel = nav.filter((n) => n.label !== 'Startseite');
           <li>
             <a href="/" class="block rounded-2xl px-4 py-3 text-lg font-semibold text-ink hover:bg-sand-50">Startseite</a>
           </li>
-          <li>
-            <details open={isActive('/leistungen/')}>
-              <summary class="flex cursor-pointer list-none items-center justify-between rounded-2xl px-4 py-3 text-lg font-semibold text-ink hover:bg-sand-50">
-                Leistungen
-                <Icon name="chevron-down" class="h-5 w-5 transition-transform [details[open]_&]:rotate-180" />
-              </summary>
-              <ul class="ml-3 mt-1 space-y-1 border-l-2 border-sand-200 pl-3">
-                {leistungen?.children?.map((child) => (
-                  <li>
-                    <a href={child.href} class="block rounded-xl px-4 py-2.5 font-medium text-ink-soft hover:bg-sand-50 hover:text-brand-700">
-                      {child.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </details>
-          </li>
           {topLevel
-            .filter((i) => i.label !== 'Leistungen' && i.label !== 'Kontakt')
-            .map((item) => (
-              <li>
-                <a href={item.href} class="block rounded-2xl px-4 py-3 text-lg font-semibold text-ink hover:bg-sand-50">
-                  {item.label}
-                </a>
-              </li>
-            ))}
+            .filter((i) => i.label !== 'Kontakt')
+            .map((item) =>
+              item.children ? (
+                <li>
+                  <details open={isActive(item.href)}>
+                    <summary class="flex cursor-pointer list-none items-center justify-between rounded-2xl px-4 py-3 text-lg font-semibold text-ink hover:bg-sand-50">
+                      {item.label}
+                      <Icon name="chevron-down" class="h-5 w-5 transition-transform [details[open]_&]:rotate-180" />
+                    </summary>
+                    <ul class="ml-3 mt-1 space-y-1 border-l-2 border-sand-200 pl-3">
+                      {item.children.map((child) => (
+                        <li>
+                          <a href={child.href} class="block rounded-xl px-4 py-2.5 font-medium text-ink-soft hover:bg-sand-50 hover:text-brand-700">
+                            {child.label}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                </li>
+              ) : (
+                <li>
+                  <a href={item.href} class="block rounded-2xl px-4 py-3 text-lg font-semibold text-ink hover:bg-sand-50">
+                    {item.label}
+                  </a>
+                </li>
+              )
+            )}
         </ul>
       </nav>
       <div class="space-y-3 border-t border-sand-200 p-4">
@@ -167,6 +183,12 @@ const topLevel = nav.filter((n) => n.label !== 'Startseite');
           {company.phone}
         </a>
         <a href="/kontakt/" class="btn btn-primary w-full">Beratung anfragen</a>
+        <div class="flex items-center justify-center gap-3 pt-1">
+          <a href={company.social.facebook} target="_blank" rel="noopener" class="grid h-11 w-11 place-items-center rounded-full bg-sand-100 text-brand-700 hover:bg-brand-50" aria-label="Facebook"><Icon name="facebook" class="h-5 w-5" /></a>
+          <a href={company.social.instagram} target="_blank" rel="noopener" class="grid h-11 w-11 place-items-center rounded-full bg-sand-100 text-brand-700 hover:bg-brand-50" aria-label="Instagram"><Icon name="instagram" class="h-5 w-5" /></a>
+          <a href={company.social.whatsapp} target="_blank" rel="noopener" class="grid h-11 w-11 place-items-center rounded-full bg-sand-100 text-[#25D366] hover:bg-brand-50" aria-label="WhatsApp"><Icon name="whatsapp" class="h-5 w-5" /></a>
+          <a href={company.social.messenger} target="_blank" rel="noopener" class="grid h-11 w-11 place-items-center rounded-full bg-sand-100 text-[#0084FF] hover:bg-brand-50" aria-label="Messenger"><Icon name="messenger" class="h-5 w-5" /></a>
+        </div>
       </div>
     </div>
   </div>

@@ -4,7 +4,7 @@ import Icon from '../../components/Icon.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import FaqAccordion from '../../components/FaqAccordion.astro';
 import CtaBand from '../../components/CtaBand.astro';
-import { services, company, type Service } from '../../data/site';
+import { services, company, serviceExtraFaqs, type Service } from '../../data/site';
 import { serviceSchema, faqSchema } from '../../lib/schema';
 
 export function getStaticPaths() {
@@ -26,10 +26,11 @@ const breadcrumbs = [
   { name: service.title, href: url },
 ];
 
-// Aus den vorhandenen, einzigartigen Inhalten je Leistung 2 FAQ-Paare erzeugen (AEO)
+// Abgeleitete FAQ (aus den einzigartigen Inhalten je Leistung) + kuratierte Zusatzfragen (AEO)
 const serviceFaqs = [
   { question: `Was bedeutet ${service.title}?`, answer: service.answer },
   { question: `Wer übernimmt die Kosten für ${service.title}?`, answer: service.funding },
+  ...(serviceExtraFaqs[service.slug] ?? []),
 ];
 
 const others = services.filter((s) => s.slug !== service.slug).slice(0, 3);

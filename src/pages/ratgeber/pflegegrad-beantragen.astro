@@ -1,0 +1,108 @@
+---
+import RatgeberArticle from '../../layouts/RatgeberArticle.astro';
+import { getRatgeberArticle } from '../../data/site';
+
+const a = getRatgeberArticle('pflegegrad-beantragen')!;
+const faqs = [
+  {
+    question: 'Wie lange dauert es, bis der Pflegegrad bewilligt wird?',
+    answer:
+      'Die Pflegekasse muss in der Regel innerhalb von 25 Arbeitstagen nach Antragstellung über den Pflegegrad entscheiden. In dringenden Fällen, etwa direkt nach einem Krankenhausaufenthalt, gelten kürzere Fristen.',
+  },
+  {
+    question: 'Ab wann erhalte ich Leistungen – auch rückwirkend?',
+    answer:
+      'Die Leistungen werden ab dem Monat der Antragstellung gewährt – auch dann, wenn die Begutachtung erst später stattfindet. Es lohnt sich daher, den Antrag frühzeitig zu stellen.',
+  },
+  {
+    question: 'Kostet die Begutachtung durch den Medizinischen Dienst etwas?',
+    answer:
+      'Nein. Die Begutachtung ist für Sie kostenlos. Sie wird von der Pflegekasse beauftragt und vom Medizinischen Dienst (bei privat Versicherten von Medicproof) durchgeführt.',
+  },
+];
+---
+<RatgeberArticle
+  slug={a.slug}
+  title="Pflegegrad beantragen: So gehen Sie Schritt für Schritt vor"
+  description="Pflegegrad beantragen in Berlin: Antrag bei der Pflegekasse, Begutachtung durch den Medizinischen Dienst (MD), Fristen, Pflegetagebuch-Tipps und was Sie bei einer Ablehnung tun können."
+  excerpt={a.excerpt}
+  faqs={faqs}
+  relatedServices={a.relatedServices}
+>
+  <p>
+    Ein Pflegegrad ist der Schlüssel zu den Leistungen der Pflegekasse. Wer im Alltag dauerhaft
+    auf Unterstützung angewiesen ist, sollte ihn beantragen – der Weg dorthin ist einfacher, als
+    viele denken. Hier erfahren Sie, wie das Verfahren abläuft und worauf es ankommt.
+  </p>
+
+  <h2>In fünf Schritten zum Pflegegrad</h2>
+
+  <h3>1. Antrag bei der Pflegekasse stellen</h3>
+  <p>
+    Der Antrag ist formlos möglich – telefonisch, schriftlich oder online bei der Pflegekasse,
+    die bei Ihrer Krankenkasse angesiedelt ist. Ein kurzer Satz genügt: „Ich beantrage Leistungen
+    der Pflegeversicherung." Die Kasse sendet Ihnen anschließend ein Antragsformular zu.
+  </p>
+
+  <h3>2. Den Begutachtungstermin vorbereiten</h3>
+  <p>
+    Nach dem Antrag beauftragt die Pflegekasse eine Begutachtung. Bereiten Sie sich gut vor:
+    Sammeln Sie Arztberichte, Medikamentenpläne und eine Liste der Hilfsmittel. Besonders hilfreich
+    ist ein Pflegetagebuch (siehe unten).
+  </p>
+
+  <h3>3. Begutachtung durch den Medizinischen Dienst (MD)</h3>
+  <p>
+    Eine Gutachterin oder ein Gutachter besucht Sie zu Hause und prüft, wie selbstständig Sie den
+    Alltag bewältigen. Wichtig: Schildern Sie Ihre Situation ehrlich an einem „normalen" Tag –
+    nicht besser, als sie ist.
+  </p>
+
+  <h3>4. Bescheid der Pflegekasse</h3>
+  <p>
+    Auf Basis des Gutachtens teilt Ihnen die Pflegekasse den Pflegegrad (1 bis 5) schriftlich mit.
+    Die Leistungen gelten rückwirkend ab dem Monat der Antragstellung.
+  </p>
+
+  <h3>5. Bei Ablehnung: Widerspruch einlegen</h3>
+  <p>
+    Sind Sie mit der Einstufung nicht einverstanden, können Sie innerhalb von vier Wochen
+    Widerspruch einlegen. Lassen Sie sich das Gutachten zusenden, um die Begründung
+    nachvollziehen zu können.
+  </p>
+
+  <h2>Wie läuft die Begutachtung ab?</h2>
+  <p>
+    Grundlage ist das sogenannte Neue Begutachtungsassessment (NBA). Bewertet wird, wie
+    selbstständig Sie in sechs Lebensbereichen sind – darunter:
+  </p>
+  <ul>
+    <li>Mobilität (z. B. Aufstehen, Treppensteigen)</li>
+    <li>Kognitive und kommunikative Fähigkeiten</li>
+    <li>Verhaltensweisen und psychische Problemlagen</li>
+    <li>Selbstversorgung (z. B. Waschen, Anziehen, Essen)</li>
+    <li>Umgang mit krankheits- und therapiebedingten Anforderungen</li>
+    <li>Gestaltung des Alltagslebens und sozialer Kontakte</li>
+  </ul>
+  <p>
+    Aus der Bewertung ergibt sich ein Gesamtwert, der über den Pflegegrad entscheidet. Es zählt
+    also nicht allein die körperliche Einschränkung, sondern die gesamte Selbstständigkeit.
+  </p>
+
+  <h2>Tipps für den Begutachtungstermin</h2>
+  <ul>
+    <li>Führen Sie ein bis zwei Wochen vorher ein <strong>Pflegetagebuch</strong>, das den täglichen Hilfebedarf dokumentiert.</li>
+    <li>Sorgen Sie dafür, dass eine vertraute Person beim Termin dabei ist.</li>
+    <li>Verschweigen Sie nichts aus Stolz – auch nicht, wo es „eigentlich noch geht".</li>
+    <li>Halten Sie Arztberichte, Diagnosen und Medikamentenpläne bereit.</li>
+  </ul>
+
+  <h2>Gut zu wissen</h2>
+  <p>
+    Ein anerkannter Pflegegrad eröffnet je nach Stufe verschiedene Leistungen – von Pflegegeld und
+    Pflegesachleistungen über den Entlastungsbetrag bis zu Zuschüssen für Hilfsmittel und
+    Wohnraumanpassung. Wie diese Leistungen aussehen, lesen Sie in unserem Beitrag zu
+    <a href="/ratgeber/pflegekosten-pflegegrad/">Pflegekosten &amp; Pflegegrad</a>. Gerne unterstützen
+    wir Sie auch persönlich bei der Vorbereitung – sprechen Sie uns einfach an.
+  </p>
+</RatgeberArticle>

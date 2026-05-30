@@ -1,0 +1,61 @@
+---
+/** VORSCHAU (noindex, nicht verlinkt) – Startseiten-Hero „Vollflächiges Hintergrundbild". Live-Seite unverändert. */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import { company, usps } from '../../data/site';
+const hero = '/images/hero-care.jpg';
+---
+<BaseLayout title="Vorschau – Hero mit Vollbild-Hintergrund" noindex>
+  <div class="bg-accent-600 text-center text-sm font-semibold text-white">
+    <div class="container-page py-2">
+      Design-Vorschau · Variante „Vollflächiges Hintergrundbild" · die Live-Seite bleibt unverändert ·
+      <a href="/samples/vorschau-foto-rahmen/" class="underline underline-offset-2 hover:text-accent-100">zur Rahmen-Variante →</a>
+    </div>
+  </div>
+
+  <!-- HERO: Vollflächiges Hintergrundbild -->
+  <section class="relative overflow-hidden">
+    <img src={hero} alt="Eine Pflegekraft der Sozialstation Mobil hält die Hände einer lächelnden Seniorin in einem hellen Wohnzimmer." class="absolute inset-0 h-full w-full object-cover object-center" width="2000" height="913" />
+    <!-- Lesbarkeits-Overlay (Verlauf von links) – Inline-Style, garantiert gerendert -->
+    <div class="absolute inset-0" style="background-image: linear-gradient(to right, rgba(19,40,60,0.92), rgba(19,40,60,0.66) 48%, rgba(19,40,60,0.16));"></div>
+
+    <div class="container-page relative flex min-h-[34rem] items-center py-16 lg:min-h-[40rem] lg:py-24">
+      <div class="max-w-2xl text-white">
+        <p class="eyebrow text-accent-300"><span class="inline-block h-2 w-2 rounded-full bg-accent-400"></span>Ambulanter Fachpflegedienst · Berlin-Reinickendorf</p>
+        <h1 class="mt-4 font-display text-4xl font-extrabold leading-[1.08] text-white sm:text-5xl lg:text-6xl">
+          Liebevolle Pflege,
+          <span class="relative whitespace-nowrap text-brand-200">die zu Ihnen
+            <svg class="absolute -bottom-2 left-0 h-3 w-full text-accent-400" viewBox="0 0 300 12" fill="none" preserveAspectRatio="none" aria-hidden="true"><path d="M2 9c60-6 230-9 296-3" stroke="currentColor" stroke-width="4" stroke-linecap="round" /></svg>
+          </span>
+          nach Hause kommt.
+        </h1>
+        <p class="mt-6 max-w-xl text-lg text-brand-50">
+          Damit das Leben in den eigenen vier Wänden gelingt – mit Herz, Fachkompetenz und Menschen,
+          auf die Sie sich verlassen können. 7 Tage die Woche für Sie da.
+        </p>
+        <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+          <a href={`tel:${company.phoneHref}`} class="btn btn-primary text-lg"><Icon name="phone" class="h-5 w-5" />{company.phone}</a>
+          <a href="/kontakt/" class="btn btn-secondary text-lg">Kostenlose Beratung<Icon name="arrow" class="h-5 w-5" /></a>
+        </div>
+        <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-white/90">
+          <li class="flex items-center gap-2"><Icon name="check-circle" class="h-5 w-5 text-accent-400" /> Examinierte Fachkräfte</li>
+          <li class="flex items-center gap-2"><Icon name="check-circle" class="h-5 w-5 text-accent-400" /> Alle Kassen &amp; Pflegegrade</li>
+          <li class="flex items-center gap-2"><Icon name="check-circle" class="h-5 w-5 text-accent-400" /> Rund um die Uhr</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- USP-Streifen -->
+  <section class="container-page py-12 lg:py-16">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {usps.map((u) => (
+        <div class="card p-6">
+          <span class="grid h-12 w-12 place-items-center rounded-2xl bg-accent-50 text-accent-600"><Icon name={u.icon} class="h-6 w-6" /></span>
+          <h2 class="mt-4 font-display text-lg font-bold text-brand-950">{u.title}</h2>
+          <p class="mt-1.5 text-[0.95rem] text-ink-soft">{u.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

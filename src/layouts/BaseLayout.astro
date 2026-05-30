@@ -2,8 +2,9 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ChatBot from '../components/ChatBot.astro';
 import { company, seoDefaults } from '../data/site';
-import { buildGraph, breadcrumbSchema } from '../lib/schema';
+import { buildGraph, breadcrumbSchema, webPageSchema } from '../lib/schema';
 
 interface Props {
   title: string;
@@ -29,8 +30,11 @@ const pageTitle = rawTitle ? title : `${title} | Sozialstation Mobil Berlin`;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL(image, Astro.site).href;
 
-// Breadcrumb-Schema ergänzen, wenn vorhanden
-const extraSchema = [...schema];
+// WebPage-Knoten (mit dateModified) + ggf. Breadcrumb-Schema ergänzen
+const extraSchema = [
+  webPageSchema({ url: canonical, name: pageTitle, description }),
+  ...schema,
+];
 if (breadcrumbs && breadcrumbs.length > 1) {
   extraSchema.push(breadcrumbSchema([{ name: 'Startseite', href: '/' }, ...breadcrumbs.slice(1)]));
 }
@@ -44,6 +48,9 @@ const jsonLd = buildGraph(extraSchema);
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <!-- Einsprachige Website (Deutsch) – selbstreferenzierendes hreflang + x-default -->
+    <link rel="alternate" hreflang="de" href={canonical} />
+    <link rel="alternate" hreflang="x-default" href={canonical} />
     <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
 
     <meta name="theme-color" content={seoDefaults.themeColor} />
@@ -96,5 +103,6 @@ const jsonLd = buildGraph(extraSchema);
       <slot />
     </main>
     <Footer />
+    <ChatBot />
   </body>
 </html>

@@ -13,8 +13,8 @@ export default defineConfig({
       changefreq: 'monthly',
       priority: 0.7,
       lastmod: new Date('2026-05-30'),
-      // Rechtstexte (noindex) aus der Sitemap ausschließen
-      filter: (page) => !page.includes('/datenschutz/'),
+      // Rechtstexte (noindex) + interne Vorschau aus der Sitemap ausschließen
+      filter: (page) => !page.includes('/datenschutz/') && !page.includes('/samples/'),
     }),
   ],
   vite: {

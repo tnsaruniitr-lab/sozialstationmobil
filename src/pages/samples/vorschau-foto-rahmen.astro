@@ -1,0 +1,81 @@
+---
+/** VORSCHAU (noindex, nicht verlinkt) – Startseiten-Hero „Foto im Rahmen". Live-Seite unverändert. */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import { company, usps } from '../../data/site';
+const hero = '/images/hero-care.jpg';
+---
+<BaseLayout title="Vorschau – Hero mit Foto im Rahmen" noindex>
+  <div class="bg-accent-600 text-center text-sm font-semibold text-white">
+    <div class="container-page py-2">
+      Design-Vorschau · Variante „Foto im Rahmen" · die Live-Seite bleibt unverändert ·
+      <a href="/samples/vorschau-vollbild/" class="underline underline-offset-2 hover:text-accent-100">zur Vollbild-Variante →</a>
+    </div>
+  </div>
+
+  <!-- HERO: Foto im Rahmen -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-brand-50 via-sand-50 to-sand-50">
+    <div class="pointer-events-none absolute -left-32 -top-24 h-80 w-80 rounded-full bg-brand-100/60 blur-2xl"></div>
+    <div class="pointer-events-none absolute right-0 top-32 h-72 w-72 rounded-full bg-accent-100/50 blur-2xl"></div>
+
+    <div class="container-page relative grid items-center gap-10 py-12 lg:grid-cols-2 lg:gap-12 lg:py-20">
+      <div>
+        <p class="eyebrow"><span class="inline-block h-2 w-2 rounded-full bg-accent-500"></span>Ambulanter Fachpflegedienst · Berlin-Reinickendorf</p>
+        <h1 class="mt-4 font-display text-4xl font-extrabold leading-[1.08] text-brand-950 sm:text-5xl lg:text-[3.4rem]">
+          Liebevolle Pflege,
+          <span class="relative whitespace-nowrap text-brand-600">die zu Ihnen
+            <svg class="absolute -bottom-2 left-0 h-3 w-full text-accent-400" viewBox="0 0 300 12" fill="none" preserveAspectRatio="none" aria-hidden="true"><path d="M2 9c60-6 230-9 296-3" stroke="currentColor" stroke-width="4" stroke-linecap="round" /></svg>
+          </span>
+          nach Hause kommt.
+        </h1>
+        <p class="mt-6 max-w-xl text-lg text-ink-soft">
+          Damit das Leben in den eigenen vier Wänden gelingt: Unser erfahrenes Team aus examinierten
+          Pflegefachkräften versorgt, pflegt und betreut Sie zuverlässig – mit Herz, Fachkompetenz und auf Augenhöhe.
+        </p>
+        <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+          <a href={`tel:${company.phoneHref}`} class="btn btn-primary text-lg"><Icon name="phone" class="h-5 w-5" />{company.phone}</a>
+          <a href="/kontakt/" class="btn btn-secondary text-lg">Kostenlose Beratung<Icon name="arrow" class="h-5 w-5" /></a>
+        </div>
+        <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-brand-800">
+          <li class="flex items-center gap-2"><Icon name="check-circle" class="h-5 w-5 text-accent-500" /> Examinierte Fachkräfte</li>
+          <li class="flex items-center gap-2"><Icon name="check-circle" class="h-5 w-5 text-accent-500" /> Alle Kassen &amp; Pflegegrade</li>
+          <li class="flex items-center gap-2"><Icon name="check-circle" class="h-5 w-5 text-accent-500" /> Rund um die Uhr</li>
+        </ul>
+      </div>
+
+      <!-- Foto im Rahmen -->
+      <div class="relative">
+        <div class="relative overflow-hidden rounded-[2.5rem] bg-white p-2.5 shadow-lift ring-1 ring-sand-200">
+          <img src={hero} alt="Eine Pflegekraft der Sozialstation Mobil hält die Hände einer lächelnden Seniorin in einem hellen Wohnzimmer." class="aspect-[4/3] w-full rounded-[2rem] object-cover" width="2000" height="913" />
+        </div>
+        <div class="absolute -left-3 top-6 hidden rounded-2xl bg-white p-4 shadow-lift ring-1 ring-sand-200 sm:flex sm:items-center sm:gap-3 lg:-left-6">
+          <span class="grid h-11 w-11 place-items-center rounded-xl bg-accent-50 text-accent-600"><Icon name="clock" class="h-6 w-6" /></span>
+          <span><span class="block font-display font-bold text-brand-950">Rund um die Uhr</span><span class="block text-sm text-ink-soft">7 Tage die Woche</span></span>
+        </div>
+        <div class="absolute -bottom-4 right-0 hidden rounded-2xl bg-white p-4 shadow-lift ring-1 ring-sand-200 sm:block lg:-right-4">
+          <div class="flex items-center gap-3">
+            <div class="flex -space-x-3">
+              <span class="grid h-9 w-9 place-items-center rounded-full bg-brand-500 text-xs font-bold text-white ring-2 ring-white">SM</span>
+              <span class="grid h-9 w-9 place-items-center rounded-full bg-accent-500 text-xs font-bold text-white ring-2 ring-white">AB</span>
+              <span class="grid h-9 w-9 place-items-center rounded-full bg-brand-700 text-xs font-bold text-white ring-2 ring-white">+</span>
+            </div>
+            <span><span class="block font-display font-bold text-brand-950">Festes Team</span><span class="block text-sm text-ink-soft">Ihre Bezugspflegekraft</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- USP-Streifen (zeigt den Übergang in die Seite) -->
+  <section class="container-page -mt-6 pb-10 lg:-mt-12">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {usps.map((u) => (
+        <div class="card p-6">
+          <span class="grid h-12 w-12 place-items-center rounded-2xl bg-accent-50 text-accent-600"><Icon name={u.icon} class="h-6 w-6" /></span>
+          <h2 class="mt-4 font-display text-lg font-bold text-brand-950">{u.title}</h2>
+          <p class="mt-1.5 text-[0.95rem] text-ink-soft">{u.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

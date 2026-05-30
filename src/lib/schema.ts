@@ -10,6 +10,10 @@ const SITE = 'https://sozialstationmobil.de';
 export const ORG_ID = `${SITE}/#organization`;
 const WEBSITE_ID = `${SITE}/#website`;
 
+// Stand der letzten inhaltlichen Aktualisierung – speist Frische-Signale (dateModified).
+// Bei Inhaltsänderungen aktualisieren.
+export const LAST_UPDATED = '2026-05-30';
+
 /** Zentrale Unternehmens-Entität (MedicalBusiness / LocalBusiness) */
 export function organizationSchema() {
   return {
@@ -27,6 +31,7 @@ export function organizationSchema() {
     currenciesAccepted: 'EUR',
     slogan: company.claim,
     knowsLanguage: ['de'],
+    medicalSpecialty: 'Geriatric',
     address: {
       '@type': 'PostalAddress',
       streetAddress: company.address.street,
@@ -43,6 +48,8 @@ export function organizationSchema() {
     founder: {
       '@type': 'Person',
       name: company.managingDirector,
+      jobTitle: 'Geschäftsführer',
+      // hasCredential: vom Betreiber ergänzen (z. B. Qualifikation/Titel) – stärkt E-E-A-T (YMYL)
     },
     openingHoursSpecification: openingHoursSpec.map((s) => ({
       '@type': 'OpeningHoursSpecification',
@@ -52,19 +59,14 @@ export function organizationSchema() {
     })),
     areaServed: serviceAreas.map((a) => ({ '@type': 'AdministrativeArea', name: a })),
     sameAs: [company.social.facebook, company.social.instagram],
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: 'Pflege- und Betreuungsleistungen',
-      itemListElement: services.map((s) => ({
-        '@type': 'Offer',
-        itemOffered: {
-          '@type': 'Service',
-          name: s.title,
-          description: s.short,
-          url: `${SITE}/leistungen/${s.slug}/`,
-        },
-      })),
-    },
+    // Leistungen als availableService modelliert – nicht als Offer (Pflege ist
+    // kassenfinanziert und ohne festen Preis; Offer ohne price gilt als unvollständig).
+    availableService: services.map((s) => ({
+      '@type': 'Service',
+      name: s.title,
+      description: s.short,
+      url: `${SITE}/leistungen/${s.slug}/`,
+    })),
   };
 }
 
@@ -76,6 +78,23 @@ export function websiteSchema() {
     name: seoDefaults.siteName,
     inLanguage: 'de-DE',
     publisher: { '@id': ORG_ID },
+  };
+}
+
+/** WebPage-Knoten mit Frische-Signal (dateModified) – relevant für AEO-Aktualität */
+export function webPageSchema(opts: { url: string; name: string; description: string }) {
+  return {
+    '@type': 'WebPage',
+    '@id': `${opts.url}#webpage`,
+    url: opts.url,
+    name: opts.name,
+    description: opts.description,
+    isPartOf: { '@id': WEBSITE_ID },
+    about: { '@id': ORG_ID },
+    inLanguage: 'de-DE',
+    datePublished: LAST_UPDATED,
+    dateModified: LAST_UPDATED,
+    primaryImageOfPage: `${SITE}/og-default.png`,
   };
 }
 
@@ -98,6 +117,23 @@ export function serviceSchema(opts: {
       servicePhone: company.phone,
       serviceUrl: `${SITE}/kontakt/`,
     },
+  };
+}
+
+/** Ratgeber-Artikel als Article-Schema (Frische + Urheberschaft → gut für AEO) */
+export function articleSchema(opts: { headline: string; description: string; url: string }) {
+  return {
+    '@type': 'Article',
+    headline: opts.headline,
+    description: opts.description,
+    image: `${SITE}/og-default.png`,
+    mainEntityOfPage: { '@id': `${opts.url}#webpage` },
+    inLanguage: 'de-DE',
+    datePublished: LAST_UPDATED,
+    dateModified: LAST_UPDATED,
+    author: { '@id': ORG_ID },
+    publisher: { '@id': ORG_ID },
+    about: { '@id': ORG_ID },
   };
 }
 

@@ -237,3 +237,24 @@
     to { opacity: 1; transform: none; }
   }
 }
+
+/* ===========================================================================
+   Sicherheitsnetz für object-fit (garantiert vorhanden – unabhängig vom
+   Dev-Server-Cache). Verhindert verzerrte/gestreckte Bilder.
+   =========================================================================== */
+.object-cover { object-fit: cover; }
+.object-contain { object-fit: contain; }
+
+/* ===========================================================================
+   Hero-Design-Umschalter (temporäres Werkzeug zur Designentscheidung)
+   Zwei Startseiten-Hero-Stile, umschaltbar per Button. Standard: Vollbild.
+   =========================================================================== */
+[data-hero-variant] { display: none; }
+/* Standard (ohne JS / ohne Klasse) = Vollbild */
+html:not(.hero-rahmen):not(.hero-video) [data-hero-variant='vollbild'] { display: block; }
+html.hero-vollbild [data-hero-variant='vollbild'] { display: block; }
+html.hero-rahmen [data-hero-variant='rahmen'] { display: block; }
+html.hero-video [data-hero-variant='video'] { display: block; }
+.home-usp { margin-top: 2.5rem; }
+html.hero-rahmen .home-usp { margin-top: -2.5rem; }
+@media (min-width: 1024px) { html.hero-rahmen .home-usp { margin-top: -3rem; } }

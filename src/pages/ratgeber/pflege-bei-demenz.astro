@@ -1,0 +1,74 @@
+---
+import RatgeberArticle from '../../layouts/RatgeberArticle.astro';
+import { getRatgeberArticle } from '../../data/site';
+
+const a = getRatgeberArticle('pflege-bei-demenz')!;
+const faqs = [
+  {
+    question: 'Welche Leistungen stehen Menschen mit Demenz zu?',
+    answer:
+      'Mit einem anerkannten Pflegegrad stehen unter anderem Pflegesachleistungen, der Entlastungsbetrag von 131 € monatlich sowie Angebote zur Betreuung und Entlastung zur Verfügung. Bereits Pflegegrad 1 berechtigt zum Entlastungsbetrag.',
+  },
+  {
+    question: 'Wie kann ich mich als pflegende Angehörige entlasten?',
+    answer:
+      'Nutzen Sie Betreuungs- und Entlastungsangebote, tauschen Sie sich in Angehörigengruppen aus und nehmen Sie Auszeiten über die Verhinderungs- oder Kurzzeitpflege wahr. Sich selbst zu schonen ist kein Egoismus – es erhält Ihre Kraft.',
+  },
+  {
+    question: 'Wann ist Betreuung zu Hause nicht mehr ausreichend?',
+    answer:
+      'Wenn Weglauftendenz, nächtliche Unruhe oder Selbstgefährdung zunehmen und eine sichere Versorgung allein zu Hause nicht mehr möglich ist, kann eine ambulant betreute Wohngemeinschaft eine geborgene Alternative sein. Was im Einzelfall passt, besprechen wir gerne mit Ihnen.',
+  },
+];
+---
+<RatgeberArticle
+  slug={a.slug}
+  title="Pflege bei Demenz: Menschen würdevoll zu Hause begleiten"
+  description="Ratgeber Demenz: Wie Sie Menschen mit Demenz im Alltag begleiten, welche Unterstützungs- und Entlastungsangebote es gibt und wann eine betreute Wohngemeinschaft sinnvoll ist. Sozialstation Mobil Berlin."
+  excerpt={a.excerpt}
+  faqs={faqs}
+  relatedServices={a.relatedServices}
+>
+  <p>
+    Eine Demenz verändert das Leben – für die Betroffenen und für ihre Familien. Mit Geduld,
+    Struktur und der richtigen Unterstützung lässt sich der Alltag oft lange zu Hause gestalten.
+    Dieser Ratgeber gibt einen Überblick über hilfreiche Angebote und praktische Tipps.
+  </p>
+
+  <h2>Was Menschen mit Demenz im Alltag hilft</h2>
+  <ul>
+    <li>Eine <strong>vertraute Umgebung</strong> und feste Bezugspersonen geben Sicherheit.</li>
+    <li>Klare <strong>Routinen</strong> und ein gleichmäßiger Tagesablauf reduzieren Stress.</li>
+    <li>Ruhige, wertschätzende Kommunikation – kurze Sätze, Blickkontakt, Zeit lassen.</li>
+    <li>Aktivierung über Musik, Erinnerungen und einfache gemeinsame Tätigkeiten.</li>
+    <li>Eine sichere Wohnung (gute Beleuchtung, weniger Stolperfallen, Orientierungshilfen).</li>
+  </ul>
+
+  <h2>Welche Leistungen entlasten?</h2>
+  <p>
+    Mit einem Pflegegrad stehen verschiedene Hilfen zur Verfügung, die gezielt entlasten:
+  </p>
+  <ul>
+    <li><strong>Entlastungsbetrag (131 €/Monat):</strong> für Betreuung und Alltagsbegleitung – schon ab Pflegegrad 1.</li>
+    <li><strong>Betreuungs- und Entlastungsleistungen:</strong> stundenweise Begleitung, Gesellschaft, Spaziergänge.</li>
+    <li><strong>Verhinderungs- und Kurzzeitpflege:</strong> Auszeiten für pflegende Angehörige.</li>
+    <li><strong>Pflegesachleistungen:</strong> für Grund- und Behandlungspflege durch einen Pflegedienst.</li>
+  </ul>
+
+  <h2>Tipps für pflegende Angehörige</h2>
+  <p>
+    Die Begleitung eines Menschen mit Demenz ist erfüllend, aber auch fordernd. Achten Sie auf sich:
+    Nehmen Sie Hilfe an, gönnen Sie sich regelmäßige Pausen und tauschen Sie sich mit anderen
+    Angehörigen aus. Niemand muss diesen Weg allein gehen.
+  </p>
+
+  <h2>Wann ist eine betreute Wohngemeinschaft sinnvoll?</h2>
+  <p>
+    Schreitet die Demenz fort, kann das Leben allein zu Hause an Grenzen stoßen – etwa bei
+    nächtlicher Unruhe oder Selbstgefährdung. Eine ambulant betreute Wohngemeinschaft bietet dann
+    Geborgenheit in kleiner, familiärer Runde mit Betreuung rund um die Uhr. Wie das bei uns
+    aussieht, lesen Sie auf der Seite zur
+    <a href="/leistungen/demenz-wohngemeinschaft/">Demenz-Wohngemeinschaft</a>. Ergänzend stellen wir
+    unsere <a href="/leistungen/entlastungsleistungen/">Entlastungs- und Betreuungsleistungen</a> vor.
+  </p>
+</RatgeberArticle>

@@ -1,0 +1,193 @@
+---
+/**
+ * INTERNE VORSCHAU – nicht im Menü verlinkt, noindex, aus der Sitemap ausgeschlossen.
+ * Zeigt Hero-Varianten + Sprachumschalter-Demo, ohne den Live-Auftritt zu verändern.
+ * Die verwendeten Fotos sind PLATZHALTER (freie Stock-Bilder) – für die finale Seite
+ * durch lizenzierte oder KI-generierte Bilder ersetzen.
+ *
+ * Diese Datei kann jederzeit gefahrlos gelöscht werden.
+ */
+import '../../styles/global.css';
+import Icon from '../../components/Icon.astro';
+import HeroArt from '../../components/HeroArt.astro';
+
+// Ihr gewähltes Bild (lokal gespeichert)
+const imgSplit = '/images/hero-care.jpg';
+const imgBg = '/images/hero-care.jpg';
+
+const gallery = [
+  { url: 'https://images.unsplash.com/photo-1580869318757-a6c605b061ed?w=800&q=80', label: 'Pflegekraft hält Hand (warm, Blau)' },
+  { url: 'https://images.pexels.com/photos/29372534/pexels-photo-29372534.jpeg?auto=compress&cs=tinysrgb&w=800', label: 'Herzliche Begrüßung zu Hause' },
+  { url: 'https://images.pexels.com/photos/29372693/pexels-photo-29372693.jpeg?auto=compress&cs=tinysrgb&w=800', label: 'Häusliche Versorgung' },
+  { url: 'https://images.pexels.com/photos/29372733/pexels-photo-29372733.jpeg?auto=compress&cs=tinysrgb&w=800', label: 'Hilfe im Haushalt' },
+  { url: 'https://images.unsplash.com/photo-1543333995-a78aea2eee50?w=800&q=80', label: 'Begleitung im Freien' },
+  { url: 'https://images.unsplash.com/photo-1584515933487-779824d29309?w=800&q=80', label: 'Hände – Nähe & Fürsorge' },
+];
+---
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Interne Vorschau – Hero-Optionen & Sprachumschalter</title>
+  </head>
+  <body class="bg-sand-50">
+    <!-- Sandbox-Hinweis + Sprachumschalter-Demo -->
+    <div class="sticky top-0 z-50 border-b border-brand-800 bg-brand-950 text-white">
+      <div class="container-page flex flex-wrap items-center justify-between gap-3 py-2.5 text-sm">
+        <p class="flex items-center gap-2">
+          <Icon name="shield" class="h-4 w-4 text-accent-400" />
+          Interne Vorschau – nicht verlinkt, <code class="rounded bg-white/10 px-1.5 py-0.5">noindex</code>. Der Live-Auftritt bleibt unverändert.
+        </p>
+        <div class="flex items-center gap-2">
+          <span class="text-brand-200">Sprache (Demo):</span>
+          <div class="inline-flex overflow-hidden rounded-full border border-white/20">
+            <button type="button" data-lang="de" class="lang-btn bg-white px-3 py-1 font-semibold text-brand-900">DE</button>
+            <button type="button" data-lang="en" class="lang-btn px-3 py-1 font-semibold text-white">EN</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <header class="container-page py-10">
+      <h1 class="font-display text-3xl font-extrabold text-brand-950 md:text-4xl">Hero-Optionen zur Auswahl</h1>
+      <p class="mt-3 max-w-2xl text-lg text-ink-soft">
+        Varianten für den oberen Bereich der Startseite – mit Ihrem gewählten Bild. Die beiden
+        Vollvorschauen zeigen, wie die echte Startseite (inkl. Kopfzeile) damit aussähe.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href="/samples/vorschau-foto-rahmen/" class="btn btn-primary">Vollvorschau: Foto im Rahmen<Icon name="arrow" class="h-5 w-5" /></a>
+        <a href="/samples/vorschau-vollbild/" class="btn btn-ghost">Vollvorschau: Vollbild-Hintergrund<Icon name="arrow" class="h-5 w-5" /></a>
+      </div>
+    </header>
+
+    <!-- ===================== OPTION 1: AKTUELL (ILLUSTRATION) ===================== -->
+    <div class="container-page">
+      <div class="flex items-center gap-3 rounded-t-2xl bg-brand-100 px-5 py-3">
+        <span class="grid h-8 w-8 place-items-center rounded-full bg-brand-700 font-display text-sm font-bold text-white">1</span>
+        <h2 class="font-display text-lg font-bold text-brand-900">Aktuell – Illustration (geteiltes Layout)</h2>
+        <span class="ml-auto text-sm text-ink-soft">Warm & eigenständig, kein Bildmaterial nötig</span>
+      </div>
+    </div>
+    <section class="relative overflow-hidden border-x border-b border-sand-200 bg-gradient-to-b from-brand-50 via-sand-50 to-sand-50">
+      <div class="container-page grid items-center gap-10 py-12 lg:grid-cols-2 lg:py-16">
+        <div>
+          <p class="eyebrow"><span class="inline-block h-2 w-2 rounded-full bg-accent-500"></span><span data-en="Outpatient nursing service · Berlin-Reinickendorf">Ambulanter Fachpflegedienst · Berlin-Reinickendorf</span></p>
+          <h2 class="mt-4 font-display text-4xl font-extrabold leading-[1.08] text-brand-950 sm:text-5xl" data-en="Compassionate care that comes to your home.">Liebevolle Pflege, die zu Ihnen nach Hause kommt.</h2>
+          <p class="mt-6 max-w-xl text-lg text-ink-soft" data-en="So that life at home works: our experienced team of qualified nurses cares for and supports you reliably – with heart, expertise and at eye level.">Damit das Leben in den eigenen vier Wänden gelingt: Unser erfahrenes Team aus examinierten Pflegefachkräften versorgt, pflegt und betreut Sie zuverlässig – mit Herz, Fachkompetenz und auf Augenhöhe.</p>
+          <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+            <a href="#" class="btn btn-primary text-lg"><Icon name="phone" class="h-5 w-5" />030 4169811</a>
+            <a href="#" class="btn btn-secondary text-lg" data-en="Free consultation">Kostenlose Beratung</a>
+          </div>
+        </div>
+        <div class="relative mx-auto max-w-lg rounded-[2.5rem] bg-gradient-to-br from-white to-brand-50 p-3 shadow-lift ring-1 ring-sand-200">
+          <div class="overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand-100/60 to-accent-50"><HeroArt class="h-auto w-full" /></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== OPTION 2: FOTO, GETEILTES LAYOUT ===================== -->
+    <div class="container-page mt-12">
+      <div class="flex items-center gap-3 rounded-t-2xl bg-brand-100 px-5 py-3">
+        <span class="grid h-8 w-8 place-items-center rounded-full bg-brand-700 font-display text-sm font-bold text-white">2</span>
+        <h2 class="font-display text-lg font-bold text-brand-900">Foto – geteiltes Layout (Text links, Bild rechts)</h2>
+        <span class="ml-auto text-sm text-ink-soft">Echtes Foto + schwebende Vertrauenskarten</span>
+      </div>
+    </div>
+    <section class="relative overflow-hidden border-x border-b border-sand-200 bg-gradient-to-b from-brand-50 to-sand-50">
+      <div class="container-page grid items-center gap-10 py-12 lg:grid-cols-2 lg:py-16">
+        <div>
+          <p class="eyebrow"><span class="inline-block h-2 w-2 rounded-full bg-accent-500"></span><span data-en="Outpatient nursing service · Berlin-Reinickendorf">Ambulanter Fachpflegedienst · Berlin-Reinickendorf</span></p>
+          <h2 class="mt-4 font-display text-4xl font-extrabold leading-[1.08] text-brand-950 sm:text-5xl" data-en="Compassionate care that comes to your home.">Liebevolle Pflege, die zu Ihnen nach Hause kommt.</h2>
+          <p class="mt-6 max-w-xl text-lg text-ink-soft" data-en="Reliable, warm-hearted care in your own four walls – from qualified nurses who become familiar faces.">Verlässliche, herzliche Pflege in den eigenen vier Wänden – von examinierten Fachkräften, die zu vertrauten Gesichtern werden.</p>
+          <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+            <a href="#" class="btn btn-primary text-lg"><Icon name="phone" class="h-5 w-5" />030 4169811</a>
+            <a href="#" class="btn btn-secondary text-lg" data-en="Free consultation">Kostenlose Beratung</a>
+          </div>
+          <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-brand-800">
+            <li class="flex items-center gap-2"><Icon name="check-circle" class="h-5 w-5 text-accent-500" /><span data-en="Qualified professionals">Examinierte Fachkräfte</span></li>
+            <li class="flex items-center gap-2"><Icon name="check-circle" class="h-5 w-5 text-accent-500" /><span data-en="Around the clock">Rund um die Uhr</span></li>
+          </ul>
+        </div>
+        <div class="relative mx-auto w-full max-w-lg">
+          <div class="overflow-hidden rounded-[2rem] shadow-lift ring-1 ring-sand-200">
+            <img src={imgSplit} alt="Pflegekraft begleitet eine ältere Person zu Hause (Platzhalterfoto)" class="aspect-[4/5] w-full object-cover" loading="lazy" />
+          </div>
+          <div class="absolute -bottom-4 -left-4 hidden rounded-2xl bg-white p-4 shadow-lift ring-1 ring-sand-200 sm:flex sm:items-center sm:gap-3">
+            <span class="grid h-11 w-11 place-items-center rounded-xl bg-accent-50 text-accent-600"><Icon name="clock" class="h-6 w-6" /></span>
+            <span><span class="block font-display font-bold text-brand-950" data-en="Around the clock">Rund um die Uhr</span><span class="block text-sm text-ink-soft" data-en="7 days a week">7 Tage die Woche</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== OPTION 3: VOLLFLÄCHIGES HINTERGRUNDBILD ===================== -->
+    <div class="container-page mt-12">
+      <div class="flex items-center gap-3 rounded-t-2xl bg-brand-100 px-5 py-3">
+        <span class="grid h-8 w-8 place-items-center rounded-full bg-brand-700 font-display text-sm font-bold text-white">3</span>
+        <h2 class="font-display text-lg font-bold text-brand-900">Vollflächiges Hintergrundbild</h2>
+        <span class="ml-auto text-sm text-ink-soft">Großes Bild, Text mit Overlay – emotional</span>
+      </div>
+    </div>
+    <section class="relative isolate overflow-hidden border-x border-b border-sand-200">
+      <img src={imgBg} alt="Häusliche Pflege (Platzhalterfoto)" class="absolute inset-0 -z-10 h-full w-full object-cover" loading="lazy" />
+      <div class="absolute inset-0 -z-10" style="background-image: linear-gradient(to right, rgba(19,40,60,0.9), rgba(19,40,60,0.66) 48%, rgba(19,40,60,0.18));"></div>
+      <div class="container-page py-20 lg:py-28">
+        <div class="max-w-xl text-white">
+          <p class="eyebrow text-accent-300"><span class="inline-block h-2 w-2 rounded-full bg-accent-400"></span><span data-en="Outpatient nursing service · Berlin-Reinickendorf">Ambulanter Fachpflegedienst · Berlin-Reinickendorf</span></p>
+          <h2 class="mt-4 font-display text-4xl font-extrabold leading-[1.08] text-white sm:text-5xl lg:text-6xl" data-en="Compassionate care that comes to your home.">Liebevolle Pflege, die zu Ihnen nach Hause kommt.</h2>
+          <p class="mt-6 text-lg text-brand-50" data-en="So that life at home works – with heart, expertise and people you can rely on.">Damit das Leben in den eigenen vier Wänden gelingt – mit Herz, Fachkompetenz und Menschen, auf die Sie sich verlassen können.</p>
+          <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+            <a href="#" class="btn btn-primary text-lg"><Icon name="phone" class="h-5 w-5" />030 4169811</a>
+            <a href="#" class="btn btn-secondary text-lg" data-en="Free consultation">Kostenlose Beratung</a>
+          </div>
+          <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-white/90">
+            <li class="flex items-center gap-2"><Icon name="check-circle" class="h-5 w-5 text-accent-400" /><span data-en="Qualified professionals">Examinierte Fachkräfte</span></li>
+            <li class="flex items-center gap-2"><Icon name="check-circle" class="h-5 w-5 text-accent-400" /><span data-en="All insurers & care levels">Alle Kassen &amp; Pflegegrade</span></li>
+            <li class="flex items-center gap-2"><Icon name="check-circle" class="h-5 w-5 text-accent-400" /><span data-en="Around the clock">Rund um die Uhr</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== BILDIDEEN-GALERIE ===================== -->
+    <section class="container-page py-16">
+      <h2 class="font-display text-2xl font-extrabold text-brand-950">Bildideen (Platzhalter)</h2>
+      <p class="mt-2 max-w-2xl text-ink-soft">
+        Beispiele für den Bildstil. Wählen Sie eine Richtung – die finale Version erstellen wir als
+        lizenziertes Stockfoto oder KI-Bild. Bitte beachten: vor dem Live-Gang muss jedes Bild korrekt
+        lizenziert (oder selbst erstellt) sein.
+      </p>
+      <div class="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3">
+        {gallery.map((g) => (
+          <figure class="overflow-hidden rounded-2xl bg-white shadow-soft ring-1 ring-sand-200">
+            <img src={g.url} alt={g.label} class="aspect-[4/3] w-full object-cover" loading="lazy" />
+            <figcaption class="px-4 py-3 text-sm font-medium text-ink-soft">{g.label}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+
+    <script>
+      // Sprachumschalter-Demo: tauscht Texte mit [data-en] live aus
+      const nodes = document.querySelectorAll('[data-en]');
+      nodes.forEach((n) => ((n as HTMLElement).dataset.de = n.innerHTML));
+      const buttons = document.querySelectorAll<HTMLButtonElement>('.lang-btn');
+      const setLang = (lang: string) => {
+        nodes.forEach((n) => {
+          const el = n as HTMLElement;
+          el.innerHTML = lang === 'en' ? el.dataset.en || el.dataset.de || '' : el.dataset.de || '';
+        });
+        buttons.forEach((b) => {
+          const active = b.dataset.lang === lang;
+          b.classList.toggle('bg-white', active);
+          b.classList.toggle('text-brand-900', active);
+          b.classList.toggle('text-white', !active);
+        });
+        document.documentElement.lang = lang;
+      };
+      buttons.forEach((b) => b.addEventListener('click', () => setLang(b.dataset.lang || 'de')));
+    </script>
+  </body>
+</html>

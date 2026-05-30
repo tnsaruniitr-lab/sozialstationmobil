@@ -21,7 +21,9 @@ export const company = {
 
   // Kontakt / NAP – muss überall identisch sein
   phone: '030 4169811',
-  phoneHref: '+493041698110',
+  phoneHref: '+49304169811', // +49 30 4169811 – bitte verifizieren
+  // Internationale Ziffernfolge für WhatsApp (ohne +, ohne führende 0)
+  phoneIntl: '49304169811',
   email: 'info@sozialstationmobil.de',
   fax: '',
 
@@ -47,9 +49,13 @@ export const company = {
   // Pflege selbst: rund um die Uhr
   careAvailability: '7 Tage die Woche, auch an Wochenenden und Feiertagen',
 
+  // ⚠️ Handles/Nummern bitte bestätigen (Profilnamen + aktives WhatsApp Business)
   social: {
     facebook: 'https://www.facebook.com/sozialstationmobil',
     instagram: 'https://www.instagram.com/sozialstationmobil',
+    messenger: 'https://m.me/sozialstationmobil',
+    whatsapp: 'https://wa.me/49304169811?text=' +
+      encodeURIComponent('Hallo, ich interessiere mich für Ihre Pflegeleistungen und hätte eine Frage.'),
   },
 } as const;
 
@@ -94,7 +100,17 @@ export const nav: NavItem[] = [
       { label: 'Demenz-Wohngemeinschaft', href: '/leistungen/demenz-wohngemeinschaft/' },
     ],
   },
-  { label: 'Pflegekosten & Pflegegrad', href: '/ratgeber/pflegekosten-pflegegrad/' },
+  {
+    label: 'Ratgeber',
+    href: '/ratgeber/',
+    children: [
+      { label: 'Pflegekosten & Pflegegrad', href: '/ratgeber/pflegekosten-pflegegrad/' },
+      { label: 'Pflegegrad beantragen', href: '/ratgeber/pflegegrad-beantragen/' },
+      { label: 'Verhinderungs- & Kurzzeitpflege', href: '/ratgeber/verhinderungspflege-kurzzeitpflege/' },
+      { label: 'Häusliche Krankenpflege', href: '/ratgeber/haeusliche-krankenpflege/' },
+      { label: 'Pflege bei Demenz', href: '/ratgeber/pflege-bei-demenz/' },
+    ],
+  },
   { label: 'Über uns', href: '/ueber-uns/' },
   { label: 'Team', href: '/team/' },
   { label: 'Karriere', href: '/karriere/' },
@@ -372,6 +388,255 @@ export const faqs: Faq[] = [
     question: 'Was ist der Entlastungsbetrag von 131 €?',
     answer:
       'Der Entlastungsbetrag nach § 45b SGB XI beträgt 131 € pro Monat und steht allen Menschen mit Pflegegrad 1 bis 5 zu. Er kann für Betreuungs- und Entlastungsleistungen sowie für hauswirtschaftliche Hilfen verwendet werden – etwa Begleitung, Betreuung oder Unterstützung im Haushalt.',
+  },
+];
+
+/**
+ * Eigene FAQ für die Startseite – bewusst VERSCHIEDEN von den Ratgeber-FAQ,
+ * damit FAQPage-Markup nicht doppelt auf mehreren URLs erscheint.
+ */
+export const homeFaqs: Faq[] = [
+  {
+    question: 'Wie läuft der erste Kontakt mit der Sozialstation Mobil ab?',
+    answer:
+      'Ganz unkompliziert: Sie rufen uns an oder schreiben uns. Wir vereinbaren ein kostenloses Beratungsgespräch – gerne bei Ihnen zu Hause –, lernen Ihre Situation kennen und stellen gemeinsam ein passendes Versorgungspaket zusammen. Danach startet Ihre feste Bezugspflegekraft.',
+  },
+  {
+    question: 'Was kostet ein erstes Beratungsgespräch?',
+    answer:
+      'Das Erstgespräch ist für Sie kostenlos und völlig unverbindlich. Wir nehmen uns Zeit, beantworten Ihre Fragen zu Leistungen, Pflegegrad und Kosten und helfen Ihnen, die nächsten Schritte zu sortieren.',
+  },
+  {
+    question: 'Bekomme ich immer dieselbe Pflegekraft?',
+    answer:
+      'So weit es geht, ja. Wir arbeiten mit festen Bezugspflegekräften und kleinen Teams, damit Sie vertraute Gesichter sehen und nicht ständig jemand Neues vor der Tür steht. Das schafft Vertrauen und Sicherheit.',
+  },
+  {
+    question: 'Was unterscheidet die Sozialstation Mobil von anderen Pflegediensten?',
+    answer:
+      'Wir sind fest in Reinickendorf verwurzelt, setzen auf feste Bezugspflegekräfte statt wechselnder Gesichter, sind 7 Tage die Woche erreichbar und rechnen direkt mit den Kranken- und Pflegekassen ab. Persönliche Nähe und Verlässlichkeit stehen bei uns im Mittelpunkt.',
+  },
+];
+
+/** Ratgeber-Artikel (Hub-and-Spoke). Rein informativ – keine Rechts-/Pflegeberatung. */
+export type RatgeberArticle = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  icon: string;
+  relatedServices?: string[]; // Slugs passender Leistungen
+};
+
+export const ratgeberArticles: RatgeberArticle[] = [
+  {
+    slug: 'pflegekosten-pflegegrad',
+    title: 'Pflegekosten & Pflegegrad',
+    excerpt: 'Was kostet ambulante Pflege, wer zahlt was – und welche Leistungen stehen Ihnen je Pflegegrad zu?',
+    icon: 'euro',
+    relatedServices: ['grundpflege', 'behandlungspflege'],
+  },
+  {
+    slug: 'pflegegrad-beantragen',
+    title: 'Pflegegrad beantragen',
+    excerpt: 'Schritt für Schritt zum Pflegegrad: Antrag, Begutachtung durch den Medizinischen Dienst und hilfreiche Tipps.',
+    icon: 'clipboard',
+    relatedServices: ['grundpflege'],
+  },
+  {
+    slug: 'verhinderungspflege-kurzzeitpflege',
+    title: 'Verhinderungs- & Kurzzeitpflege',
+    excerpt: 'Wenn pflegende Angehörige eine Auszeit brauchen: Leistungen, Voraussetzungen und Beträge im Überblick.',
+    icon: 'calendar',
+    relatedServices: ['entlastungsleistungen', 'grundpflege'],
+  },
+  {
+    slug: 'haeusliche-krankenpflege',
+    title: 'Häusliche Krankenpflege (SGB V)',
+    excerpt: 'Ärztlich verordnete Behandlungspflege zu Hause: Was sie umfasst, wie die Verordnung läuft und wer zahlt.',
+    icon: 'stethoscope',
+    relatedServices: ['behandlungspflege', 'wundmanagement', 'diabetologische-fachpflege'],
+  },
+  {
+    slug: 'pflege-bei-demenz',
+    title: 'Pflege bei Demenz',
+    excerpt: 'Menschen mit Demenz zu Hause begleiten: Unterstützungsangebote, Entlastung für Angehörige und praktische Tipps.',
+    icon: 'heart',
+    relatedServices: ['demenz-wohngemeinschaft', 'entlastungsleistungen'],
+  },
+];
+
+export function getRatgeberArticle(slug: string): RatgeberArticle | undefined {
+  return ratgeberArticles.find((a) => a.slug === slug);
+}
+
+/**
+ * Zusätzliche, leistungsspezifische FAQ je Service (ergänzen die automatisch
+ * erzeugten Fragen auf den Leistungsseiten). Faktenbasiert, ohne neue Leistungsversprechen.
+ */
+export const serviceExtraFaqs: Record<string, Faq[]> = {
+  behandlungspflege: [
+    {
+      question: 'Brauche ich für die Behandlungspflege eine ärztliche Verordnung?',
+      answer:
+        'Ja. Behandlungspflege wird vom Haus- oder Facharzt verordnet (Verordnung häuslicher Krankenpflege, Muster 12) und von der Krankenkasse genehmigt. Gerne unterstützen wir Sie bei den Formalitäten.',
+    },
+    {
+      question: 'Wie lange gilt eine Verordnung?',
+      answer:
+        'Verordnungen sind in der Regel befristet und werden bei weiterem Bedarf vom Arzt verlängert. Wir behalten die Fristen im Blick und weisen rechtzeitig auf eine Folgeverordnung hin.',
+    },
+  ],
+  grundpflege: [
+    {
+      question: 'Brauche ich für die Grundpflege einen Pflegegrad?',
+      answer:
+        'Für die Grundpflege als Pflegesachleistung ist ein anerkannter Pflegegrad nötig. Ohne Pflegegrad ist eine private Beauftragung möglich – sprechen Sie uns einfach an.',
+    },
+    {
+      question: 'Kann ich Grundpflege mit dem Pflegegeld kombinieren?',
+      answer:
+        'Ja. Eine Kombination aus Pflegesachleistung (durch uns) und Pflegegeld (für die Pflege durch Angehörige) ist als sogenannte Kombinationsleistung möglich.',
+    },
+  ],
+  'diabetologische-fachpflege': [
+    {
+      question: 'Wer übernimmt die Insulingabe, wenn ich sie nicht selbst durchführen kann?',
+      answer:
+        'Auf ärztliche Verordnung übernehmen unsere examinierten Pflegefachkräfte die Insulingabe – sicher, hygienisch und genau nach dem ärztlichen Plan.',
+    },
+    {
+      question: 'Wird die diabetologische Versorgung von der Kasse bezahlt?',
+      answer:
+        'In der Regel ja: als ärztlich verordnete Behandlungspflege über die Krankenkasse (SGB V). Die genauen Voraussetzungen klären wir gemeinsam mit Ihrem Arzt.',
+    },
+  ],
+  wundmanagement: [
+    {
+      question: 'Wer entscheidet über die Wundbehandlung?',
+      answer:
+        'Die Therapie erfolgt nach ärztlicher Verordnung. Wir stimmen die Versorgung eng mit Ihrem Arzt ab, setzen sie fachgerecht um und dokumentieren den Heilungsverlauf.',
+    },
+    {
+      question: 'Wie oft wird der Verband gewechselt?',
+      answer:
+        'Das hängt von Wundart und ärztlicher Vorgabe ab – von täglich bis mehrmals wöchentlich. Moderne Wundauflagen ermöglichen oft längere Wechselintervalle.',
+    },
+  ],
+  hauswirtschaft: [
+    {
+      question: 'Kann ich den Entlastungsbetrag für hauswirtschaftliche Hilfe nutzen?',
+      answer:
+        'Ja. Der Entlastungsbetrag von 131 € pro Monat (§ 45b SGB XI) kann unter anderem für hauswirtschaftliche Unterstützung eingesetzt werden.',
+    },
+    {
+      question: 'Brauche ich für die hauswirtschaftliche Versorgung einen Pflegegrad?',
+      answer:
+        'Mit Pflegegrad lässt sich die Hilfe über den Entlastungsbetrag oder die Pflegesachleistung finanzieren. Ohne Pflegegrad ist eine private Beauftragung jederzeit möglich.',
+    },
+  ],
+  entlastungsleistungen: [
+    {
+      question: 'Wer hat Anspruch auf den Entlastungsbetrag?',
+      answer:
+        'Alle Menschen mit Pflegegrad 1 bis 5 haben Anspruch auf den Entlastungsbetrag von 131 € pro Monat (§ 45b SGB XI).',
+    },
+    {
+      question: 'Verfällt nicht genutzter Entlastungsbetrag?',
+      answer:
+        'Nicht sofort: Nicht genutzte Beträge können innerhalb des Kalenderjahres angespart und übertragen werden. Lassen Sie sich zu den aktuellen Fristen von Ihrer Pflegekasse beraten.',
+    },
+  ],
+  'demenz-wohngemeinschaft': [
+    {
+      question: 'Ab welchem Pflegegrad ist die Wohngemeinschaft sinnvoll?',
+      answer:
+        'In der Regel ab Pflegegrad 4 – dann, wenn das Leben allein zu Hause nicht mehr sicher möglich ist. Was im Einzelfall passt, besprechen wir gerne persönlich mit Ihnen.',
+    },
+    {
+      question: 'Können Angehörige zu Besuch kommen und mitwirken?',
+      answer:
+        'Unbedingt. Angehörige sind jederzeit willkommen und werden eng in den Alltag und die Begleitung eingebunden.',
+    },
+  ],
+};
+
+/**
+ * Vertrauenssignale / Qualitätsnachweise.
+ * `confirmed: true`  → wird auf der Website angezeigt (allgemeingültig bzw. mit den
+ *                       Angaben der Website konsistent).
+ * `confirmed: false` → erst anzeigen, wenn der Nachweis tatsächlich vorliegt!
+ *                       (Werbung mit nicht vorhandenen Zertifikaten ist in DE unzulässig, UWG.)
+ */
+export type TrustSignal = { icon: string; title: string; text: string; confirmed: boolean };
+
+export const trustSignals: TrustSignal[] = [
+  {
+    icon: 'shield',
+    title: 'Zugelassen nach § 72 SGB XI',
+    text: 'Anerkannter ambulanter Pflegedienst mit Versorgungsvertrag der Pflegekassen.',
+    confirmed: true,
+  },
+  {
+    icon: 'handshake',
+    title: 'Alle Pflege- & Krankenkassen',
+    text: 'Direkte Abrechnung mit allen gesetzlichen Kassen – ohne Vorkasse für Sie.',
+    confirmed: true,
+  },
+  {
+    icon: 'award',
+    title: 'Examinierte Fachkräfte',
+    text: 'Versorgung durch qualifizierte, examinierte Pflegefachkräfte.',
+    confirmed: true,
+  },
+  {
+    icon: 'clipboard',
+    title: 'Nationale Expertenstandards',
+    text: 'Pflege nach den anerkannten Expertenstandards (§ 113a SGB XI).',
+    confirmed: true,
+  },
+  {
+    icon: 'heart',
+    title: 'Schweigepflicht & Datenschutz',
+    text: 'Verschwiegenheit und ein gesetzeskonformer, sorgsamer Umgang mit Ihren Daten.',
+    confirmed: true,
+  },
+  {
+    icon: 'clock',
+    title: 'Erreichbarkeit rund um die Uhr',
+    text: 'Pflege 7 Tage die Woche – auch an Wochenenden und Feiertagen.',
+    confirmed: true,
+  },
+
+  // ── Erst aktivieren (confirmed: true), wenn der Nachweis vorliegt ──────────────
+  {
+    icon: 'star',
+    title: 'MD-Qualitätsprüfung',
+    text: 'Regelmäßig geprüft vom Medizinischen Dienst (MD) – Ergebnis auf Anfrage.',
+    confirmed: false,
+  },
+  {
+    icon: 'bandage',
+    title: 'Zertifizierte Wundexperten (ICW)',
+    text: 'Wundversorgung durch ICW-zertifizierte Wundexpert:innen.',
+    confirmed: false,
+  },
+  {
+    icon: 'droplet',
+    title: 'Diabetes-Fachpflege (DDG)',
+    text: 'Diabetologische Versorgung durch zertifizierte Fachkräfte.',
+    confirmed: false,
+  },
+  {
+    icon: 'award',
+    title: 'ISO 9001 Qualitätsmanagement',
+    text: 'Zertifiziertes Qualitätsmanagement nach DIN EN ISO 9001.',
+    confirmed: false,
+  },
+  {
+    icon: 'community',
+    title: 'Mitglied im bpa',
+    text: 'Mitglied im Bundesverband privater Anbieter sozialer Dienste (bpa).',
+    confirmed: false,
   },
 ];
 

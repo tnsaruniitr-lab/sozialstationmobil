@@ -73,6 +73,22 @@ const mapsDir = `https://www.google.com/maps/dir/?api=1&destination=${mapsQuery}
           </span>
         </div>
 
+        <!-- Direkt schreiben (Messenger-Dienste) -->
+        <div class="card p-6">
+          <span class="block text-sm font-semibold uppercase tracking-wide text-ink-soft">Lieber direkt schreiben?</span>
+          <div class="mt-3 flex flex-wrap gap-3">
+            <a href={company.social.whatsapp} target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 font-display font-semibold text-white transition-transform hover:-translate-y-0.5">
+              <Icon name="whatsapp" class="h-5 w-5" /> WhatsApp
+            </a>
+            <a href={company.social.messenger} target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full bg-[#0084FF] px-4 py-2.5 font-display font-semibold text-white transition-transform hover:-translate-y-0.5">
+              <Icon name="messenger" class="h-5 w-5" /> Messenger
+            </a>
+            <a href={company.social.instagram} target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full bg-gradient-to-br from-[#f58529] via-[#dd2a7b] to-[#8134af] px-4 py-2.5 font-display font-semibold text-white transition-transform hover:-translate-y-0.5">
+              <Icon name="instagram" class="h-5 w-5" /> Instagram
+            </a>
+          </div>
+        </div>
+
         <!-- Karten-Karte (datenschutzfreundlich, ohne Tracking-Einbettung) -->
         <a href={mapsDir} target="_blank" rel="noopener" class="relative block h-44 overflow-hidden rounded-[2rem] ring-1 ring-sand-200" aria-label="Standort in Google Maps öffnen">
           <svg class="absolute inset-0 h-full w-full" viewBox="0 0 400 180" preserveAspectRatio="xMidYMid slice" aria-hidden="true">

@@ -1,0 +1,79 @@
+---
+import RatgeberArticle from '../../layouts/RatgeberArticle.astro';
+import { getRatgeberArticle } from '../../data/site';
+
+const a = getRatgeberArticle('verhinderungspflege-kurzzeitpflege')!;
+const faqs = [
+  {
+    question: 'Wer hat Anspruch auf Verhinderungs- und Kurzzeitpflege?',
+    answer:
+      'Anspruch besteht in der Regel ab Pflegegrad 2. Bei Pflegegrad 1 können diese Leistungen nicht direkt genutzt werden – hier steht aber der Entlastungsbetrag zur Verfügung.',
+  },
+  {
+    question: 'Wie hoch sind die Leistungen?',
+    answer:
+      'Seit dem 1. Juli 2025 gibt es für Verhinderungs- und Kurzzeitpflege einen gemeinsamen Jahresbetrag (Entlastungsbudget). Die genaue Höhe und die für Sie geltenden Bedingungen können sich durch Gesetzesänderungen verschieben – bitte erfragen Sie die aktuellen Beträge bei Ihrer Pflegekasse.',
+  },
+  {
+    question: 'Können Verhinderungs- und Kurzzeitpflege kombiniert werden?',
+    answer:
+      'Ja. Seit der Reform 2025 lassen sich beide Leistungen flexibel aus einem gemeinsamen Budget kombinieren. Ihre Pflegekasse berät Sie zur konkreten Aufteilung.',
+  },
+];
+---
+<RatgeberArticle
+  slug={a.slug}
+  title="Verhinderungs- & Kurzzeitpflege: Auszeiten für pflegende Angehörige"
+  description="Verhinderungspflege und Kurzzeitpflege einfach erklärt: Voraussetzungen, der gemeinsame Jahresbetrag seit 2025 und wie pflegende Angehörige eine Auszeit organisieren. Ratgeber der Sozialstation Mobil Berlin."
+  excerpt={a.excerpt}
+  faqs={faqs}
+  relatedServices={a.relatedServices}
+>
+  <p>
+    Pflegende Angehörige leisten Großartiges – und brauchen selbst hin und wieder eine Pause.
+    Genau dafür gibt es die Verhinderungs- und die Kurzzeitpflege. Beide Leistungen sorgen dafür,
+    dass die Versorgung weiterläuft, wenn die Hauptpflegeperson ausfällt oder einmal durchatmen muss.
+  </p>
+
+  <h2>Verhinderungspflege: wenn die Pflegeperson ausfällt</h2>
+  <p>
+    Die Verhinderungspflege (§ 39 SGB XI) springt ein, wenn eine pflegende Angehörige oder ein
+    Angehöriger vorübergehend verhindert ist – etwa durch Urlaub, Krankheit oder einen Termin.
+    Die Pflege wird dann stundenweise oder tageweise von jemand anderem übernommen, während die
+    pflegebedürftige Person zu Hause bleibt.
+  </p>
+
+  <h2>Kurzzeitpflege: vorübergehend vollstationär</h2>
+  <p>
+    Die Kurzzeitpflege (§ 42 SGB XI) bedeutet eine zeitlich begrenzte Versorgung in einer
+    stationären Einrichtung – zum Beispiel nach einem Krankenhausaufenthalt, in einer Krisensituation
+    oder zur Überbrückung, bis die häusliche Pflege wieder organisiert ist.
+  </p>
+
+  <h2>Neuregelung seit 2025: ein gemeinsames Budget</h2>
+  <p>
+    Mit der Pflegereform wurde die Nutzung deutlich vereinfacht: Seit dem <strong>1. Juli 2025</strong>
+    gibt es für Verhinderungs- und Kurzzeitpflege einen <strong>gemeinsamen Jahresbetrag</strong>
+    (Entlastungsbudget), aus dem beide Leistungen flexibel kombiniert werden können. Auch die früher
+    geforderte sechsmonatige Vorpflegezeit ist für die Verhinderungspflege entfallen.
+  </p>
+  <p>
+    Da die konkreten Beträge und Bedingungen gesetzlich angepasst werden, nennen wir hier bewusst
+    keine festen Eurobeträge. Die aktuell für Sie gültigen Werte erfahren Sie bei Ihrer Pflegekasse –
+    oder Sie sprechen uns an, wir ordnen es gemeinsam ein.
+  </p>
+
+  <h2>Was bedeutet das für Sie?</h2>
+  <ul>
+    <li>Sie können als pflegende Angehörige planbar Urlaub machen oder zur Kur fahren.</li>
+    <li>Bei Krankheit der Pflegeperson ist die Versorgung trotzdem gesichert.</li>
+    <li>Das Budget lässt sich flexibel zwischen stundenweiser und stationärer Entlastung aufteilen.</li>
+    <li>Ergänzend steht allen Pflegegraden der <a href="/ratgeber/pflegekosten-pflegegrad/">Entlastungsbetrag</a> zur Verfügung.</li>
+  </ul>
+
+  <p>
+    Wie wir Sie bei der stundenweisen Entlastung und Betreuung im Alltag unterstützen können,
+    lesen Sie auf unserer Seite zu den <a href="/leistungen/entlastungsleistungen/">Entlastungsleistungen</a>.
+    Sprechen Sie uns an – wir finden gemeinsam eine Lösung, die zu Ihrer Familie passt.
+  </p>
+</RatgeberArticle>

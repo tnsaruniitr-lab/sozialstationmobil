@@ -4,13 +4,16 @@ import Icon from '../../components/Icon.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import FaqAccordion from '../../components/FaqAccordion.astro';
 import CtaBand from '../../components/CtaBand.astro';
-import { company, faqs, steps } from '../../data/site';
+import { company, faqs, steps, ratgeberArticles } from '../../data/site';
 import { faqSchema } from '../../lib/schema';
 
 const breadcrumbs = [
   { name: 'Startseite', href: '/' },
+  { name: 'Ratgeber', href: '/ratgeber/' },
   { name: 'Pflegekosten & Pflegegrad', href: '/ratgeber/pflegekosten-pflegegrad/' },
 ];
+
+const otherArticles = ratgeberArticles.filter((a) => a.slug !== 'pflegekosten-pflegegrad');
 
 // Leistungsbeträge der Pflegekasse, Stand 2025 (Pflegesachleistung ambulant).
 // ⚠️ Beträge werden gesetzlich angepasst – vor Live-Gang prüfen.
@@ -172,6 +175,28 @@ const pflegegrade = [
       <div class="mt-12">
         <FaqAccordion items={faqs} />
       </div>
+    </div>
+  </section>
+
+  <!-- Weitere Ratgeber-Artikel -->
+  <section class="container-page py-16 md:py-20">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <h2 class="font-display text-2xl font-extrabold text-brand-950 md:text-3xl">Weitere Ratgeber-Themen</h2>
+      <a href="/ratgeber/" class="inline-flex items-center gap-1.5 font-display font-semibold text-brand-700 hover:text-accent-600">
+        Alle Artikel
+        <Icon name="arrow" class="h-5 w-5" />
+      </a>
+    </div>
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {otherArticles.map((art) => (
+        <a href={`/ratgeber/${art.slug}/`} class="group card flex flex-col p-5 transition-all hover:-translate-y-1 hover:shadow-lift">
+          <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-brand-600 transition-colors group-hover:bg-accent-500 group-hover:text-white">
+            <Icon name={art.icon} class="h-6 w-6" />
+          </span>
+          <span class="mt-4 font-display font-bold text-brand-950">{art.title}</span>
+          <span class="mt-1 text-sm text-ink-soft">{art.excerpt}</span>
+        </a>
+      ))}
     </div>
   </section>
 

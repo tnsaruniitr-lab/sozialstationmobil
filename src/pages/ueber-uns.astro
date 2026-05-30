@@ -86,6 +86,15 @@ const promises = [
       </p>
     </div>
 
+    <figure class="mx-auto mt-12 max-w-3xl rounded-[2rem] bg-brand-50 p-8 text-center ring-1 ring-brand-100 md:p-10">
+      <Icon name="quote" class="mx-auto h-9 w-9 text-accent-400" />
+      <blockquote class="mt-4 font-display text-xl font-semibold leading-relaxed text-brand-900 md:text-2xl">
+        „Ich komme mir manchmal vor wie der kleine David mit dem Riesen Goliath. Aber ich denke,
+        in diesem Kampf ist ein warmes Herz der einzige Stein zum Werfen."
+      </blockquote>
+      <figcaption class="mt-4 text-sm font-semibold text-ink-soft">— Agnes Karll, Begründerin der modernen Pflege</figcaption>
+    </figure>
+
     <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {values.map((v) => (
         <div class="card p-7 text-center">
@@ -133,6 +142,43 @@ const promises = [
             „Gute Pflege entsteht aus Vertrauen. Deshalb setzen wir auf feste Bezugspflegekräfte,
             klare Absprachen und ein Team, das mit Herz bei der Sache ist."
           </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Einsatzplanung -->
+  <section class="bg-white">
+    <div class="container-page py-16 md:py-20">
+      <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+        <div>
+          <p class="eyebrow"><Icon name="calendar" class="h-4 w-4" /> Einsatzplanung</p>
+          <h2 class="mt-3 font-display text-3xl font-extrabold text-brand-950 md:text-4xl">
+            So planen wir Ihre Versorgung
+          </h2>
+          <p class="mt-4 text-lg text-ink-soft">
+            Gute Pflege braucht gute Organisation. Unser Büroteam koordiniert die Einsätze sorgfältig
+            und bleibt für Sie und Ihre Angehörigen jederzeit ansprechbar.
+          </p>
+          <ul class="mt-6 space-y-3">
+            {[
+              'Im Büro sind wir immer für Sie erreichbar.',
+              'Die Einsatzplanung geschieht in intensiver Absprache mit Ihnen.',
+              'Erleben Sie die Welt der Sozialstation Mobil.',
+            ].map((point) => (
+              <li class="flex items-start gap-3">
+                <Icon name="check-circle" class="mt-0.5 h-6 w-6 shrink-0 text-accent-500" />
+                <span class="text-ink">{point}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- PLATZHALTER: echtes Büro-/Teamfoto einfügen → /images/team/team-buero.jpg -->
+        <div class="flex aspect-[4/3] flex-col items-center justify-center rounded-[2rem] border-2 border-dashed border-sand-300 bg-sand-100 p-6 text-center">
+          <Icon name="users" class="h-10 w-10 text-sand-400" />
+          <p class="mt-3 font-display font-semibold text-ink-soft">Echtes Teamfoto (Büro)</p>
+          <p class="mt-1 text-sm text-ink-soft">Wird hier eingefügt, sobald Sie uns das Foto senden.</p>
         </div>
       </div>
     </div>
