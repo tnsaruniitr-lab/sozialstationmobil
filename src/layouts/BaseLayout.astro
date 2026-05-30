@@ -38,6 +38,12 @@ const extraSchema = [
 if (breadcrumbs && breadcrumbs.length > 1) {
   extraSchema.push(breadcrumbSchema([{ name: 'Startseite', href: '/' }, ...breadcrumbs.slice(1)]));
 }
+// FAQPage-Knoten mit seitenspezifischem @id versehen (Cross-Referenzierung im Knowledge Graph)
+for (const node of extraSchema as Array<Record<string, unknown>>) {
+  if (node && node['@type'] === 'FAQPage' && !node['@id']) {
+    node['@id'] = `${canonical}#faqpage`;
+  }
+}
 const jsonLd = buildGraph(extraSchema);
 ---
 <!doctype html>

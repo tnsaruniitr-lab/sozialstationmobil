@@ -176,6 +176,18 @@ const description =
     </div>
   </section>
 
+  <!-- ============================= FAKTISCHE KURZVORSTELLUNG (Entity-Definition / AEO) ============================= -->
+  <section class="container-page pt-10 md:pt-12">
+    <p class="mx-auto max-w-4xl text-center text-lg leading-relaxed text-ink-soft">
+      Die <strong class="text-brand-900">Sozialstation Mobil GmbH</strong> ist ein ambulanter
+      Fachpflegedienst in Berlin-Reinickendorf, zugelassen nach § 72 SGB XI und mit
+      Versorgungsverträgen aller gesetzlichen Kranken- und Pflegekassen. Mit examinierten
+      Pflegefachkräften versorgen wir Menschen in Reinickendorf und Pankow – mit Behandlungspflege,
+      Grundpflege, diabetologischer Fachpflege, Wundmanagement und Betreuung.
+      Geschäftsführer: {company.managingDirector}.
+    </p>
+  </section>
+
   <!-- ============================= LEISTUNGEN ============================= -->
   <section class="container-page py-16 md:py-20">
     <div class="mx-auto max-w-2xl text-center">
@@ -250,7 +262,13 @@ const description =
               <Icon name={t.icon} class="h-6 w-6" />
             </span>
             <span>
-              <span class="block font-display font-bold text-brand-950">{t.title}</span>
+              <span class="block font-display font-bold text-brand-950">
+                {t.href ? (
+                  <a href={t.href} target="_blank" rel="noopener" class="underline decoration-brand-200 underline-offset-2 hover:text-brand-700 hover:decoration-accent-400">{t.title}</a>
+                ) : (
+                  t.title
+                )}
+              </span>
               <span class="mt-1 block text-sm text-ink-soft">{t.text}</span>
             </span>
           </li>

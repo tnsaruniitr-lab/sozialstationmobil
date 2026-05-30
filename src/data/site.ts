@@ -567,7 +567,7 @@ export const serviceExtraFaqs: Record<string, Faq[]> = {
  * `confirmed: false` → erst anzeigen, wenn der Nachweis tatsächlich vorliegt!
  *                       (Werbung mit nicht vorhandenen Zertifikaten ist in DE unzulässig, UWG.)
  */
-export type TrustSignal = { icon: string; title: string; text: string; confirmed: boolean };
+export type TrustSignal = { icon: string; title: string; text: string; confirmed: boolean; href?: string };
 
 export const trustSignals: TrustSignal[] = [
   {
@@ -575,6 +575,7 @@ export const trustSignals: TrustSignal[] = [
     title: 'Zugelassen nach § 72 SGB XI',
     text: 'Anerkannter ambulanter Pflegedienst mit Versorgungsvertrag der Pflegekassen.',
     confirmed: true,
+    href: 'https://www.gesetze-im-internet.de/sgb_11/__72.html',
   },
   {
     icon: 'handshake',
@@ -593,6 +594,7 @@ export const trustSignals: TrustSignal[] = [
     title: 'Nationale Expertenstandards',
     text: 'Pflege nach den anerkannten Expertenstandards (§ 113a SGB XI).',
     confirmed: true,
+    href: 'https://www.gesetze-im-internet.de/sgb_11/__113a.html',
   },
   {
     icon: 'heart',

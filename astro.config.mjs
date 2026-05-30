@@ -3,10 +3,16 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
+// Deploy-Domain: explizit via SITE_URL, sonst automatisch die Railway-Domain
+// (Staging), sonst die Produktions-Domain. Hält Canonical, Sitemap & robots.txt
+// konsistent zur tatsächlich ausgelieferten Domain.
+const SITE_URL =
+  process.env.SITE_URL ||
+  (process.env.RAILWAY_PUBLIC_DOMAIN ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}` : 'https://sozialstationmobil.de');
+
 // https://astro.build/config
 export default defineConfig({
-  // Produktions-Domain – steuert Canonical-URLs & Sitemap (wichtig für SEO/AEO)
-  site: 'https://sozialstationmobil.de',
+  site: SITE_URL,
   trailingSlash: 'always',
   integrations: [
     sitemap({

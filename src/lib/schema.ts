@@ -6,8 +6,11 @@
  */
 import { company, services, openingHoursSpec, serviceAreas, faqs, seoDefaults, type Faq } from '../data/site';
 
-const SITE = 'https://sozialstationmobil.de';
+// Deploy-Domain (env-abhängig): hält Canonical, Sitemap & Schema-URLs konsistent
+// zur tatsächlich ausgelieferten Domain (Staging/Railway vs. Produktion).
+const SITE = (import.meta.env.SITE ?? 'https://sozialstationmobil.de').replace(/\/$/, '');
 export const ORG_ID = `${SITE}/#organization`;
+export const PERSON_ID = `${SITE}/#person-jan-basche`;
 const WEBSITE_ID = `${SITE}/#website`;
 
 // Stand der letzten inhaltlichen Aktualisierung – speist Frische-Signale (dateModified).
@@ -45,12 +48,7 @@ export function organizationSchema() {
       latitude: company.geo.lat,
       longitude: company.geo.lng,
     },
-    founder: {
-      '@type': 'Person',
-      name: company.managingDirector,
-      jobTitle: 'Geschäftsführer',
-      // hasCredential: vom Betreiber ergänzen (z. B. Qualifikation/Titel) – stärkt E-E-A-T (YMYL)
-    },
+    founder: { '@id': PERSON_ID },
     openingHoursSpecification: openingHoursSpec.map((s) => ({
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: s.days,
@@ -63,10 +61,31 @@ export function organizationSchema() {
     // kassenfinanziert und ohne festen Preis; Offer ohne price gilt als unvollständig).
     availableService: services.map((s) => ({
       '@type': 'Service',
+      '@id': `${SITE}/#service-${s.slug}`,
       name: s.title,
+      serviceType: s.title,
       description: s.short,
       url: `${SITE}/leistungen/${s.slug}/`,
+      provider: { '@id': ORG_ID },
     })),
+  };
+}
+
+/** Geschäftsführer als eigenständige Person-Entität (E-E-A-T / YMYL). */
+export function personSchema() {
+  return {
+    '@type': 'Person',
+    '@id': PERSON_ID,
+    name: company.managingDirector,
+    honorificPrefix: 'Dr.',
+    jobTitle: 'Geschäftsführer',
+    worksFor: { '@id': ORG_ID },
+    url: `${SITE}/team/`,
+    // Doktortitel laut Namensführung; ausstellende Institution vom Betreiber ergänzbar.
+    hasCredential: {
+      '@type': 'EducationalOccupationalCredential',
+      credentialCategory: 'Doktortitel',
+    },
   };
 }
 
@@ -100,12 +119,14 @@ export function webPageSchema(opts: { url: string; name: string; description: st
 
 /** Einzelne Leistung als Service-Schema */
 export function serviceSchema(opts: {
+  slug: string;
   name: string;
   description: string;
   url: string;
 }) {
   return {
     '@type': 'Service',
+    '@id': `${SITE}/#service-${opts.slug}`,
     name: opts.name,
     description: opts.description,
     url: opts.url,
@@ -131,7 +152,7 @@ export function articleSchema(opts: { headline: string; description: string; url
     inLanguage: 'de-DE',
     datePublished: LAST_UPDATED,
     dateModified: LAST_UPDATED,
-    author: { '@id': ORG_ID },
+    author: { '@id': PERSON_ID },
     publisher: { '@id': ORG_ID },
     about: { '@id': ORG_ID },
   };
@@ -169,6 +190,6 @@ export function faqSchema(items: Faq[] = faqs) {
 export function buildGraph(extra: object[] = []) {
   return {
     '@context': 'https://schema.org',
-    '@graph': [websiteSchema(), organizationSchema(), ...extra],
+    '@graph': [websiteSchema(), organizationSchema(), personSchema(), ...extra],
   };
 }

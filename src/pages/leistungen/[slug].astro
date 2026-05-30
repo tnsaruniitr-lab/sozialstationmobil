@@ -42,7 +42,7 @@ const metaDescription = `${service.short} ✔ Sozialstation Mobil – Ihr ambula
   description={metaDescription}
   breadcrumbs={breadcrumbs}
   schema={[
-    serviceSchema({ name: service.title, description: service.short, url }),
+    serviceSchema({ slug: service.slug, name: service.title, description: service.short, url }),
     faqSchema(serviceFaqs),
   ]}
 >
