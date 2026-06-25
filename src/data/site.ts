@@ -650,5 +650,5 @@ export const seoDefaults = {
   defaultDescription:
     'Ambulanter Fachpflegedienst in Berlin-Reinickendorf: Grund- & Behandlungspflege, Diabetes-Fachpflege, Wundmanagement, Betreuung und Demenz-WG. Liebevoll, kompetent, rund um die Uhr. ☎ 030 4169811',
   locale: 'de_DE',
-  themeColor: '#1f6c9b',
+  themeColor: '#C9014D',
 } as const;
