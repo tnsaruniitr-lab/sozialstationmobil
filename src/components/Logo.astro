@@ -13,7 +13,8 @@ const { tone = 'dark', showTagline = true, class: className = '' } = Astro.props
 
 const wordColor = tone === 'light' ? 'text-white' : 'text-brand-950';
 const taglineColor = tone === 'light' ? 'text-brand-100/80' : 'text-ink-soft';
-const markColor = tone === 'light' ? '#ffffff' : '#C9014D';
+/* Folgt dem aktiven Farb-Theme (html.theme-*) */
+const markColor = tone === 'light' ? '#ffffff' : 'var(--color-brand-600)';
 ---
 <span class={`inline-flex items-center gap-2.5 ${className}`}>
   <svg class="h-10 w-10 shrink-0" viewBox="86 81 1040 1040" aria-hidden="true">

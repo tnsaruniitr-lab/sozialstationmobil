@@ -1,0 +1,97 @@
+---
+/**
+ * Farb-Theme-Wähler (Vorschau-Werkzeug zur Farbabstimmung).
+ * Setzt html.theme-* und merkt sich die Wahl in localStorage („colorTheme").
+ * Vor dem finalen Live-Gang entfernen oder ausgeblendet lassen.
+ */
+import Icon from './Icon.astro';
+
+const themes = [
+  { key: 'cerise', label: 'Cerise (hell)', hex: '#e91e63' },
+  { key: 'original', label: 'Original Himbeere', hex: '#c9014d' },
+  { key: 'fuchsia', label: 'Fuchsia', hex: '#e4007c' },
+  { key: 'koralle', label: 'Koralle', hex: '#fb4a6b' },
+  { key: 'pink', label: 'Pink (kräftig)', hex: '#ff2e88' },
+];
+---
+<div id="theme-switch" class="fixed bottom-4 left-4 z-[70] text-sm">
+  <button
+    id="theme-switch-toggle"
+    type="button"
+    class="flex items-center gap-2 rounded-full bg-brand-950/95 px-3.5 py-2 font-semibold text-white shadow-lift ring-1 ring-white/15 backdrop-blur transition-colors hover:bg-brand-900"
+    aria-haspopup="true"
+    aria-expanded="false"
+  >
+    <span id="theme-switch-dot" class="inline-block h-4 w-4 rounded-full ring-2 ring-white/70" style={`background:${themes[0].hex}`}></span>
+    <span class="hidden sm:inline">Farbe:</span>
+    <span id="theme-switch-current" class="text-accent-200">{themes[0].label}</span>
+    <Icon name="chevron-down" class="theme-switch-chevron h-4 w-4 transition-transform" />
+  </button>
+  <div
+    id="theme-switch-menu"
+    class="absolute bottom-full left-0 mb-2 hidden w-56 overflow-hidden rounded-2xl bg-brand-950/95 p-1.5 font-semibold shadow-lift ring-1 ring-white/15 backdrop-blur"
+    role="menu"
+  >
+    {themes.map((t) => (
+      <button
+        type="button"
+        data-theme-btn={t.key}
+        role="menuitemradio"
+        class="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-left text-brand-100 transition-colors hover:bg-white/10 hover:text-white"
+      >
+        <span class="inline-block h-4 w-4 shrink-0 rounded-full ring-2 ring-white/40" style={`background:${t.hex}`}></span>
+        <span class="flex-1">{t.label}</span>
+        <span data-check class="text-accent-300 opacity-0"><Icon name="check" class="h-4 w-4" /></span>
+      </button>
+    ))}
+  </div>
+</div>
+
+<script>
+  const THEMES = ['cerise', 'original', 'fuchsia', 'koralle', 'pink'];
+  const LABELS: Record<string, string> = {
+    cerise: 'Cerise (hell)', original: 'Original Himbeere', fuchsia: 'Fuchsia',
+    koralle: 'Koralle', pink: 'Pink (kräftig)',
+  };
+  const HEX: Record<string, string> = {
+    cerise: '#e91e63', original: '#c9014d', fuchsia: '#e4007c', koralle: '#fb4a6b', pink: '#ff2e88',
+  };
+  const root = document.documentElement;
+  const sw = document.getElementById('theme-switch');
+  const toggle = document.getElementById('theme-switch-toggle');
+  const menu = document.getElementById('theme-switch-menu');
+  const chevron = sw?.querySelector('.theme-switch-chevron');
+  const currentLabel = document.getElementById('theme-switch-current');
+  const dot = document.getElementById('theme-switch-dot');
+  const btns = document.querySelectorAll<HTMLButtonElement>('[data-theme-btn]');
+
+  const setActive = (val: string) => {
+    btns.forEach((b) => {
+      const on = b.dataset.themeBtn === val;
+      b.setAttribute('aria-checked', on ? 'true' : 'false');
+      b.classList.toggle('text-white', on);
+      b.querySelector<HTMLElement>('[data-check]')?.classList.toggle('opacity-0', !on);
+    });
+    if (currentLabel) currentLabel.textContent = LABELS[val] || val;
+    if (dot) dot.style.background = HEX[val] || '';
+  };
+  const openMenu = (open: boolean) => {
+    menu?.classList.toggle('hidden', !open);
+    toggle?.setAttribute('aria-expanded', open ? 'true' : 'false');
+    chevron?.classList.toggle('rotate-180', open);
+  };
+  const apply = (val: string) => {
+    THEMES.forEach((t) => root.classList.remove('theme-' + t));
+    root.classList.add('theme-' + val);
+    try { localStorage.setItem('colorTheme', val); } catch (e) {}
+    setActive(val);
+    openMenu(false);
+  };
+  toggle?.addEventListener('click', (e) => { e.stopPropagation(); openMenu(menu?.classList.contains('hidden') ?? true); });
+  btns.forEach((b) => b.addEventListener('click', () => apply(b.dataset.themeBtn || 'cerise')));
+  document.addEventListener('click', (e) => { if (sw && !sw.contains(e.target as Node)) openMenu(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') openMenu(false); });
+
+  const current = THEMES.find((t) => root.classList.contains('theme-' + t)) || 'cerise';
+  setActive(current);
+</script>

@@ -7,31 +7,32 @@
    Design-Tokens / Markenfarben (Blau = Vertrauen, Orange = Wärme)
    =========================================================================== */
 @theme {
-  /* Primär – Himbeere/Raspberry, exakte Logo-Farbe #C9014D (aus Markenvorlage gesampelt) */
-  --color-brand-50: #fcf2f6;
-  --color-brand-100: #f9e1ea;
-  --color-brand-200: #f1bdd1;
-  --color-brand-300: #e78fb1;
-  --color-brand-400: #db578a;
-  --color-brand-500: #d22a69;
-  --color-brand-600: #c9014d;
-  --color-brand-700: #ac0143;
-  --color-brand-800: #920139;
-  --color-brand-900: #780130;
-  --color-brand-950: #4f0221;
+  /* Primär – helles Cerise-Pink (Standard-Theme; Original-Logo-Farbe & weitere Varianten
+     als umschaltbare Themes weiter unten – html.theme-*) */
+  --color-brand-50: #fef4f7;
+  --color-brand-100: #fce4ec;
+  --color-brand-200: #f9c4d6;
+  --color-brand-300: #f59cba;
+  --color-brand-400: #f06a98;
+  --color-brand-500: #ed427c;
+  --color-brand-600: #e91e63;
+  --color-brand-700: #c71a55;
+  --color-brand-800: #a81648;
+  --color-brand-900: #8a123c;
+  --color-brand-950: #5a0c29;
 
-  /* Akzent – gleiche Himbeer-Familie, monochrom-elegant; Buttons (accent-500) = exakte Logo-Farbe */
-  --color-accent-50: #fcf2f6;
-  --color-accent-100: #f9e1ea;
-  --color-accent-200: #f0bacf;
-  --color-accent-300: #e68aad;
-  --color-accent-400: #d94d82;
-  --color-accent-500: #c9014d;
-  --color-accent-600: #b20145;
-  --color-accent-700: #97013b;
-  --color-accent-800: #7e0132;
-  --color-accent-900: #670229;
-  --color-accent-950: #45021d;
+  /* Akzent – gleiche Familie, monochrom-elegant; Buttons (accent-500) = Theme-Farbe */
+  --color-accent-50: #fef4f7;
+  --color-accent-100: #fce4ec;
+  --color-accent-200: #f9c2d5;
+  --color-accent-300: #f598b7;
+  --color-accent-400: #f06292;
+  --color-accent-500: #e91e63;
+  --color-accent-600: #ce1a58;
+  --color-accent-700: #ae164b;
+  --color-accent-800: #90133f;
+  --color-accent-900: #750f34;
+  --color-accent-950: #4d0a23;
 
   /* Warme, weiche Neutraltöne (Sand) statt kühlem Grau */
   --color-sand-50: #faf9f6;
@@ -52,6 +53,85 @@
   --radius-4xl: 2rem;
   --shadow-soft: 0 2px 8px -2px rgb(28 43 57 / 0.08), 0 8px 24px -8px rgb(28 43 57 / 0.10);
   --shadow-lift: 0 4px 12px -2px rgb(28 43 57 / 0.10), 0 18px 40px -12px rgb(28 43 57 / 0.18);
+}
+
+/* ===========================================================================
+   Farb-Themes (umschaltbar über den Theme-Wähler; html.theme-*)
+   Hero-Overlay folgt dem Theme über --hero-tint / --hero-grad.
+   =========================================================================== */
+:root {
+  --hero-tint: 90 12 41; /* Standard = Cerise-950 */
+  --hero-grad: linear-gradient(
+    to right,
+    rgb(var(--hero-tint) / 0.92),
+    rgb(var(--hero-tint) / 0.66) 48%,
+    rgb(var(--hero-tint) / 0.16)
+  );
+}
+
+/* Theme: original – Logo-Farbe #C9014D */
+html.theme-original {
+  --color-brand-50: #fcf2f6; --color-brand-100: #f9e1ea; --color-brand-200: #f1bdd1;
+  --color-brand-300: #e78fb1; --color-brand-400: #db578a; --color-brand-500: #d22a69;
+  --color-brand-600: #c9014d; --color-brand-700: #ac0143; --color-brand-800: #920239;
+  --color-brand-900: #780230; --color-brand-950: #4f0221;
+  --color-accent-50: #fcf2f6; --color-accent-100: #f9e1ea; --color-accent-200: #f0bacf;
+  --color-accent-300: #e68aad; --color-accent-400: #d94d82; --color-accent-500: #c9014d;
+  --color-accent-600: #b10244; --color-accent-700: #99023b; --color-accent-800: #810232;
+  --color-accent-900: #6b022a; --color-accent-950: #4a021f;
+  --hero-tint: 79 2 33;
+}
+
+/* Theme: cerise – helles Rosé-Pink #E91E63 (Standard, identisch mit Basis) */
+html.theme-cerise {
+  --color-brand-50: #fef4f7; --color-brand-100: #fce4ec; --color-brand-200: #f9c4d6;
+  --color-brand-300: #f59cba; --color-brand-400: #f06a98; --color-brand-500: #ed427c;
+  --color-brand-600: #e91e63; --color-brand-700: #c71a55; --color-brand-800: #a81648;
+  --color-brand-900: #8a123c; --color-brand-950: #5a0c29;
+  --color-accent-50: #fef4f7; --color-accent-100: #fce4ec; --color-accent-200: #f9c2d5;
+  --color-accent-300: #f598b7; --color-accent-400: #f06292; --color-accent-500: #e91e63;
+  --color-accent-600: #ce1a58; --color-accent-700: #ae164b; --color-accent-800: #90133f;
+  --color-accent-900: #750f34; --color-accent-950: #4d0a23;
+  --hero-tint: 90 12 41;
+}
+
+/* Theme: fuchsia – kräftiges Magenta #E4007C */
+html.theme-fuchsia {
+  --color-brand-50: #fef2f8; --color-brand-100: #fce0ef; --color-brand-200: #f8bddd;
+  --color-brand-300: #f38fc5; --color-brand-400: #ed57a9; --color-brand-500: #e82991;
+  --color-brand-600: #e4007c; --color-brand-700: #c3006a; --color-brand-800: #a4015a;
+  --color-brand-900: #87014a; --color-brand-950: #580231;
+  --color-accent-50: #fef2f8; --color-accent-100: #fce0ef; --color-accent-200: #f8badc;
+  --color-accent-300: #f38ac3; --color-accent-400: #ec4ca3; --color-accent-500: #e4007c;
+  --color-accent-600: #c9006e; --color-accent-700: #aa015d; --color-accent-800: #8d014d;
+  --color-accent-900: #73023f; --color-accent-950: #4c022a;
+  --hero-tint: 88 2 49;
+}
+
+/* Theme: koralle – warmes Korallen-Rosa #FB4A6B */
+html.theme-koralle {
+  --color-brand-50: #fff6f8; --color-brand-100: #ffe9ed; --color-brand-200: #fed0d9;
+  --color-brand-300: #fdafbe; --color-brand-400: #fc889d; --color-brand-500: #fc6783;
+  --color-brand-600: #fb4a6b; --color-brand-700: #d63f5c; --color-brand-800: #b4344e;
+  --color-brand-900: #942a41; --color-brand-950: #5f1a2b;
+  --color-accent-50: #fff6f8; --color-accent-100: #ffe9ed; --color-accent-200: #feced7;
+  --color-accent-300: #fdacbb; --color-accent-400: #fc8097; --color-accent-500: #fb4a6b;
+  --color-accent-600: #dd415f; --color-accent-700: #bb3651; --color-accent-800: #9b2c44;
+  --color-accent-900: #7d2337; --color-accent-950: #521525;
+  --hero-tint: 95 26 43;
+}
+
+/* Theme: pink – kräftiges Pink #FF2E88 */
+html.theme-pink {
+  --color-brand-50: #fff5f9; --color-brand-100: #ffe6f1; --color-brand-200: #ffc9e0;
+  --color-brand-300: #ffa3cb; --color-brand-400: #ff75b0; --color-brand-500: #ff4f9b;
+  --color-brand-600: #ff2e88; --color-brand-700: #da2774; --color-brand-800: #b72162;
+  --color-brand-900: #961b51; --color-brand-950: #611134;
+  --color-accent-50: #fff5f9; --color-accent-100: #ffe6f1; --color-accent-200: #ffc7df;
+  --color-accent-300: #ff9fc8; --color-accent-400: #ff6dac; --color-accent-500: #ff2e88;
+  --color-accent-600: #e12878; --color-accent-700: #be2266; --color-accent-800: #9d1c54;
+  --color-accent-900: #7f1644; --color-accent-950: #530e2d;
+  --hero-tint: 97 17 52;
 }
 
 /* ===========================================================================
