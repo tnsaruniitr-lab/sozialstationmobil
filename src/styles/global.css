@@ -71,6 +71,12 @@
   );
 }
 
+/* Hero-Bild/-Video gespiegelt (Patientin rechts sichtbar) – umschaltbar */
+html.hero-flip section[data-hero-variant='video'] video,
+html.hero-flip section[data-hero-variant='vollbild'] > img {
+  transform: scaleX(-1);
+}
+
 /* Textlesbarkeit auf dem hellen Scrim (Video bleibt sichtbar) */
 .hero-copy {
   text-shadow: 0 1px 2px rgb(0 0 0 / 0.55), 0 4px 20px rgb(0 0 0 / 0.35);

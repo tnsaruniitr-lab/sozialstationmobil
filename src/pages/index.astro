@@ -20,8 +20,10 @@ const description =
   {/* No-Flash: gewählte Hero-Variante VOR dem Rendern setzen */}
   <script is:inline>
     (function () {
-      try { document.documentElement.classList.add('hero-' + (localStorage.getItem('heroVariant') || 'video')); }
-      catch (e) { document.documentElement.classList.add('hero-video'); }
+      try {
+        document.documentElement.classList.add('hero-' + (localStorage.getItem('heroVariant') || 'video'));
+        if (localStorage.getItem('heroFlip') === '1') document.documentElement.classList.add('hero-flip');
+      } catch (e) { document.documentElement.classList.add('hero-video'); }
     })();
   </script>
 
@@ -435,6 +437,40 @@ const description =
   </section>
 
   <CtaBand />
+
+  {/* Bild-Spiegel-Umschalter (Vorschau-Werkzeug): Patientin links/rechts */}
+  <div class="fixed bottom-[4.4rem] left-4 z-[70] text-sm">
+    <button
+      id="hero-flip-toggle"
+      type="button"
+      class="flex items-center gap-2 rounded-full bg-brand-950/95 px-3.5 py-2 font-semibold text-white shadow-lift ring-1 ring-white/15 backdrop-blur transition-colors hover:bg-brand-900"
+      aria-pressed="false"
+    >
+      <svg class="h-4 w-4 text-accent-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8 7 4 11l4 4" /><path d="M4 11h16" /><path d="m16 21 4-4-4-4" />
+      </svg>
+      <span class="hidden sm:inline">Bild:</span>
+      <span id="hero-flip-state" class="text-accent-200">Original</span>
+    </button>
+  </div>
+  <script>
+    (function () {
+      const btn = document.getElementById('hero-flip-toggle');
+      const state = document.getElementById('hero-flip-state');
+      const root = document.documentElement;
+      const render = () => {
+        const on = root.classList.contains('hero-flip');
+        if (state) state.textContent = on ? 'Gespiegelt' : 'Original';
+        btn?.setAttribute('aria-pressed', on ? 'true' : 'false');
+      };
+      btn?.addEventListener('click', () => {
+        root.classList.toggle('hero-flip');
+        try { localStorage.setItem('heroFlip', root.classList.contains('hero-flip') ? '1' : '0'); } catch (e) {}
+        render();
+      });
+      render();
+    })();
+  </script>
 
   {/* Hero-Video zuverlässig starten (Safari/iOS starten Autoplay manchmal erst nach play()) */}
   <script>
