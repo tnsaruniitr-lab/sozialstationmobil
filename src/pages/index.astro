@@ -20,8 +20,8 @@ const description =
   {/* No-Flash: gewählte Hero-Variante VOR dem Rendern setzen */}
   <script is:inline>
     (function () {
-      try { document.documentElement.classList.add('hero-' + (localStorage.getItem('heroVariant') || 'vollbild')); }
-      catch (e) { document.documentElement.classList.add('hero-vollbild'); }
+      try { document.documentElement.classList.add('hero-' + (localStorage.getItem('heroVariant') || 'video')); }
+      catch (e) { document.documentElement.classList.add('hero-video'); }
     })();
   </script>
 
@@ -33,7 +33,7 @@ const description =
       class="absolute inset-0 h-full w-full object-cover object-center"
       width="2000"
       height="913"
-      fetchpriority="high"
+      loading="lazy"
     />
     <div class="absolute inset-0" style="background-image: linear-gradient(to right, rgba(19,40,60,0.92), rgba(19,40,60,0.66) 48%, rgba(19,40,60,0.16));"></div>
     <div class="container-page relative flex min-h-[33rem] items-center py-16 lg:min-h-[39rem] lg:py-24">
@@ -71,7 +71,7 @@ const description =
       muted
       loop
       playsinline
-      preload="none"
+      preload="auto"
       poster="/videos/hero-poster.jpg"
       aria-hidden="true"
       tabindex="-1"
@@ -435,4 +435,18 @@ const description =
   </section>
 
   <CtaBand />
+
+  {/* Hero-Video zuverlässig starten (Safari/iOS starten Autoplay manchmal erst nach play()) */}
+  <script>
+    (function () {
+      const v = document.querySelector<HTMLVideoElement>('[data-hero-variant="video"] video');
+      if (!v) return;
+      const go = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+      if (v.readyState >= 2) go();
+      else v.addEventListener('loadeddata', go, { once: true });
+      go();
+      // Falls der Tab beim Laden im Hintergrund war
+      document.addEventListener('visibilitychange', () => { if (!document.hidden) go(); });
+    })();
+  </script>
 </BaseLayout>
