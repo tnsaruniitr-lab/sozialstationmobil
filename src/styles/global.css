@@ -60,13 +60,20 @@
    Hero-Overlay folgt dem Theme über --hero-tint / --hero-grad.
    =========================================================================== */
 :root {
-  --hero-tint: 90 12 41; /* Standard = Cerise-950 */
+  /* Leichter, neutraler Scrim NUR für Textlesbarkeit – das Hintergrund-Video
+     bleibt deutlich sichtbar (keine flächige Marken-Tönung mehr). */
   --hero-grad: linear-gradient(
     to right,
-    rgb(var(--hero-tint) / 0.92),
-    rgb(var(--hero-tint) / 0.66) 48%,
-    rgb(var(--hero-tint) / 0.16)
+    rgb(10 16 26 / 0.58),
+    rgb(10 16 26 / 0.28) 42%,
+    rgb(10 16 26 / 0.06) 72%,
+    rgb(10 16 26 / 0)
   );
+}
+
+/* Textlesbarkeit auf dem hellen Scrim (Video bleibt sichtbar) */
+.hero-copy {
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.55), 0 4px 20px rgb(0 0 0 / 0.35);
 }
 
 /* Theme: original – Logo-Farbe #C9014D */
@@ -79,7 +86,6 @@ html.theme-original {
   --color-accent-300: #e68aad; --color-accent-400: #d94d82; --color-accent-500: #c9014d;
   --color-accent-600: #b10244; --color-accent-700: #99023b; --color-accent-800: #810232;
   --color-accent-900: #6b022a; --color-accent-950: #4a021f;
-  --hero-tint: 79 2 33;
 }
 
 /* Theme: cerise – helles Rosé-Pink #E91E63 (Standard, identisch mit Basis) */
@@ -92,7 +98,6 @@ html.theme-cerise {
   --color-accent-300: #f598b7; --color-accent-400: #f06292; --color-accent-500: #e91e63;
   --color-accent-600: #ce1a58; --color-accent-700: #ae164b; --color-accent-800: #90133f;
   --color-accent-900: #750f34; --color-accent-950: #4d0a23;
-  --hero-tint: 90 12 41;
 }
 
 /* Theme: fuchsia – kräftiges Magenta #E4007C */
@@ -105,7 +110,6 @@ html.theme-fuchsia {
   --color-accent-300: #f38ac3; --color-accent-400: #ec4ca3; --color-accent-500: #e4007c;
   --color-accent-600: #c9006e; --color-accent-700: #aa015d; --color-accent-800: #8d014d;
   --color-accent-900: #73023f; --color-accent-950: #4c022a;
-  --hero-tint: 88 2 49;
 }
 
 /* Theme: koralle – warmes Korallen-Rosa #FB4A6B */
@@ -118,7 +122,6 @@ html.theme-koralle {
   --color-accent-300: #fdacbb; --color-accent-400: #fc8097; --color-accent-500: #fb4a6b;
   --color-accent-600: #dd415f; --color-accent-700: #bb3651; --color-accent-800: #9b2c44;
   --color-accent-900: #7d2337; --color-accent-950: #521525;
-  --hero-tint: 95 26 43;
 }
 
 /* Theme: pink – kräftiges Pink #FF2E88 */
@@ -131,7 +134,78 @@ html.theme-pink {
   --color-accent-300: #ff9fc8; --color-accent-400: #ff6dac; --color-accent-500: #ff2e88;
   --color-accent-600: #e12878; --color-accent-700: #be2266; --color-accent-800: #9d1c54;
   --color-accent-900: #7f1644; --color-accent-950: #530e2d;
-  --hero-tint: 97 17 52;
+}
+
+/* Theme: sonnengelb (#d97706) */
+html.theme-sonnengelb {
+  --color-brand-50: #fdf8f3; --color-brand-100: #faefe1; --color-brand-200: #f5dcbe;
+  --color-brand-300: #eec391; --color-brand-400: #e6a55b; --color-brand-500: #df8d2e;
+  --color-brand-600: #d97706; --color-brand-700: #bd6805; --color-brand-800: #a35a05;
+  --color-brand-900: #8b4c04; --color-brand-950: #633603; --color-accent-50: #fdf8f3;
+  --color-accent-100: #faefe1; --color-accent-200: #f5dabc; --color-accent-300: #eec08c;
+  --color-accent-400: #e4a051; --color-accent-500: #d97706; --color-accent-600: #c26b05;
+  --color-accent-700: #a85c05; --color-accent-800: #904f04; --color-accent-900: #794304;
+  --color-accent-950: #583103;
+}
+
+/* Theme: gruen (#059669) */
+html.theme-gruen {
+  --color-brand-50: #f2faf8; --color-brand-100: #e1f2ed; --color-brand-200: #bee4d8;
+  --color-brand-300: #91d1bd; --color-brand-400: #5aba9c; --color-brand-500: #2da781;
+  --color-brand-600: #059669; --color-brand-700: #05835c; --color-brand-800: #04714f;
+  --color-brand-900: #046043; --color-brand-950: #034430; --color-accent-50: #f2faf8;
+  --color-accent-100: #e1f2ed; --color-accent-200: #bce3d6; --color-accent-300: #8ccfba;
+  --color-accent-400: #50b696; --color-accent-500: #059669; --color-accent-600: #05865e;
+  --color-accent-700: #047451; --color-accent-800: #046446; --color-accent-900: #03543b;
+  --color-accent-950: #033d2b;
+}
+
+/* Theme: himmelblau (#0284c7) */
+html.theme-himmelblau {
+  --color-brand-50: #f2f9fc; --color-brand-100: #e1f0f8; --color-brand-200: #bddff0;
+  --color-brand-300: #90c9e6; --color-brand-400: #58aeda; --color-brand-500: #2a98d0;
+  --color-brand-600: #0284c7; --color-brand-700: #0273ae; --color-brand-800: #026396;
+  --color-brand-900: #02547f; --color-brand-950: #023c5b; --color-accent-50: #f2f9fc;
+  --color-accent-100: #e1f0f8; --color-accent-200: #bbdef0; --color-accent-300: #8bc6e5;
+  --color-accent-400: #4ea9d8; --color-accent-500: #0284c7; --color-accent-600: #0276b2;
+  --color-accent-700: #02669a; --color-accent-800: #025784; --color-accent-900: #024a70;
+  --color-accent-950: #023651;
+}
+
+/* Theme: petrol (#0d9488) */
+html.theme-petrol {
+  --color-brand-50: #f3faf9; --color-brand-100: #e2f2f1; --color-brand-200: #c0e3e0;
+  --color-brand-300: #95d0cb; --color-brand-400: #5fb8b0; --color-brand-500: #34a59b;
+  --color-brand-600: #0d9488; --color-brand-700: #0b8177; --color-brand-800: #0a6f66;
+  --color-brand-900: #085f57; --color-brand-950: #06443e; --color-accent-50: #f3faf9;
+  --color-accent-100: #e2f2f1; --color-accent-200: #bee2df; --color-accent-300: #90cec8;
+  --color-accent-400: #56b4ac; --color-accent-500: #0d9488; --color-accent-600: #0c857a;
+  --color-accent-700: #0a7369; --color-accent-800: #09625a; --color-accent-900: #08534c;
+  --color-accent-950: #063d37;
+}
+
+/* Theme: lavendel (#7c3aed) */
+html.theme-lavendel {
+  --color-brand-50: #f8f5fe; --color-brand-100: #efe7fd; --color-brand-200: #ddccfa;
+  --color-brand-300: #c5a8f7; --color-brand-400: #a97df3; --color-brand-500: #915af0;
+  --color-brand-600: #7c3aed; --color-brand-700: #6c33cf; --color-brand-800: #5d2cb2;
+  --color-brand-900: #4f2598; --color-brand-950: #391b6c; --color-accent-50: #f8f5fe;
+  --color-accent-100: #efe7fd; --color-accent-200: #dccafa; --color-accent-300: #c3a4f7;
+  --color-accent-400: #a375f2; --color-accent-500: #7c3aed; --color-accent-600: #6f34d4;
+  --color-accent-700: #602db8; --color-accent-800: #52279d; --color-accent-900: #462184;
+  --color-accent-950: #331860;
+}
+
+/* Theme: orange (#ea580c) */
+html.theme-orange {
+  --color-brand-50: #fef7f3; --color-brand-100: #fcebe2; --color-brand-200: #fad4c0;
+  --color-brand-300: #f6b694; --color-brand-400: #f1915f; --color-brand-500: #ed7333;
+  --color-brand-600: #ea580c; --color-brand-700: #cc4d0a; --color-brand-800: #b04209;
+  --color-brand-900: #963808; --color-brand-950: #6b2805; --color-accent-50: #fef7f3;
+  --color-accent-100: #fcebe2; --color-accent-200: #f9d2bd; --color-accent-300: #f5b28f;
+  --color-accent-400: #f08a55; --color-accent-500: #ea580c; --color-accent-600: #d24f0b;
+  --color-accent-700: #b64409; --color-accent-800: #9b3b08; --color-accent-900: #833206;
+  --color-accent-950: #602405;
 }
 
 /* ===========================================================================

@@ -12,6 +12,12 @@ const themes = [
   { key: 'fuchsia', label: 'Fuchsia', hex: '#e4007c' },
   { key: 'koralle', label: 'Koralle', hex: '#fb4a6b' },
   { key: 'pink', label: 'Pink (kräftig)', hex: '#ff2e88' },
+  { key: 'sonnengelb', label: 'Sonnengelb', hex: '#d97706' },
+  { key: 'gruen', label: 'Grün (Salbei)', hex: '#059669' },
+  { key: 'himmelblau', label: 'Himmelblau', hex: '#0284c7' },
+  { key: 'petrol', label: 'Petrol (Türkis)', hex: '#0d9488' },
+  { key: 'lavendel', label: 'Lavendel', hex: '#7c3aed' },
+  { key: 'orange', label: 'Warmes Orange', hex: '#ea580c' },
 ];
 ---
 <div id="theme-switch" class="fixed bottom-4 left-4 z-[70] text-sm">
@@ -29,7 +35,7 @@ const themes = [
   </button>
   <div
     id="theme-switch-menu"
-    class="absolute bottom-full left-0 mb-2 hidden w-56 overflow-hidden rounded-2xl bg-brand-950/95 p-1.5 font-semibold shadow-lift ring-1 ring-white/15 backdrop-blur"
+    class="absolute bottom-full left-0 mb-2 hidden max-h-[70vh] w-56 overflow-y-auto rounded-2xl bg-brand-950/95 p-1.5 font-semibold shadow-lift ring-1 ring-white/15 backdrop-blur"
     role="menu"
   >
     {themes.map((t) => (
@@ -48,13 +54,18 @@ const themes = [
 </div>
 
 <script>
-  const THEMES = ['cerise', 'original', 'fuchsia', 'koralle', 'pink'];
+  const THEMES = ['cerise', 'original', 'fuchsia', 'koralle', 'pink',
+                  'sonnengelb', 'gruen', 'himmelblau', 'petrol', 'lavendel', 'orange'];
   const LABELS: Record<string, string> = {
     cerise: 'Cerise (hell)', original: 'Original Himbeere', fuchsia: 'Fuchsia',
-    koralle: 'Koralle', pink: 'Pink (kräftig)',
+    koralle: 'Koralle', pink: 'Pink (kräftig)', sonnengelb: 'Sonnengelb',
+    gruen: 'Grün (Salbei)', himmelblau: 'Himmelblau', petrol: 'Petrol (Türkis)',
+    lavendel: 'Lavendel', orange: 'Warmes Orange',
   };
   const HEX: Record<string, string> = {
-    cerise: '#e91e63', original: '#c9014d', fuchsia: '#e4007c', koralle: '#fb4a6b', pink: '#ff2e88',
+    cerise: '#e91e63', original: '#c9014d', fuchsia: '#e4007c', koralle: '#fb4a6b',
+    pink: '#ff2e88', sonnengelb: '#d97706', gruen: '#059669', himmelblau: '#0284c7',
+    petrol: '#0d9488', lavendel: '#7c3aed', orange: '#ea580c',
   };
   const root = document.documentElement;
   const sw = document.getElementById('theme-switch');
