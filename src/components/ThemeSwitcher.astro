@@ -18,6 +18,7 @@ const themes = [
   { key: 'petrol', label: 'Petrol (Türkis)', hex: '#0d9488' },
   { key: 'lavendel', label: 'Lavendel', hex: '#7c3aed' },
   { key: 'orange', label: 'Warmes Orange', hex: '#ea580c' },
+  { key: 'cera', label: 'Cera-Style (Lila/Magenta)', hex: '#76299b' },
 ];
 ---
 <div id="theme-switch" class="fixed bottom-4 left-4 z-[70] text-sm">
@@ -55,17 +56,17 @@ const themes = [
 
 <script>
   const THEMES = ['cerise', 'original', 'fuchsia', 'koralle', 'pink',
-                  'sonnengelb', 'gruen', 'himmelblau', 'petrol', 'lavendel', 'orange'];
+                  'sonnengelb', 'gruen', 'himmelblau', 'petrol', 'lavendel', 'orange', 'cera'];
   const LABELS: Record<string, string> = {
     cerise: 'Cerise (hell)', original: 'Original Himbeere', fuchsia: 'Fuchsia',
     koralle: 'Koralle', pink: 'Pink (kräftig)', sonnengelb: 'Sonnengelb',
     gruen: 'Grün (Salbei)', himmelblau: 'Himmelblau', petrol: 'Petrol (Türkis)',
-    lavendel: 'Lavendel', orange: 'Warmes Orange',
+    lavendel: 'Lavendel', orange: 'Warmes Orange', cera: 'Cera-Style (Lila/Magenta)',
   };
   const HEX: Record<string, string> = {
     cerise: '#e91e63', original: '#c9014d', fuchsia: '#e4007c', koralle: '#fb4a6b',
     pink: '#ff2e88', sonnengelb: '#d97706', gruen: '#059669', himmelblau: '#0284c7',
-    petrol: '#0d9488', lavendel: '#7c3aed', orange: '#ea580c',
+    petrol: '#0d9488', lavendel: '#7c3aed', orange: '#ea580c', cera: '#76299b',
   };
   const root = document.documentElement;
   const sw = document.getElementById('theme-switch');

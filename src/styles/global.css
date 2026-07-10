@@ -208,6 +208,18 @@ html.theme-orange {
   --color-accent-950: #602405;
 }
 
+/* Theme: cera – Cera-Care-Stil: Lila (#76299B) + Magenta-Akzent (#C61E9D) */
+html.theme-cera {
+  --color-brand-50: #f8f4fa; --color-brand-100: #efe5f3; --color-brand-200: #dbc7e5;
+  --color-brand-300: #c3a1d3; --color-brand-400: #a572bd; --color-brand-500: #8c4bab;
+  --color-brand-600: #76299b; --color-brand-700: #672487; --color-brand-800: #591f75;
+  --color-brand-900: #4c1a63; --color-brand-950: #361347; --color-accent-50: #fcf4fa;
+  --color-accent-100: #f8e4f3; --color-accent-200: #f0c2e5; --color-accent-300: #e598d2;
+  --color-accent-400: #d762ba; --color-accent-500: #c61e9d; --color-accent-600: #b11b8d;
+  --color-accent-700: #9a177a; --color-accent-800: #841468; --color-accent-900: #6f1158;
+  --color-accent-950: #510c40;
+}
+
 /* ===========================================================================
    Basis-Stile
    =========================================================================== */
