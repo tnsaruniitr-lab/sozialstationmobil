@@ -14,7 +14,7 @@
  * ⚠️  Bewusst NICHT der Festnetzanschluss: `wa.me` funktioniert ausschließlich
  *     mit einer tatsächlich bei WhatsApp registrierten Rufnummer.
  */
-const WHATSAPP_INTL = '13192146780';
+const WHATSAPP_INTL = '12342399140';
 
 export const company = {
   name: 'Sozialstation Mobil',
@@ -37,7 +37,7 @@ export const company = {
   fax: '',
 
   // WhatsApp-Support (eigene Nummer, siehe WHATSAPP_INTL oben)
-  whatsappPhone: '+1 319 214 6780',
+  whatsappPhone: '+1 234 239 9140',
   whatsappIntl: WHATSAPP_INTL,
 
   address: {
