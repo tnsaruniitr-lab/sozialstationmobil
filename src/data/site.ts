@@ -7,15 +7,6 @@
  *     Live-Gang mit den echten Unternehmensdaten abgleichen.
  */
 
-/**
- * Für WhatsApp registrierte Support-Nummer – nur Ziffern, ohne "+" und ohne
- * führende Null (Format, das `wa.me` erwartet).
- *
- * ⚠️  Bewusst NICHT der Festnetzanschluss: `wa.me` funktioniert ausschließlich
- *     mit einer tatsächlich bei WhatsApp registrierten Rufnummer.
- */
-const WHATSAPP_INTL = '12342399140';
-
 export const company = {
   name: 'Sozialstation Mobil',
   legalName: 'Sozialstation Mobil GmbH',
@@ -35,10 +26,6 @@ export const company = {
   phoneIntl: '49304169811',
   email: 'info@sozialstationmobil.de',
   fax: '',
-
-  // WhatsApp-Support (eigene Nummer, siehe WHATSAPP_INTL oben)
-  whatsappPhone: '+1 234 239 9140',
-  whatsappIntl: WHATSAPP_INTL,
 
   address: {
     street: 'Wilhelmsruher Damm 142',
@@ -62,13 +49,14 @@ export const company = {
   // Pflege selbst: rund um die Uhr
   careAvailability: '7 Tage die Woche, auch an Wochenenden und Feiertagen',
 
-  // ⚠️ Handles/Nummern bitte bestätigen (Profilnamen + aktives WhatsApp Business)
+  // ⚠️ Handles bitte bestätigen (Profilnamen)
+  // Kein WhatsApp: `wa.me` macht die hinterlegte Rufnummer zwangsläufig
+  // öffentlich – solange keine dafür freigegebene Geschäftsnummer existiert,
+  // führen Telefon, Kontaktformular und E-Mail den Erstkontakt.
   social: {
     facebook: 'https://www.facebook.com/sozialstationmobil',
     instagram: 'https://www.instagram.com/sozialstationmobil',
     messenger: 'https://m.me/sozialstationmobil',
-    whatsapp: `https://wa.me/${WHATSAPP_INTL}?text=` +
-      encodeURIComponent('Hallo, ich interessiere mich für Ihre Pflegeleistungen und hätte eine Frage.'),
   },
 } as const;
 

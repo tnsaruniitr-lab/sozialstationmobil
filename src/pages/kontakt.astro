@@ -77,9 +77,6 @@ const mapsDir = `https://www.google.com/maps/dir/?api=1&destination=${mapsQuery}
         <div class="card p-6">
           <span class="block text-sm font-semibold uppercase tracking-wide text-ink-soft">Lieber direkt schreiben?</span>
           <div class="mt-3 flex flex-wrap gap-3">
-            <a href={company.social.whatsapp} target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 font-display font-semibold text-white transition-transform hover:-translate-y-0.5">
-              <Icon name="whatsapp" class="h-5 w-5" /> WhatsApp
-            </a>
             <a href={company.social.messenger} target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full bg-[#0084FF] px-4 py-2.5 font-display font-semibold text-white transition-transform hover:-translate-y-0.5">
               <Icon name="messenger" class="h-5 w-5" /> Messenger
             </a>
@@ -87,15 +84,6 @@ const mapsDir = `https://www.google.com/maps/dir/?api=1&destination=${mapsQuery}
               <Icon name="instagram" class="h-5 w-5" /> Instagram
             </a>
           </div>
-          <p class="mt-4 text-sm text-ink-soft">
-            WhatsApp-Support:{' '}
-            <a
-              href={company.social.whatsapp}
-              target="_blank"
-              rel="noopener"
-              class="font-semibold text-brand-700 underline-offset-2 hover:text-accent-600 hover:underline"
-            >{company.whatsappPhone}</a>
-          </p>
         </div>
 
         <!-- Karten-Karte (datenschutzfreundlich, ohne Tracking-Einbettung) -->
